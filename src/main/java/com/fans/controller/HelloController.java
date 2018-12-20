@@ -1,9 +1,11 @@
 package com.fans.controller;
 
+import com.fans.common.CacheKeyConstants;
 import com.fans.common.ConfigProperties;
 import com.fans.common.JsonData;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
+import com.fans.service.interfaces.SysCacheService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,16 @@ public class HelloController {
     private IUserService userService;
     @Resource(name = "configProperties")
     private ConfigProperties configProperties;
+    @Resource(name = "sysCacheService")
+    private SysCacheService cacheService;
 
     @RequestMapping("/login.do")
     public String index(ModelMap modelMap) {
-
         modelMap.addAttribute("host", configProperties.getHost());
-
+        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
+        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
+        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
+        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         return "index";
     }
 

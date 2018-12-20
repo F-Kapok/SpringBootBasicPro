@@ -147,8 +147,6 @@
             <artifactId>commons-net</artifactId>
             <version>3.6</version>
         </dependency>
-
-
         <!-- jackson-core-asl -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -160,20 +158,23 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
         </dependency>
-
         <!-- commons-collections -->
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
-
-
         <!-- commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
+        </dependency>
+        <!-- /redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 
