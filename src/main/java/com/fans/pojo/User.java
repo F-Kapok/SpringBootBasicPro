@@ -1,5 +1,6 @@
 package com.fans.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class User {
+    @ApiModelProperty(value = "用户ID")
     private Long id;
-
+    @ApiModelProperty(value = "用户名")
     private String username;
 
     private String password;

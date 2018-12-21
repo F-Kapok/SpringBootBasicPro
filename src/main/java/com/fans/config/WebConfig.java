@@ -35,7 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
         //设置拦截请求路径
         List<String> urls = Lists.newArrayList();
         //所有路径都拦截
-        urls.add("/*");
+        urls.add("*.do");
         filterRegistrationBean.setUrlPatterns(urls);
         filterRegistrationBean.addInitParameter("exclusions", "/login.do,/swagger-ui.html");
         return filterRegistrationBean;

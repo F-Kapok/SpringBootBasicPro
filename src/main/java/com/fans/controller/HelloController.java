@@ -6,6 +6,9 @@ import com.fans.common.JsonData;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Controller
+@Api(value = "helloController")
 public class HelloController {
     @Resource(name = "iUserService")
     private IUserService userService;
@@ -31,7 +35,8 @@ public class HelloController {
     @Resource(name = "sysCacheService")
     private SysCacheService cacheService;
 
-    @RequestMapping("/login.do")
+    @ApiOperation(value = "登录")
+    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
         modelMap.addAttribute("host", configProperties.getHost());
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
@@ -41,6 +46,7 @@ public class HelloController {
         return "index";
     }
 
+    @ApiOperation(value = "展示用户列表")
     @RequestMapping(value = "/list.do", method = RequestMethod.GET)
     @ResponseBody
     public JsonData<List<User>> getList() {
@@ -56,7 +62,7 @@ public class HelloController {
 
     @RequestMapping(value = "/delete.do", method = RequestMethod.GET)
     @ResponseBody
-    public JsonData<String> deleteUser(Long id) {
+    public JsonData<String> deleteUser(@ApiParam(value = "用户ID") Long id) {
         userService.deleteUser(id);
         return JsonData.success("删除成功");
     }
