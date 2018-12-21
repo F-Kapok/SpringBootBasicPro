@@ -37,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
         //所有路径都拦截
         urls.add("/*");
         filterRegistrationBean.setUrlPatterns(urls);
-        filterRegistrationBean.addInitParameter("exclusions", "/login.do");
+        filterRegistrationBean.addInitParameter("exclusions", "/login.do,/swagger-ui.html");
         return filterRegistrationBean;
     }
 }
