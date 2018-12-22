@@ -37,7 +37,8 @@ public class HelloController {
 
     @ApiOperation(value = "登录")
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
-    public String index(ModelMap modelMap) {
+    public String index() {
+        ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("host", configProperties.getHost());
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
