@@ -1,16 +1,13 @@
 package com.fans.config;
 
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiDescription;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -33,8 +30,9 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-//                .apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
-//                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                //这里采用包含注解的方式来确定要显示的接口
+                //.apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
+                //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .apis(RequestHandlerSelectors.basePackage("com.fans.controller"))
                 .paths(PathSelectors.any())
                 .build();
