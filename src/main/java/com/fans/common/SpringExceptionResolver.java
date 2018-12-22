@@ -21,6 +21,9 @@ public class SpringExceptionResolver {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public JsonData handlerUserException(ParamException exception) {
+        exception.printStackTrace();
         return JsonData.fail("--> This have problem " + exception);
     }
+
+
 }

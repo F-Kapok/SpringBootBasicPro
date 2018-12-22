@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @Version 1.0
  **/
 @Component("configProperties")
-@PropertySource(value = "classpath:properties/config.properties")
+@PropertySource(value = "classpath:/properties/config.properties")
 @ConfigurationProperties(prefix = "com.kapok")
 @Setter
 @Getter

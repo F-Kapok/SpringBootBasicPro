@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.dao.JobEntityMapper">
+    <resultMap id="BaseResultMap" type="com.fans.pojo.JobEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="group" jdbcType="VARCHAR" property="group"/>
+        <result column="cron" jdbcType="VARCHAR" property="cron"/>
+        <result column="parameter" jdbcType="VARCHAR" property="parameter"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="vm_param" jdbcType="VARCHAR" property="vmParam"/>
+        <result column="jar_path" jdbcType="VARCHAR" property="jarPath"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, `group`, cron, parameter, description, vm_param, jar_path, status
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from job_entity
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from job_entity
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_entity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fans.pojo.JobEntity">
+    insert into job_entity (id, name, group, 
+      cron, parameter, description, 
+      vm_param, jar_path, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR}, 
+      #{cron,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{vmParam,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.fans.pojo.JobEntity">
+        insert into job_entity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="group != null">
+                group,
+            </if>
+            <if test="cron != null">
+                cron,
+            </if>
+            <if test="parameter != null">
+                parameter,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="vmParam != null">
+                vm_param,
+            </if>
+            <if test="jarPath != null">
+                jar_path,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="cron != null">
+                #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="parameter != null">
+                #{parameter,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="vmParam != null">
+                #{vmParam,jdbcType=VARCHAR},
+            </if>
+            <if test="jarPath != null">
+                #{jarPath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.JobEntity">
+        update job_entity
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                group = #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="cron != null">
+                cron = #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="parameter != null">
+                parameter = #{parameter,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="vmParam != null">
+                vm_param = #{vmParam,jdbcType=VARCHAR},
+            </if>
+            <if test="jarPath != null">
+                jar_path = #{jarPath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fans.pojo.JobEntity">
+    update job_entity
+    set name = #{name,jdbcType=VARCHAR},
+      group = #{group,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      parameter = #{parameter,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      vm_param = #{vmParam,jdbcType=VARCHAR},
+      jar_path = #{jarPath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
