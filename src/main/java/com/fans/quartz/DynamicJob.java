@@ -1,14 +1,22 @@
 package com.fans.quartz;
 
+import com.fans.common.CommonConstants;
+import com.fans.exception.ParamException;
 import com.fans.utils.JsonMapper;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
+import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @ClassName DynamicJob
@@ -28,20 +36,81 @@ import java.util.List;
 @Slf4j
 public class DynamicJob implements Job {
     @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) {
         //JobDetail中的JobDataMap是共用的,从getMergedJobDataMap获取的JobDataMap是全新的对象
         JobDataMap map = jobExecutionContext.getMergedJobDataMap();
+        JobDetail jobDetail = jobExecutionContext.getJobDetail();
+        Class<? extends Job> jobClass = jobDetail.getJobClass();
+        String jobType = map.getString("jobType");
+        if (StringUtils.isNotBlank(jobType)) {
+            if (StringUtils.equals(jobType, CommonConstants.JAR_JOB)) {
+                executeJarJob(map);
+            } else {
+                executeClassJob(map);
+            }
+        } else {
+            log.error("quartz--> Job Type Is Empty");
+        }
+    }
+
+    /**
+     * @Description: TODO 执行class类型job
+     * @Param: [map]
+     * @return: void
+     * @Author: fan
+     * @Date: 2018/12/23 14:07
+     **/
+    private void executeClassJob(JobDataMap map) {
+        String className = map.getString("className");
+        String parameter = map.getString("parameter");
+        String classMethod = map.getString("classMethod");
+        printLog(map);
+        log.info("quartz--> Running Job ClassName   : {}", className);
+        log.info("quartz--> Running Job Parameter   : {}", parameter);
+        log.info("quartz--> Running Job ClassMethod   : {}", classMethod);
+        long startTime = System.currentTimeMillis();
+        log.info("quartz--> Running Job Details As Follows >>>>>>>>>>>>>>>>>>>>: ");
+        Class objectClass;
+        try {
+            objectClass = Class.forName(className);
+            Method[] methods = objectClass.getDeclaredMethods();
+            boolean isHas = false;
+            for (Method method : methods) {
+                if (StringUtils.equals(method.getName(), classMethod)) {
+                    isHas = true;
+                    Object[] params = parameter.split(",");
+                    method.invoke(objectClass.newInstance(), params);
+                }
+            }
+            if (!isHas) {
+                log.error("quartz--> Job Class Method Is Not Found !");
+            }
+            long endTime = System.currentTimeMillis();
+            log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
+        } catch (Exception e) {
+            log.error("quartz--> Job Running Error : {}", e.getMessage());
+            long endTime = System.currentTimeMillis();
+            log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
+        }
+    }
+
+    /**
+     * @Description: TODO 执行jar类型job
+     * @Param: [map]
+     * @return: void
+     * @Author: fan
+     * @Date: 2018/12/23 14:07
+     **/
+    private void executeJarJob(JobDataMap map) {
         String jarPath = map.getString("jarPath");
         String parameter = map.getString("parameter");
         String vmParam = map.getString("vmParam");
-        log.info("quartz--> Running Job Name : {}", map.getString("name"));
-        log.info("quartz--> Running Job Description  : {}", map.getString("JobDescription"));
-        log.info("quartz--> Running Job Group  : {}", map.getString("group"));
-        log.info("quartz--> Running Job Cron  : {}", map.getString("cronExpression"));
+        printLog(map);
         log.info("quartz--> Running Job JarPath   : {}", jarPath);
         log.info("quartz--> Running Job Parameter   : {}", parameter);
         log.info("quartz--> Running Job VmParam   : {}", vmParam);
         long startTime = System.currentTimeMillis();
+        log.info("quartz--> Running Job Details As Follows >>>>>>>>>>>>>>>>>>>>: ");
         if (StringUtils.isNotBlank(jarPath)) {
             File jar = new File(jarPath);
             if (jar.exists()) {
@@ -58,7 +127,6 @@ public class DynamicJob implements Job {
                     commands.add(parameter);
                 }
                 processBuilder.command(commands);
-                log.info("quartz--> Running Job Details As Follows >>>>>>>>>>>>>>>>>>>>: ");
                 log.info("quartz--> Running Job Commands : {}  ", JsonMapper.obj2String(commands));
                 try {
                     Process process = processBuilder.start();
@@ -72,6 +140,13 @@ public class DynamicJob implements Job {
         }
         long endTime = System.currentTimeMillis();
         log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
+    }
+
+    private void printLog(JobDataMap map) {
+        log.info("quartz--> Running Job Name : {}", map.getString("name"));
+        log.info("quartz--> Running Job Description  : {}", map.getString("JobDescription"));
+        log.info("quartz--> Running Job Group  : {}", map.getString("group"));
+        log.info("quartz--> Running Job Cron  : {}", map.getString("cronExpression"));
     }
 
     /**

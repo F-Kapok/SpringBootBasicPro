@@ -10,23 +10,65 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class JobEntity {
+    /**
+     * 主键ID
+     */
     private Integer id;
 
+    /**
+     * job名称
+     */
     private String name;
 
+    /**
+     * job组名
+     */
     private String group;
 
+    /**
+     * 执行的cron
+     */
     private String cron;
 
+    /**
+     * job的参数
+     */
     private String parameter;
 
+    /**
+     * job描述信息
+     */
     private String description;
 
+    /**
+     * vm参数
+     */
     private String vmParam;
 
+    /**
+     * job的jar路径
+     */
     private String jarPath;
 
+    /**
+     * job的执行状态,只有该值为OPEN才会执行该Job
+     */
     private String status;
+
+    /**
+     * 任务类型 0：jar 1：class
+     */
+    private String jobType;
+
+    /**
+     * jon类名称
+     */
+    private String className;
+
+    /**
+     * job类方法
+     */
+    private String classMethod;
 
     public Integer getId() {
         return id;
@@ -98,5 +140,29 @@ public class JobEntity {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType == null ? null : jobType.trim();
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className == null ? null : className.trim();
+    }
+
+    public String getClassMethod() {
+        return classMethod;
+    }
+
+    public void setClassMethod(String classMethod) {
+        this.classMethod = classMethod == null ? null : classMethod.trim();
     }
 }

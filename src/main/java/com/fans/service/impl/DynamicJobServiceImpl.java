@@ -1,10 +1,13 @@
 package com.fans.service.impl;
 
+import com.fans.common.CommonConstants;
 import com.fans.dao.JobEntityMapper;
 import com.fans.pojo.JobEntity;
 import com.fans.quartz.DynamicJob;
 import com.fans.service.interfaces.IDynamicJobService;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
+import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,6 +46,9 @@ public class DynamicJobServiceImpl implements IDynamicJobService {
         jobDataMap.put("vmParam", job.getVmParam());
         jobDataMap.put("jarPath", job.getJarPath());
         jobDataMap.put("status", job.getStatus());
+        jobDataMap.put("jobType", job.getJobType());
+        jobDataMap.put("className", job.getClassName());
+        jobDataMap.put("classMethod", job.getClassMethod());
         return jobDataMap;
     }
 

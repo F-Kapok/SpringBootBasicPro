@@ -11,9 +11,13 @@
         <result column="vm_param" jdbcType="VARCHAR" property="vmParam"/>
         <result column="jar_path" jdbcType="VARCHAR" property="jarPath"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="job_type" jdbcType="CHAR" property="jobType"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="class_method" jdbcType="VARCHAR" property="classMethod"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, `group`, cron, parameter, description, vm_param, jar_path, status
+    id, name, `group`, cron, parameter, description, vm_param, jar_path, status, job_type,
+    class_name, class_method
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -31,13 +35,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.fans.pojo.JobEntity">
-    insert into job_entity (id, name, group, 
-      cron, parameter, description, 
-      vm_param, jar_path, status
+    insert into job_entity (id, name, group,
+      cron, parameter, description,
+      vm_param, jar_path, status,
+      job_type, class_name, class_method
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR}, 
-      #{cron,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{vmParam,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR},
+      #{cron,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{vmParam,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+      #{jobType,jdbcType=CHAR}, #{className,jdbcType=VARCHAR}, #{classMethod,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.fans.pojo.JobEntity">
@@ -70,6 +76,15 @@
             <if test="status != null">
                 status,
             </if>
+            <if test="jobType != null">
+                job_type,
+            </if>
+            <if test="className != null">
+                class_name,
+            </if>
+            <if test="classMethod != null">
+                class_method,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -98,6 +113,15 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="jobType != null">
+                #{jobType,jdbcType=CHAR},
+            </if>
+            <if test="className != null">
+                #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="classMethod != null">
+                #{classMethod,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -128,6 +152,15 @@
             <if test="status != null">
                 status = #{status,jdbcType=VARCHAR},
             </if>
+            <if test="jobType != null">
+                job_type = #{jobType,jdbcType=CHAR},
+            </if>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="classMethod != null">
+                class_method = #{classMethod,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -140,7 +173,10 @@
       description = #{description,jdbcType=VARCHAR},
       vm_param = #{vmParam,jdbcType=VARCHAR},
       jar_path = #{jarPath,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      job_type = #{jobType,jdbcType=CHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_method = #{classMethod,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

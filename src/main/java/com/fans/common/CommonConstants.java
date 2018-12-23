@@ -11,6 +11,8 @@ public class CommonConstants {
     public static final String CURRENT_USER = "currentUser";
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";
+    public static final String JAR_JOB = "0";
+    public static final String CLASS_JOB = "1";
 
     public interface Role {
         /**

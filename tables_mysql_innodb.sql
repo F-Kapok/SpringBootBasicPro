@@ -21,14 +21,17 @@ DROP TABLE IF EXISTS job_entity;
 
 CREATE TABLE `job_entity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `group` varchar(255) DEFAULT NULL,
-  `cron` varchar(255) DEFAULT NULL,
-  `parameter` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `vm_param` varchar(255) DEFAULT NULL,
-  `jar_path` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job名称',
+  `group` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job组名',
+  `cron` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '执行的cron',
+  `parameter` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job的参数',
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job描述信息',
+  `vm_param` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'vm参数',
+  `jar_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job的jar路径',
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job的执行状态,只有该值为OPEN才会执行该Job',
+  `job_type` char(1) COLLATE utf8_unicode_ci NOT NULL COMMENT '任务类型 0：jar 1：class',
+  `class_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'jon类名称',
+  `class_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job类方法',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
