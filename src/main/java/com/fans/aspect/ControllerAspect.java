@@ -31,7 +31,7 @@ public class ControllerAspect {
             log.info("--> arg is {}", arg);
         }
         Object object = proceedingJoinPoint.proceed();
-        log.info("********** controller aspect start **********");
+        log.info("********** controller aspect stop **********");
         return object;
     }
 }

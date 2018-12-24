@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @ClassName SwaggerConfiguration
- * @Description: TODO Seagger配置
+ * @Description: TODO Swagger配置
  * @Author fan
  * @Date 2018-12-21 21:07
  * @Version 1.0
