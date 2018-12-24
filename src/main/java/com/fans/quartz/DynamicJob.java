@@ -39,8 +39,6 @@ public class DynamicJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) {
         //JobDetail中的JobDataMap是共用的,从getMergedJobDataMap获取的JobDataMap是全新的对象
         JobDataMap map = jobExecutionContext.getMergedJobDataMap();
-        JobDetail jobDetail = jobExecutionContext.getJobDetail();
-        Class<? extends Job> jobClass = jobDetail.getJobClass();
         String jobType = map.getString("jobType");
         if (StringUtils.isNotBlank(jobType)) {
             if (StringUtils.equals(jobType, CommonConstants.JAR_JOB)) {
