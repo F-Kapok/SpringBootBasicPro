@@ -88,7 +88,11 @@ public class DynamicJob implements Job {
             long endTime = System.currentTimeMillis();
             log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
         } catch (Exception e) {
-            log.error("quartz--> Job Running Error : {}", e.getMessage());
+            if (StringUtils.isNotBlank(e.getMessage())) {
+                log.error("quartz--> Job Running Error : {}", e.getMessage());
+            } else {
+                log.error("quartz--> Job Running Error , ClassName Is Empty");
+            }
             long endTime = System.currentTimeMillis();
             log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
         }

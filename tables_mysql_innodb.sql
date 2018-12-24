@@ -34,6 +34,11 @@ CREATE TABLE `job_entity` (
   `class_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'job类方法',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
+INSERT INTO `job_entity` (`id`, `name`, `group`, `cron`, `parameter`, `description`, `vm_param`, `jar_path`, `status`, `job_type`, `class_name`, `class_method`) VALUES ('1', 'first', 'helloworld', '0/2 * * * * ? ', '1', '第一个', NULL, NULL, 'CLOSE', '0', NULL, NULL);
+INSERT INTO `job_entity` (`id`, `name`, `group`, `cron`, `parameter`, `description`, `vm_param`, `jar_path`, `status`, `job_type`, `class_name`, `class_method`) VALUES ('2', 'second', 'helloworld', '0/5 * * * * ? ', '2', '第二个', NULL, 'C:\\Users\\Fan-PC\\Desktop\\Generator打包\\lib\\GeneratorUtil.jar', 'OPEN', '0', NULL, NULL);
+INSERT INTO `job_entity` (`id`, `name`, `group`, `cron`, `parameter`, `description`, `vm_param`, `jar_path`, `status`, `job_type`, `class_name`, `class_method`) VALUES ('3', 'third', 'helloworld', '0/15 * * * * ? ', '3', '第三个', NULL, NULL, 'CLOSE', '0', NULL, NULL);
+INSERT INTO `job_entity` (`id`, `name`, `group`, `cron`, `parameter`, `description`, `vm_param`, `jar_path`, `status`, `job_type`, `class_name`, `class_method`) VALUES ('4', 'four', 'helloworld', '0/5 * * * * ? ', '4', '第四个', NULL, NULL, 'OPEN', '1', NULL, NULL);
+INSERT INTO `job_entity` (`id`, `name`, `group`, `cron`, `parameter`, `description`, `vm_param`, `jar_path`, `status`, `job_type`, `class_name`, `class_method`) VALUES ('5', 'OLAY Job', 'Nomal', '0 0/2 * * * ?', '5', '第五个', NULL, NULL, 'CLOSE', '0', NULL, NULL);
 
 CREATE TABLE QRTZ_JOB_DETAILS(
 SCHED_NAME VARCHAR(120) NOT NULL,
