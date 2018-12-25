@@ -5,6 +5,7 @@ import com.fans.exception.ParamException;
 import com.fans.exception.UserException;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getList() {
+        PageHelper.startPage(1, 5);
         return userMapper.selectAll();
     }
 

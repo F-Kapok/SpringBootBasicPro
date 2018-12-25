@@ -48,9 +48,9 @@ mybatis:
   mapper-locations: classpath:mappers/*.xml
 ##### 分页插件相关配置 #####
 pagehelper:
-  helperDialect: mysql
+  helper-dialect: mysql
   reasonable: true
-  supportMethodsArguments: true
+  support-methods-arguments: true
   params: count=countSql
 ##### Spring相关配置 #####
 spring:
