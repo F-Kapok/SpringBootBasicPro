@@ -32,12 +32,15 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/templates/**")
+                .addResourceLocations("classpath:/templates/");
+        /*放行swagger*/
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
         super.addResourceHandlers(registry);
     }
 
@@ -50,6 +53,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         List<String> urls = Lists.newArrayList();
         //所有路径都拦截
         urls.add("*.do");
+        filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.setUrlPatterns(urls);
         filterRegistrationBean.addInitParameter("exclusions", "/login.do,/swagger-ui.html");
         return filterRegistrationBean;

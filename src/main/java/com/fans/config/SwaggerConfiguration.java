@@ -1,5 +1,6 @@
 package com.fans.config;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +29,9 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //这里采用包含注解的方式来确定要显示的接口
-                //.apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
+                //加了ApiOperation注解的类，生成接口文档
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                //加了RestController注解的类，生成接口文档
                 //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .apis(RequestHandlerSelectors.basePackage("com.fans.controller"))
                 .paths(PathSelectors.any())
