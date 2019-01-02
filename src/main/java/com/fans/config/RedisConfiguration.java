@@ -34,11 +34,14 @@ public class RedisConfiguration {
         return config;
     }
 
-    @Bean
+   @Bean
     public ShardedJedisPool getShardedJdsPool() {
         JedisPoolConfig config = assemble();
         List<JedisShardInfo> jdsInfoList = Lists.newArrayList();
-        jdsInfoList.add(new JedisShardInfo(properties.getHost()));
+        String[] hosts = properties.getHost().split(",");
+        for (String host : hosts) {
+            jdsInfoList.add(new JedisShardInfo(host));
+        }
         return new ShardedJedisPool(config, jdsInfoList);
     }
 }
