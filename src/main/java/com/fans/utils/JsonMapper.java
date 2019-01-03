@@ -1,12 +1,15 @@
 package com.fans.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.ser.impl.SimpleFilterProvider;
-import org.codehaus.jackson.type.TypeReference;
+import org.apache.commons.lang3.StringUtils;
+
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
+import static com.fasterxml.jackson.annotation.PropertyAccessor.ALL;
+import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.STRING;
 
 /**
  * @ClassName JsonMapper
@@ -20,16 +23,15 @@ public class JsonMapper {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        //TODO 初始化 initialize
-        objectMapper.disable(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
-        objectMapper.setFilters(new SimpleFilterProvider().setFailOnUnknownId(false));
-        objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY);
+        //TODO 初始化 initialize 去除掉对getter和setter的依赖
+        objectMapper.setVisibility(ALL, NONE)
+                .setVisibility(FIELD, ANY);
     }
 
     public static <T> String obj2String(T src) {
-        if (src == null)
+        if (src == null) {
             return null;
+        }
         try {
             if (src instanceof String) {
                 return (String) src;
@@ -43,8 +45,9 @@ public class JsonMapper {
     }
 
     public static <T> T string2Obj(String src, TypeReference<T> typeReference) {
-        if (src == null || typeReference == null)
+        if (src == null || typeReference == null) {
             return null;
+        }
         try {
             if (typeReference.getType().equals(String.class)) {
                 return (T) src;
@@ -53,6 +56,22 @@ public class JsonMapper {
             }
         } catch (Exception e) {
             log.warn("parse String to Object exception, String:{}, TypeReference<T>:{}, error:{}", src, typeReference.getType(), e);
+            return null;
+        }
+    }
+
+    public static <T> T string2Obj(String src, Class<T> objectClass) {
+        if (src == null || objectClass == null) {
+            return null;
+        }
+        try {
+            if (StringUtils.equals(objectClass.getCanonicalName(), STRING)) {
+                return (T) src;
+            } else {
+                return objectMapper.readValue(src, objectClass);
+            }
+        } catch (Exception e) {
+            log.warn("parse String to Object exception, String:{}, Class<T>:{}, error:{}", src, objectClass.getCanonicalName(), e);
             return null;
         }
     }
