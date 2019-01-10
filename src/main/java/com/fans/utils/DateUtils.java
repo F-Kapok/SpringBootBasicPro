@@ -18,9 +18,9 @@ public class DateUtils {
 
     private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
-    private static final String HH_MM_SS = "HH:MM:ss";
+    private static final String HH_MM_SS = "HH:mm:ss";
 
-    private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:MM:ss";
+    private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * @Description: TODO 字符串转时间
