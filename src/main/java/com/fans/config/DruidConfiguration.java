@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 /**
  * @ClassName DruidConfiguration
- * @Description: TODO druid数据源配置
+ * @Description: druid数据源配置
  * @Author fan
  * @Date 2018-12-20 11:40
  * @Version 1.0
@@ -27,7 +27,7 @@ public class DruidConfiguration {
     private static final String DB_PREFIX = "spring.datasource";
 
     /**
-     * @Description: TODO 初始化默认dataSource
+     * @Description: 初始化默认dataSource
      * @Param: []
      * @return: javax.sql.DataSource
      * @Author: fan
@@ -40,7 +40,7 @@ public class DruidConfiguration {
     }
 
     /**
-     * @Description: TODO 配置druidServlet相关内容
+     * @Description: 配置druidServlet相关内容
      * @Param: []
      * @return: org.springframework.boot.web.servlet.ServletRegistrationBean
      * @Author: fan
@@ -63,7 +63,7 @@ public class DruidConfiguration {
     }
 
     /**
-     * @Description: TODO 配置druid过滤内容
+     * @Description: 配置druid过滤内容
      * @Param: []
      * @return: org.springframework.boot.web.servlet.FilterRegistrationBean
      * @Author: fan

@@ -2,19 +2,17 @@ package com.fans.service.impl;
 
 import com.fans.dao.UserMapper;
 import com.fans.exception.ParamException;
-import com.fans.exception.UserException;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @ClassName UserServiceImpl
- * @Description: TODO
+ * @Description:
  * @Author fan
  * @Date 2018-12-19 17:14
  * @Version 1.0

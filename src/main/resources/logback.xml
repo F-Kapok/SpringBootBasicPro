@@ -13,7 +13,7 @@
     <!-- 日志最大的历史 30天 -->
     <property name="maxHistory" value="30"/>
 
-    <!-- TODO ConsoleAppender 控制台输出日志 -->
+    <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>false</withJansi>
         <encoder>
@@ -23,7 +23,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO ERROR级别日志 -->
+    <!-- ERROR级别日志 -->
     <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender-->
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录WARN级别的日志 -->
@@ -56,7 +56,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO WARN级别日志 appender -->
+    <!-- WARN级别日志 appender -->
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录WARN级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -75,7 +75,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO INFO级别日志 appender -->
+    <!-- INFO级别日志 appender -->
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录INFO级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -94,7 +94,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO DEBUG级别日志 appender -->
+    <!-- DEBUG级别日志 appender -->
     <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录DEBUG级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -114,7 +114,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO TRACE级别日志 appender -->
+    <!-- TRACE级别日志 appender -->
     <appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录ERROR级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -133,7 +133,7 @@
         </encoder>
     </appender>
 
-    <!-- TODO 项目自定义日志 -->
+    <!-- 项目自定义日志 -->
     <appender name="project" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->

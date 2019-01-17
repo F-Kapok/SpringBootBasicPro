@@ -11,7 +11,6 @@ public class MailUtil {
 
     public static boolean send(Mail mail) {
 
-        // TODO
         String from = "";
         int port = 25;
         String host = "";

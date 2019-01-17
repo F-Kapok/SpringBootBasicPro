@@ -13,7 +13,7 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.STRING;
 
 /**
  * @ClassName JsonMapper
- * @Description: TODO 对象与字符串转换工具
+ * @Description: 对象与字符串转换工具
  * @Author fan
  * @Date 2018-11-06 12:41
  * @Version 1.0
@@ -23,7 +23,7 @@ public class JsonMapper {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        //TODO 初始化 initialize 去除掉对getter和setter的依赖
+        // 初始化 initialize 去除掉对getter和setter的依赖
         objectMapper.setVisibility(ALL, NONE)
                 .setVisibility(FIELD, ANY);
     }

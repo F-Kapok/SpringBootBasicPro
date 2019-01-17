@@ -5,7 +5,7 @@ import com.fans.common.CacheKeyConstants;
 
 /**
  * @InterfaceName SysCacheService
- * @Description: TODO 缓存服务接口
+ * @Description: 缓存服务接口
  * @Author fan
  * @Date 2018-11-16 16:31
  * @Version 1.0

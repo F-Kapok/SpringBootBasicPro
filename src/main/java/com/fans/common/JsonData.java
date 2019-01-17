@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @ClassName JsonData
- * @Description: TODO 自定义交互数据定义类
+ * @Description: 自定义交互数据定义类
  * @Author fan
  * @Date 2018-11-20 09:44
  * @Version 1.0

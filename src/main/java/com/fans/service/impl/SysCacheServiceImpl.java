@@ -7,16 +7,14 @@ import com.fans.utils.JsonMapper;
 import com.fans.utils.ObjectSerializeUtil;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
 
 /**
  * @ClassName SysCacheServiceImpl
- * @Description: TODO 缓存服务实习层
+ * @Description: 缓存服务实习层
  * @Author fan
  * @Date 2018-11-16 16:35
  * @Version 1.0

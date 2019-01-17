@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @InterfaceName IUserService
- * @Description: TODO
+ * @Description:
  * @Author fan
  * @Date 2018-12-19 17:13
  * @Version 1.0
@@ -17,7 +17,7 @@ public interface IUserService {
     /**
      * fetch data by rule id
      *
-     * @Description: TODO
+     * @Description:
      * @Param: []
      * @return: / java.util.List<com.fans.pojo.User>
      * @Author: fan
@@ -26,14 +26,19 @@ public interface IUserService {
     List<User> getList();
 
     /**
-     * @return int
-     * @Description TODO
-     * @Param [user]
-     * @Author fan
-     * @Date 2018/12/20 10:24
-     **/
+     * 增加人员
+     *
+     * @param user
+     * @return
+     */
     int addUser(User user);
 
+    /**
+     * 删除人员
+     *
+     * @param id
+     * @return
+     */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     int deleteUser(Long id);
 }

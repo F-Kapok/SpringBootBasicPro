@@ -20,13 +20,13 @@ import java.util.Objects;
 
 /**
  * @ClassName DynamicJob
- * @Description: TODO 调度中心执行逻辑的Job
- * @Description: TODO @DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行
- * @Description: TODO 注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个
- * @Description: TODO 否则@DisallowConcurrentExecution不生效
- * @Description: TODO 假如Job的设置时间间隔为3秒,但Job执行时间是5秒
- * @Description: TODO 设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行
- * @Description: TODO 否则会在3秒时再启用新的线程执行
+ * @Description: 调度中心执行逻辑的Job
+ * @Description: @DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行
+ * @Description: 注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个
+ * @Description: 否则@DisallowConcurrentExecution不生效
+ * @Description: 假如Job的设置时间间隔为3秒,但Job执行时间是5秒
+ * @Description: 设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行
+ * @Description: 否则会在3秒时再启用新的线程执行
  * @Author fan
  * @Date 2018-12-22 14:38
  * @Version 1.0
@@ -52,7 +52,7 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: TODO 执行class类型job
+     * @Description: 执行class类型job
      * @Param: [map]
      * @return: void
      * @Author: fan
@@ -97,7 +97,7 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: TODO 执行jar类型job
+     * @Description: 执行jar类型job
      * @Param: [map]
      * @return: void
      * @Author: fan
@@ -152,7 +152,7 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: TODO 打印Job执行内容的日志
+     * @Description: 打印Job执行内容的日志
      * @Param: [inputStream, errorStream]
      * @return: void
      * @Author: fan

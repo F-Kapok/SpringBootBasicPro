@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @ClassName SpringExceptionResolver
- * @Description: TODO 错误异常处理
+ * @Description: 错误异常处理
  * @Author fan
  * @Date 2018-12-20 10:57
  * @Version 1.0

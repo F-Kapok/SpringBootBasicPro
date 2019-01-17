@@ -19,7 +19,7 @@ import java.util.Properties;
 
 /**
  * @ClassName QuartzConfiguration
- * @Description: TODO 定时任务配置
+ * @Description: 定时任务配置
  * @Author fan
  * @Date 2018-12-22 13:57
  * @Version 1.0
@@ -28,7 +28,7 @@ import java.util.Properties;
 @EnableScheduling
 public class QuartzConfiguration {
     /**
-     * @Description: TODO 配置JobFactory
+     * @Description: 配置JobFactory
      * @Param: [applicationContext]
      * @return: org.quartz.spi.JobFactory
      * @Author: fan
@@ -42,9 +42,9 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: TODO SchedulerFactoryBean这个类的真正作用提供了对org.quartz.Scheduler的创建与配置，
-     * @Description: TODO 并且会管理它的生命周期与Spring同步。
-     * @Description: TODO org.quartz.Scheduler: 调度器。所有的调度都是由它控制。
+     * @Description: SchedulerFactoryBean这个类的真正作用提供了对org.quartz.Scheduler的创建与配置，
+     * @Description: 并且会管理它的生命周期与Spring同步。
+     * @Description: org.quartz.Scheduler: 调度器。所有的调度都是由它控制。
      * @Param: [dataSource(为SchedulerFactory配置数据源), jobFactory(为SchedulerFactory配置JobFactory)]
      * @return: org.springframework.scheduling.quartz.SchedulerFactoryBean
      * @Author: fan
@@ -65,7 +65,7 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: TODO 从quartz.properties文件中读取Quartz配置属性
+     * @Description: 从quartz.properties文件中读取Quartz配置属性
      * @Param: []
      * @return: java.util.Properties
      * @Author: fan
@@ -80,7 +80,7 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: TODO 配置JobFactory,为quartz作业添加自动连接支持
+     * @Description: 配置JobFactory,为quartz作业添加自动连接支持
      * @Param:
      * @return:
      * @Author: fan

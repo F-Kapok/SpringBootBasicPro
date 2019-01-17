@@ -6,7 +6,7 @@ import java.io.*;
 
 /**
  * @ClassName ObjectSerializeUtil
- * @Description: TODO 对象序列化工具类
+ * @Description: 对象序列化工具类
  * @Author fan
  * @Date 2018-12-09 14:14
  * @Version 1.0
@@ -14,7 +14,7 @@ import java.io.*;
 @Slf4j
 public class ObjectSerializeUtil {
     /**
-     * @Description: TODO 将复杂对象序列化成字节
+     * @Description: 将复杂对象序列化成字节
      * @Param: [obj]
      * @return: byte[]
      * @Author: fan
@@ -36,7 +36,7 @@ public class ObjectSerializeUtil {
     }
 
     /**
-     * @Description: TODO 将字节反序列化成为对象
+     * @Description: 将字节反序列化成为对象
      * @Param: [byteArray]
      * @return: java.lang.Object
      * @Author: fan

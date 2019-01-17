@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @EnumName ResponseCode
- * @Description: TODO 响应代码
+ * @Description: 响应代码
  * @Author fan
  * @Date 2018-11-23 11:29
  * @Version 1.0

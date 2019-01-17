@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 
 /**
  * @ClassName EncryptUtils
- * @Description: TODO 文本安全加密工具（MD5,AES）
+ * @Description: 文本安全加密工具（MD5,AES）
  * @Author fan
  * @Date 2018-09-10 13:44
  * @Version 1.0
@@ -20,7 +20,7 @@ import java.security.SecureRandom;
 public class EncryptUtils {
 
     /**
-     * @Description: TODO spring md5加密工具
+     * @Description: spring md5加密工具
      * @Param: [content]
      * @return: java.lang.String
      * @Author: fan
@@ -32,7 +32,7 @@ public class EncryptUtils {
     }
 
     /**
-     * @Description: TODO spring md5加密工具 增加编码格式
+     * @Description: spring md5加密工具 增加编码格式
      * @Param: [content]
      * @return: java.lang.String
      * @Author: fan

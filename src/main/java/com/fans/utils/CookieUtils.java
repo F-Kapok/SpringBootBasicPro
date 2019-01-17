@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName CookieUtils
- * @Description: TODO Cookie工具类
+ * @Description: Cookie工具类
  * @Author fan
  * @Date 2018/11/19 17:52
  * @Version 1.0
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieUtils {
 
     /**
-     * @Description: TODO 得到Cookie的值 关闭和开启utf-8编码
+     * @Description: 得到Cookie的值 关闭和开启utf-8编码
      * @Param: [request, cookieName, isDecoder(false:不编码,true:utf-8)]
      * @return: java.lang.String
      * @Author: fan
@@ -51,7 +51,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 得到Cookie的值 自定义编码格式
+     * @Description: 得到Cookie的值 自定义编码格式
      * @Param: [request, cookieName, encodeString]
      * @return: java.lang.String
      * @Author: fan
@@ -77,7 +77,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
+     * @Description: 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
      * @Param: [request, response, cookieName, cookieValue]
      * @return: void
      * @Author: fan
@@ -89,7 +89,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值 在指定时间内生效,但不编码
+     * @Description: 设置Cookie的值 在指定时间内生效,但不编码
      * @Param: [request, response, cookieName, cookieValue, cookieMaxage]
      * @return: void
      * @Author: fan
@@ -101,7 +101,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值 不设置生效时间,但编码
+     * @Description: 设置Cookie的值 不设置生效时间,但编码
      * @Param: [request, response, cookieName, cookieValue, isEncode]
      * @return: void
      * @Author: fan
@@ -113,7 +113,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值 在指定时间内生效, 编码参数
+     * @Description: 设置Cookie的值 在指定时间内生效, 编码参数
      * @Param: [request, response, cookieName, cookieValue, cookieMaxage, isEncode]
      * @return: void
      * @Author: fan
@@ -125,7 +125,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值 在指定时间内生效, 编码参数(指定编码)
+     * @Description: 设置Cookie的值 在指定时间内生效, 编码参数(指定编码)
      * @Param: [request, response, cookieName, cookieValue, cookieMaxage, encodeString]
      * @return: void
      * @Author: fan
@@ -137,7 +137,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 删除Cookie带cookie域名
+     * @Description: 删除Cookie带cookie域名
      * @Param: [request, response, cookieName]
      * @return: void
      * @Author: fan
@@ -149,7 +149,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值，并使其在指定时间内生效
+     * @Description: 设置Cookie的值，并使其在指定时间内生效
      * @Param: [request, response, cookieName, cookieValue, cookieMaxage(cookie生效的最大秒数), isEncode]
      * @return: void
      * @Author: fan
@@ -175,7 +175,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 设置Cookie的值，并使其在指定时间内生效
+     * @Description: 设置Cookie的值，并使其在指定时间内生效
      * @Param: [request, response, cookieName, cookieValue, cookieMaxage, encodeString]
      * @return: void
      * @Author: fan
@@ -201,7 +201,7 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: TODO 得到cookie的域名
+     * @Description: 得到cookie的域名
      * @Param: [request]
      * @return: java.lang.String
      * @Author: fan
@@ -240,7 +240,7 @@ public class CookieUtils {
 
     private static void setDomainCookie(Cookie cookie, HttpServletRequest request) {
         if (null != request) {
-            //TODO 设置域名的cookie
+            // 设置域名的cookie
             String domainName = getDomainName(request);
             log.info("--> The cookie domain name is {} ", domainName);
             if (!"localhost".equals(domainName)) {

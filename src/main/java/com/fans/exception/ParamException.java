@@ -2,7 +2,7 @@ package com.fans.exception;
 
 /**
  * @ClassName ParamException
- * @Description: TODO 参数异常处理
+ * @Description: 参数异常处理
  * @Author fan
  * @Date 2018-11-20 09:46
  * @Version 1.0

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @ClassName WebConfig
- * @Description: TODO 类似于web.xml配置
+ * @Description: 类似于web.xml配置
  * @Author fan
  * @Date 2018-12-20 10:52
  * @Version 1.0

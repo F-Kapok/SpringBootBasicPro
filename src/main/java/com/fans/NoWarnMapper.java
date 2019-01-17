@@ -2,7 +2,7 @@ package com.fans;
 
 /**
  * @Interface NoWarnMapper
- * @Description: TODO
+ * @Description:
  * @Author fan
  * @Date 2018-12-19 17:04
  * @Version 1.0

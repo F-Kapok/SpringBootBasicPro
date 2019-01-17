@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @Description: TODO 入口
+ * @Description: 入口
  * @Param:
  * @return:
  * @Author: fan

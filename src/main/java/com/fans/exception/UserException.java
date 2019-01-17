@@ -2,7 +2,7 @@ package com.fans.exception;
 
 /**
  * @ClassName UserException
- * @Description: TODO 用户异常处理
+ * @Description: 用户异常处理
  * @Author fan
  * @Date 2018-12-20 10:06
  * @Version 1.0

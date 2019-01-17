@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @ClassName HttpInterceptor
- * @Description: TODO 所有请求拦截器
+ * @Description: 所有请求拦截器
  * @Author fan
  * @Date 2018-12-20 10:37
  * @Version 1.0

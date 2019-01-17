@@ -18,7 +18,7 @@ import java.util.Set;
 
 /**
  * @ClassName JobController
- * @Description: TODO 调用中心控制层
+ * @Description: 调用中心控制层
  * @Author fan
  * @Date 2018-12-22 15:34
  * @Version 1.0
@@ -32,7 +32,7 @@ public class DynamicJobController {
     private IDynamicJobService dynamicJobService;
 
     /**
-     * @Description: TODO 初始化所有Job
+     * @Description: 初始化所有Job
      * @Param: []
      * @return: void
      * @Author: fan
@@ -86,7 +86,7 @@ public class DynamicJobController {
     }
 
     /**
-     * @Description: TODO 重启所有Job
+     * @Description: 重启所有Job
      * @Param: []
      * @return: void
      * @Author: fan

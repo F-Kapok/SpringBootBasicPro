@@ -31,7 +31,7 @@ public class FtpUtil {
     public static Boolean uploadFile(Map<String, Object> inParam) {
         //参数提取
         String host = inParam.get("host").toString();
-        Integer port = Integer.parseInt(inParam.get("port").toString());
+        int port = Integer.parseInt(inParam.get("port").toString());
         String userName = inParam.get("userName").toString();
         String passWord = inParam.get("passWord").toString();
         String basePath = inParam.get("basePath").toString();
@@ -41,7 +41,7 @@ public class FtpUtil {
         Boolean result = false;
         FTPClient ftpClient = new FTPClient();
         try {
-            Integer reply;
+            int reply;
             ftpClient.connect(host, port);
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
             ftpClient.login(userName, passWord);
@@ -50,13 +50,15 @@ public class FtpUtil {
                 ftpClient.disconnect();
                 return result;
             }
-            //TODO 切换到上传目录
+            // 切换到上传目录
             if (!ftpClient.changeWorkingDirectory(basePath + filePath)) {
-                //TODO 如果目录不存在创建目录
+                // 如果目录不存在创建目录
                 String[] dirs = filePath.split("/");
                 String tempPath = basePath;
                 for (String dir : dirs) {
-                    if (null == dir || "".equals(dir)) continue;
+                    if (null == dir || "".equals(dir)) {
+                        continue;
+                    }
                     tempPath += "/" + dir;
                     if (!ftpClient.changeWorkingDirectory(tempPath)) {
                         if (!ftpClient.makeDirectory(tempPath)) {
@@ -79,13 +81,13 @@ public class FtpUtil {
             ftpClient.logout();
             result = true;
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         } finally {
             if (ftpClient.isConnected()) {
                 try {
                     ftpClient.disconnect();
                 } catch (Exception e) {
-                    e.getMessage();
+                    e.printStackTrace();
                 }
             }
         }
@@ -113,7 +115,7 @@ public class FtpUtil {
             int reply;
             ftp.connect(host, port);
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
-            ftp.login(username, password);// 登录
+            ftp.login(username, password);
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
@@ -139,6 +141,7 @@ public class FtpUtil {
                 try {
                     ftp.disconnect();
                 } catch (IOException ioe) {
+                    ioe.printStackTrace();
                 }
             }
         }

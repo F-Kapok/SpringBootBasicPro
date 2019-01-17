@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @ClassName RedisConfiguration
- * @Description: TODO redis数据源配置
+ * @Description: redis数据源配置
  * @Author fan
  * @Date 2018-12-20 15:15
  * @Version 1.0

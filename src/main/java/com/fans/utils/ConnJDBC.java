@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * @Description: TODO 数据库连接类 说明:封装了 无参，有参 调用
+ * @Description: 数据库连接类 说明:封装了 无参，有参 调用
  * @Param:
  * @return:
  * @Author: fan
@@ -16,17 +16,29 @@ import java.util.*;
 @Slf4j
 public class ConnJDBC {
 
-    // 创建数据库连接 对象
+    /**
+     * 创建数据库连接 对象
+     */
     private Connection con = null;
-    // 创建PreparedStatement对象
+    /**
+     * 创建PreparedStatement对象
+     */
     private PreparedStatement psmt = null;
-    // 创建CallableStatement对象
+    /**
+     * 创建CallableStatement对象
+     */
     private CallableStatement csmt = null;
-    // 创建结果集对象
+    /**
+     * 创建结果集对象
+     */
     private ResultSet rs = null;
 
-    // 建立数据库连接
-    public Connection getConnection() {
+    /**
+     * 建立数据库连接
+     *
+     * @return
+     */
+    private Connection getConnection() {
         Properties properties = new Properties();
         try {
             String classPath = this.getClass().getResource("/").getPath().replace("/classes", "")
@@ -45,7 +57,9 @@ public class ConnJDBC {
         return con;
     }
 
-    // 关闭所有资源
+    /**
+     * 关闭所有资源
+     */
     private void closeAll() {
         // 关闭结果集对象
         if (rs != null) {
@@ -85,7 +99,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 增删改
+     * @Description: 增删改
      * @Param: [sql, params]
      * @return: int 受影响的行数
      * @Author: fan
@@ -111,7 +125,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 查询 结果放入ResultSet中
+     * @Description: 查询 结果放入ResultSet中
      * @Param: [sql, params]
      * @return: java.sql.ResultSet 结果集
      * @Author: fan
@@ -134,9 +148,9 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 获取结果集，并将结果放在List中
+     * @Description: 获取结果集，并将结果放在List中
      * @Param: [sql, params]
-     * @return: java.util.List<java.util.Map                               <                               java.lang.String                               ,                               java.lang.Object>>
+     * @return: java.util.List<java.util.Map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object>>
      * @Author: fan
      * @Date: 2018/11/20 9:52
      **/
@@ -150,10 +164,10 @@ public class ConnJDBC {
         } catch (SQLException e1) {
             log.error("SQLException is {}", e1.getMessage());
         }
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> list = new ArrayList<>();
         try {
             while (rs.next()) {
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>();
                 for (int i = 1; i <= columnCount; i++) {
                     map.put(rsmd.getColumnLabel(i), rs.getObject(i));
                 }
@@ -169,9 +183,9 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 获取结果集，并将结果放在Map中
+     * @Description: 获取结果集，并将结果放在Map中
      * @Param: [sql, params]
-     * @return: java.util.Map<java.lang.String                               ,                               java.lang.Object> 结果集
+     * @return: java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object> 结果集
      * @Author: fan
      * @Date: 2018/11/20 9:52
      **/

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName NetWorkUtil
- * @Description: TODO 获取网络Ip地址工具类
+ * @Description: 获取网络Ip地址工具类
  * @Author fan
  * @Date 2018-11-08 13:51
  * @Version 1.0
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class NetWorkUtil {
 
     /**
-     * @Description: TODO 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址;
+     * @Description: 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址;
      * @Param: [request]
      * @return: java.lang.String
      * @Author: fan

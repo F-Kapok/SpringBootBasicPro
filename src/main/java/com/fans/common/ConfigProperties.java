@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @ClassName ConfigProperties
- * @Description: TODO config properties数据读取
+ * @Description: config properties数据读取
  * @Author fan
  * @Date 2018-12-20 12:40
  * @Version 1.0

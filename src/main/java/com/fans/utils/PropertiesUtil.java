@@ -12,7 +12,7 @@ import java.util.Properties;
 
 
 /**
- * @Description: TODO 读取properties配置文件工具
+ * @Description: 读取properties配置文件工具
  * @Param:
  * @return:
  * @Author: fan

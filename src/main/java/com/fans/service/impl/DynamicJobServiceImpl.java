@@ -1,13 +1,10 @@
 package com.fans.service.impl;
 
-import com.fans.common.CommonConstants;
 import com.fans.dao.JobEntityMapper;
 import com.fans.pojo.JobEntity;
 import com.fans.quartz.DynamicJob;
 import com.fans.service.interfaces.IDynamicJobService;
-import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
-import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +12,7 @@ import java.util.List;
 
 /**
  * @ClassName DynamicJobServiceImpl
- * @Description: TODO 调度中心实现层
+ * @Description: 调度中心实现层
  * @Author fan
  * @Date 2018-12-22 15:04
  * @Version 1.0

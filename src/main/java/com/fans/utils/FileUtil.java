@@ -7,7 +7,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * @ClassName FileUtil
- * @Description: TODO 文件工具类
+ * @Description: 文件工具类
  * @Author fan
  * @Date 2018-09-14 11:23
  * @Version 1.0
@@ -16,7 +16,7 @@ public class FileUtil {
     private static final int BUFFER_SIZE = 2 * 1024;
 
     /**
-     * @Description: TODO 将文件压缩至zip
+     * @Description: 将文件压缩至zip
      * @Param: [srcDir（要压缩的文件路径）, out（zip的输出流）, KeepDirStructure（是否保留目录结构）]
      * @return: void
      * @Author: fan
@@ -46,7 +46,7 @@ public class FileUtil {
     }
 
     /**
-     * @Description: TODO 递归压缩
+     * @Description: 递归压缩
      * @Param: [sourceFile（源文件）, zos（zip输出流）, name（压缩后的名称）, KeepDirStructure]
      * @return: void
      * @Author: fan
