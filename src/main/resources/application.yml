@@ -161,3 +161,5 @@ spring:
         max-idle: 10
         # 最大连接数量
         max-active: 1000
+  jackson:
+    default-property-inclusion: non_null
