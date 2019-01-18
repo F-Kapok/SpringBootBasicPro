@@ -75,7 +75,7 @@ public class PropertiesUtil {
             }
             URL url = PropertiesUtil.class.getClassLoader().getResource("properties");
             assert url != null;
-            String path = url.getPath() + fileName;
+            String path = url.getPath() + "/" + fileName;
             InputStream in = PropertiesUtil.class.getClassLoader().getResourceAsStream(path);
             if (in == null) {
                 in = new FileInputStream(path);
