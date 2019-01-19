@@ -2,9 +2,10 @@ package com.fans.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.Properties;
  * @Param:
  * @return:
  * @Author: fan
- * @Date: 2018/11/20 9:59
+ * @Date: 2019/01/17 9:59
  **/
 @Slf4j
 public class PropertiesUtil {
@@ -24,6 +25,8 @@ public class PropertiesUtil {
     private static Properties properties;
 
     private static final String PROPERTIES_SUFFIX = ".properties";
+
+    private static final String PROPERTIES_PATH = "properties/";
 
     public static String loadProperties(String fileName, String key) {
         initializeProperties(fileName);
@@ -73,13 +76,8 @@ public class PropertiesUtil {
             if (!fileName.endsWith(PROPERTIES_SUFFIX)) {
                 fileName = autoJoint(fileName);
             }
-            URL url = PropertiesUtil.class.getClassLoader().getResource("properties");
-            assert url != null;
-            String path = url.getPath() + "/" + fileName;
-            InputStream in = PropertiesUtil.class.getClassLoader().getResourceAsStream(path);
-            if (in == null) {
-                in = new FileInputStream(path);
-            }
+            Resource resource = new ClassPathResource(PROPERTIES_PATH + fileName);
+            InputStream in = resource.getInputStream();
             return new InputStreamReader(in, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("配置文件读取异常", e);
