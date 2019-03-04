@@ -35,7 +35,7 @@ public class DruidConfiguration {
      **/
     @Bean
     @ConfigurationProperties(prefix = DB_PREFIX)
-    public DataSource druidDataSource() {
+    public DruidDataSource druidDataSource() {
         return new DruidDataSource();
     }
 
