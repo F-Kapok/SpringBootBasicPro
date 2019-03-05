@@ -81,9 +81,26 @@ spring:
     mode: HTML
     encoding: UTF-8
     servlet:
-      content-type: text/html
+      content-type: text/html;charset=utf-8
     # 关闭缓存, 即时刷新, 上线生产环境需要改为true
     cache: false
+  ############################################################
+  #
+  # freemarker 静态资源配置
+  #
+  ############################################################
+  freemarker:
+    charset: UTF-8
+    content-type: text/html;charset=utf-8
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    suffix: .ftl
+    cache: false
+    template-loader-path: classpath:/templates
+    settings:
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      default_encoding: UTF-8
   ############################################################
   #
   # 资源文件配置
