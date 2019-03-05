@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Date 2018-12-20 12:40
  * @Version 1.0
  **/
-@Component("configProperties")
+@Component(value = "configProperties")
 @PropertySource(value = "classpath:/properties/config.properties")
 @ConfigurationProperties(prefix = "com.kapok")
 @Setter

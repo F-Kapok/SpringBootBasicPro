@@ -1,5 +1,6 @@
 package com.fans;
 
+import com.fans.config.EnableHttpClient;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 @MapperScan(basePackages = "com.fans.dao")
+@EnableHttpClient
 public class SpringbootApplication {
 
     public static void main(String[] args) {
