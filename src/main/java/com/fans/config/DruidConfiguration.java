@@ -31,7 +31,7 @@ public class DruidConfiguration {
      * @Author: fan
      * @Date: 2018/12/20 12:31
      **/
-    @Bean
+    @Bean(destroyMethod = "close", initMethod = "init")
     @ConfigurationProperties(prefix = DB_PREFIX)
     public DruidDataSource druidDataSource() {
         return new DruidDataSource();
