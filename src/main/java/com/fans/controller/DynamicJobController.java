@@ -25,7 +25,7 @@ import java.util.Set;
 @RestController
 @Slf4j
 public class DynamicJobController {
-    @Resource
+    @Resource(type =SchedulerFactoryBean.class)
     private SchedulerFactoryBean factory;
     @Resource(name = "iDynamicJobService")
     private IDynamicJobService dynamicJobService;

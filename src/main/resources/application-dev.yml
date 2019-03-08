@@ -181,4 +181,4 @@ spring:
   jackson:
     default-property-inclusion: non_null
 swagger:
-  show: true
+  enable: true
