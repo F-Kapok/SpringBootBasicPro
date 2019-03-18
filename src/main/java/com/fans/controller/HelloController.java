@@ -26,7 +26,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Controller
-@Api(value = "helloController")
+@Api(value = "helloController",tags = "用户服务层")
 public class HelloController {
     @Resource(name = "iUserService")
     private IUserService userService;
