@@ -78,11 +78,11 @@ spring:
   ############################################################
   mail:
     #邮件发送者
-    sender: 5219824@qq.com
+    mailSender: 5219824@qq.com
     host: smtp.qq.com
     username: 5219824@qq.com
     #QQ邮箱的授权码
-    password: saaicjaarbdxbiib
+    password: lhvqkgksidggbgji
     default-encoding: UTF-8
     properties:
       mail:

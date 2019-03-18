@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf8">
+    <title>测试Thymeleaf Mail页面</title>
+</head>
+<body>
+<h1 th:text="${title}">标题名称</h1>
+恭喜您成功注册！您的用户名为：
+<span th:text="${username}" style="color: #ff0000; size: 30px">用户名</span>
+</body>
+</html>

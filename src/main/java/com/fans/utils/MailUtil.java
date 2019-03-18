@@ -4,20 +4,25 @@ import com.fans.common.Mail;
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.Map;
+import java.util.Objects;
 
 
 /**
@@ -28,12 +33,13 @@ import java.util.Map;
  * @Version 1.0
  **/
 @Component(value = "mailUtil")
+@ConfigurationProperties(prefix = "spring.mail")
+@Data
 @Slf4j
 public class MailUtil {
     /**
      * 邮件发送者
      */
-    @Value("${spring.mail.sender}")
     private String mailSender;
 
     @Resource(type = JavaMailSender.class)
@@ -43,7 +49,11 @@ public class MailUtil {
      */
     @Resource(type = Configuration.class)
     private Configuration configuration;
-
+    /**
+     * thymeleaf
+     */
+    @Resource(name = "templateEngine")
+    private TemplateEngine templateEngine;
 
     /**
      * @Description: 发送一个简单格式的邮件
@@ -52,7 +62,7 @@ public class MailUtil {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    public void sendSimpleMail(Mail mail) {
+    void sendSimpleMail(Mail mail) {
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             //邮件发送人
@@ -66,7 +76,8 @@ public class MailUtil {
             javaMailSender.send(simpleMailMessage);
             log.info("--> 发送成功！！！");
         } catch (Exception e) {
-            log.error("--> 邮件发送失败", e.getMessage());
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
+
         }
     }
 
@@ -77,17 +88,15 @@ public class MailUtil {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    public void sendHTMLMail(Mail mail) {
+    void sendHTMLMail(Mail mail) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
-            String sb = "<h1>Springboot测试邮件HTML</h1>" +
-                    "\"<p style='color:#F00'>邮件测试用例</p>" +
-                    "<p style='text-align:right'>右对齐</p>";
-            mimeMessageHelper.setText(sb, true);
+            mimeMessageHelper.setText(mail.getContent(), true);
             javaMailSender.send(mimeMailMessage);
+            log.info("--> 发送成功！！！");
         } catch (Exception e) {
-            log.error("--> 邮件发送失败", e.getMessage());
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
         }
     }
 
@@ -98,16 +107,17 @@ public class MailUtil {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    public void sendAttachmentMail(Mail mail) {
+    void sendAttachmentMail(Mail mail, String pathName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
             mimeMessageHelper.setText(mail.getContent());
-            FileSystemResource file = new FileSystemResource(new File("src/main/resources/static/image/kapok.jpg"));
-            mimeMessageHelper.addAttachment("kapok.jpg", file);
+            FileSystemResource fileSystemResource = new FileSystemResource(new File(pathName));
+            mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);
             javaMailSender.send(mimeMailMessage);
+            log.info("--> 发送成功！！！");
         } catch (Exception e) {
-            log.error("--> 邮件发送失败", e.getMessage());
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
         }
     }
 
@@ -118,17 +128,17 @@ public class MailUtil {
      * @Author: fan
      * @Date: 2019/03/18 17:52
      **/
-    public void sendInlineMail(Mail mail) {
+    void sendInlineMail(Mail mail, String contentId, String pathName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
-            mimeMessageHelper.setText("<html><body>带静态资源的邮件内容，这个一张IDEA配置的照片:<img src='cid:picture' /></body></html>", true);
-            FileSystemResource file = new FileSystemResource(new File("src/main/resources/static/image/mail.png"));
-            mimeMessageHelper.addInline("picture", file);
-
+            mimeMessageHelper.setText(mail.getContent(), true);
+            FileSystemResource file = new FileSystemResource(new File(pathName));
+            mimeMessageHelper.addInline(contentId, file);
             javaMailSender.send(mimeMailMessage);
+            log.info("--> 发送成功！！！");
         } catch (Exception e) {
-            log.error("邮件发送失败", e.getMessage());
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
         }
     }
 
@@ -139,19 +149,34 @@ public class MailUtil {
      * @Author: fan
      * @Date: 2019/03/18 17:52
      **/
-    public void sendTemplateMail(Mail mail) {
+    void sendFreemarkerTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
-            Map<String, Object> model = Maps.newHashMap();
-            model.put("content", mail.getContent());
-            model.put("title", "标题Mail中使用了FreeMarker");
-            Template template = configuration.getTemplate("mail.ftl");
-            String text = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            Template template = configuration.getTemplate(templateName);
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(template, inParam);
             mimeMessageHelper.setText(text, true);
             javaMailSender.send(mimeMailMessage);
+            log.info("--> 发送成功！！！");
         } catch (Exception e) {
-            log.error("--> 邮件发送失败", e.getMessage());
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
+        }
+
+    }
+
+    void sendThymeleafTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
+        try {
+            MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
+            // context 对象用于注入要在模板上渲染的信息
+            Context context = new Context();
+            context.setVariables(inParam);
+            String text = templateEngine.process(templateName, context);
+            mimeMessageHelper.setText(text, true);
+            javaMailSender.send(mimeMailMessage);
+            log.info("--> 发送成功！！！");
+        } catch (Exception e) {
+            log.error("--> 邮件发送失败,失败原因:{}", e.getMessage());
         }
 
     }
