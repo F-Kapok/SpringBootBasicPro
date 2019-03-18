@@ -1,6 +1,7 @@
 package com.fans.config;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -25,6 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Component
 @Configuration
 @EnableSwagger2
+@Data
 @ConfigurationProperties(prefix = "swagger")
 @ConditionalOnExpression("${swagger.enable}")
 @Slf4j
@@ -32,23 +34,23 @@ public class SwaggerConfiguration {
     /**
      * 当前文档的标题
      */
-    private static final String TITLE = "Kapok RestFul System";
+    private String title = "Kapok RestFul System";
     /**
      * 当前文档的详细描述
      */
-    private static final String DESCRIPTION = "poweredByBy-Health";
+    private String description = "poweredByBy-Health";
     /**
      * controller接口所在的包
      */
-    private static final String BASE_PACKAGE = "com.fans.controller";
+    private String basePackage = "com.fans.controller";
     /**
      * 当前文档的版本
      */
-    private static final String VERSION = "1.0";
+    private String version = "1.0";
     /**
      * 服务接口源码地址
      */
-    private static final String SERVICE_URL = "https://github.com";
+    private String serviceUrl = "https://github.com";
 
     @Bean
     public Docket createRestApi() {
@@ -59,17 +61,17 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 //加了RestController注解的类，生成接口文档
                 //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(TITLE)
-                .description(DESCRIPTION)
-                .termsOfServiceUrl(SERVICE_URL)
-                .version(VERSION)
+                .title(title)
+                .description(description)
+                .termsOfServiceUrl(serviceUrl)
+                .version(version)
                 .build();
     }
 
