@@ -28,7 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Data
 @ConfigurationProperties(prefix = "swagger")
-@ConditionalOnExpression("${swagger.enable}")
+//@ConditionalOnExpression(value = "${swagger.enable}")
 @Slf4j
 public class SwaggerConfiguration {
     /**
