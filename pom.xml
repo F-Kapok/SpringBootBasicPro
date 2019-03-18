@@ -120,12 +120,6 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-        <!-- commons-email -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-email</artifactId>
-            <version>1.5</version>
-        </dependency>
         <!-- 文件上传 -->
         <dependency>
             <groupId>commons-fileupload</groupId>

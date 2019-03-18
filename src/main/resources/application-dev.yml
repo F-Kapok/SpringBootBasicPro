@@ -70,6 +70,27 @@ spring:
   mvc:
     # 设定静态文件路径，js,css等
     static-path-pattern: /static/**
+    #邮箱配置
+  ############################################################
+  #
+  # 邮箱配置
+  #
+  ############################################################
+  mail:
+    #邮件发送者
+    sender: 5219824@qq.com
+    host: smtp.qq.com
+    username: 5219824@qq.com
+    #QQ邮箱的授权码
+    password: saaicjaarbdxbiib
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   ############################################################
   #
   # thymeleaf 静态资源配置
