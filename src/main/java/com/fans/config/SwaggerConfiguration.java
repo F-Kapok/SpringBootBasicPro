@@ -32,6 +32,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Slf4j
 public class SwaggerConfiguration {
     /**
+     * 授予开关权限
+     */
+    private boolean enable = false;
+    /**
      * 当前文档的标题
      */
     private String title = "Kapok RestFul System";
@@ -55,6 +59,7 @@ public class SwaggerConfiguration {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enable)
                 .apiInfo(apiInfo())
                 .select()
                 //加了ApiOperation注解的类，生成接口文档
