@@ -12,21 +12,21 @@ import lombok.Getter;
 @Getter
 public enum ResponseCode {
     /**
-     * 成功标识码 0
+     * 成功标识码 200
      */
-    SUCCESS(0, "Response successfully"),
+    SUCCESS(200, "Response successfully"),
     /**
-     * 失败标识码 1
+     * 失败标识码 500
      */
-    ERROR(1, "Response error"),
+    ERROR(500, "Response error"),
     /**
-     * 需要登录标识码 10
+     * 需要登录标识码 401
      */
-    NEED_LOGIN(10, "Response need login"),
+    NEED_LOGIN(401, "Response need login"),
     /**
-     * 参数不符合规定标识码 2
+     * 参数不符合规定标识码 415
      */
-    ILLEGAL_ARGUMENT(2, "Response argument illegality");
+    ILLEGAL_ARGUMENT(415, "Response argument illegality");
 
     private final Integer code;
     private final String desc;
