@@ -1,3 +1,8 @@
+DROP DATABASE
+IF EXISTS cloudy;
+CREATE DATABASE cloudy CHARACTER
+SET utf8 COLLATE utf8_Unicode_ci;
+USE cloudy;
 # http://cron.qqe2.com/
 # In your Quartz properties file, you'll need to set 
 # org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate
