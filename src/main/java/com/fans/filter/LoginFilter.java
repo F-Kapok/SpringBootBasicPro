@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+
 /**
  * @ClassName LoginFilter
  * @Description: 登录拦截器
@@ -45,7 +47,8 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession();
         Object user = session.getAttribute(CommonConstants.CURRENT_USER);
         if (user == null) {
-            response.setContentType("application/json;charset=UTF-8");
+            response.setContentType(APPLICATION_JSON_UTF8_VALUE);
+            response.setStatus(401);
             response.getWriter().write("[{\"msg\":\"未登录请进行登录操作\",\"status\":\"1\"}]");
             return;
         }
