@@ -1,7 +1,10 @@
 package com.fans.filter;
 
 import com.fans.common.CommonConstants;
+import com.fans.common.JsonData;
 import com.fans.common.RequestHolder;
+import com.fans.common.ResponseCode;
+import com.fans.utils.JsonUtils;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +52,9 @@ public class LoginFilter implements Filter {
         if (user == null) {
             response.setContentType(APPLICATION_JSON_UTF8_VALUE);
             response.setStatus(401);
-            response.getWriter().write("[{\"msg\":\"未登录请进行登录操作\",\"status\":\"1\"}]");
+            JsonData<Object> jsonData = JsonData.failCodeMsg(ResponseCode.NEED_LOGIN.getCode(), "未登录请进行登录操作");
+            String obj2String = JsonUtils.obj2String(jsonData);
+            response.getWriter().write(obj2String);
             return;
         }
         RequestHolder.add(user);

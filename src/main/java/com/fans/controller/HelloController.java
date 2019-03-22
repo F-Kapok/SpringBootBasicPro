@@ -1,22 +1,26 @@
 package com.fans.controller;
 
-import com.fans.common.CacheKeyConstants;
-import com.fans.common.ConfigProperties;
-import com.fans.common.JsonData;
+import com.fans.annotation.Encrypt;
+import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @ClassName HelloController
@@ -26,7 +30,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Controller
-@Api(value = "helloController",tags = "用户服务层")
+@Api(value = "helloController", tags = "用户服务层")
 public class HelloController {
     @Resource(name = "iUserService")
     private IUserService userService;
@@ -36,7 +40,7 @@ public class HelloController {
     private SysCacheService cacheService;
 
     @ApiOperation(value = "登录")
-    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public String index() {
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("host", configProperties.getHost());
@@ -44,6 +48,16 @@ public class HelloController {
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
+        User user = User.builder()
+                .username("kapok")
+                .descn("管理用户")
+                .status(0)
+                .build();
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(1800);
+        session.setAttribute(CommonConstants.CURRENT_USER, user);
         return "index";
     }
 
@@ -54,9 +68,17 @@ public class HelloController {
         return JsonData.success("查询成功", userService.getList());
     }
 
-    @RequestMapping(value = "/insert.do", method = RequestMethod.GET)
+    @ApiOperation(value = "新增用户")
+    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
     @ResponseBody
-    public JsonData<String> insertUser(User user) {
+    @Encrypt
+    @ApiResponses({
+            @ApiResponse(code = 401, message = "需要登录")
+    })
+    public JsonData<String> insertUser(@Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonData.fail(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
         userService.addUser(user);
         return JsonData.success("增加成功");
     }

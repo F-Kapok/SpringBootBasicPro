@@ -1,6 +1,6 @@
 package com.fans;
 
-import com.fans.config.EnableHttpClient;
+import com.fans.annotation.EnableHttpClient;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

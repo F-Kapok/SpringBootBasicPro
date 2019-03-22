@@ -1,5 +1,6 @@
-package com.fans.config;
+package com.fans.annotation;
 
+import com.fans.config.HttpClientAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

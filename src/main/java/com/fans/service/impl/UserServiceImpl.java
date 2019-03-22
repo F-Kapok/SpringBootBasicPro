@@ -30,13 +30,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int addUser(User user) {
-        user = User.builder()
-                .id(10L)
-                .username("jom")
-                .password("jom")
-                .descn("我是 jom skr")
-                .status(1)
-                .build();
+        if (user == null) {
+            user = User.builder()
+                    .id(10L)
+                    .username("jom")
+                    .password("jom")
+                    .descn("我是 jom skr")
+                    .status(1)
+                    .build();
+        }
         return userMapper.insert(user);
     }
 

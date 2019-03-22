@@ -2,7 +2,9 @@ package com.fans.interceptor;
 
 import com.fans.common.RequestHolder;
 import com.fans.utils.JsonUtils;
+import com.google.common.base.Charsets;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -38,8 +40,13 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String url = request.getRequestURL().toString();
+        String params;
         Map parameterMap = request.getParameterMap();
-        String params = JsonUtils.obj2String(parameterMap);
+        if (parameterMap.size() != 0) {
+            params = JsonUtils.obj2String(parameterMap);
+        } else {
+            params = IOUtils.toString(request.getInputStream(), Charsets.UTF_8.name());
+        }
         long start = (long) request.getAttribute(REQUEST_TIME);
         long end = System.currentTimeMillis();
         log.info("--> The URL of this request: {}", url);

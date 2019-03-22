@@ -1,11 +1,16 @@
 package com.fans.config;
 
 import com.fans.filter.LoginFilter;
+import com.fans.filter.RequestBodyFilter;
 import com.fans.interceptor.HttpInterceptor;
 import com.google.common.collect.Lists;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -57,5 +62,47 @@ public class WebConfig extends WebMvcConfigurationSupport {
         filterRegistrationBean.setUrlPatterns(urls);
         filterRegistrationBean.addInitParameter("exclusions", "/login.do,/swagger-ui.html");
         return filterRegistrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean RequestBodyFilter() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        RequestBodyFilter requestBodyFilter = new RequestBodyFilter();
+        filterRegistrationBean.setFilter(requestBodyFilter);
+        List<String> urls = Lists.newArrayList();
+        urls.add("*.do");
+        filterRegistrationBean.setEnabled(true);
+        //order的数值越小，优先级越高
+        filterRegistrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
+        filterRegistrationBean.setUrlPatterns(urls);
+        return filterRegistrationBean;
+    }
+
+    /**
+     * @Description: 跨域调用开放
+     * @Param: []
+     * @return: org.springframework.boot.web.servlet.FilterRegistrationBean<org.springframework.web.filter.CorsFilter>
+     * @Author: fan
+     * @Date: 2019/03/22 12:48
+     **/
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
+        // 1.添加CORS配置信息
+        CorsConfiguration config = new CorsConfiguration();
+        // 放行哪些原始域
+        config.addAllowedOrigin("*");
+        // 是否发送Cookie信息
+        config.setAllowCredentials(true);
+        // 放行哪些原始域(请求方式)
+        config.addAllowedMethod("*");
+        // 放行哪些原始域(头部信息)
+        config.addAllowedHeader("*");
+        // 2.添加映射路径
+        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+        configSource.registerCorsConfiguration("/**", config);
+        // 3.返回新的CorsFilter
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(configSource));
+        bean.setOrder(0);
+        return bean;
     }
 }
