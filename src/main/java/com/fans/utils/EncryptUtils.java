@@ -135,11 +135,12 @@ public class EncryptUtils {
     }
 
     /**
-     * URL编码
-     *
-     * @param str
-     * @return
-     */
+     * @Description: URL编码
+     * @Param: [str]
+     * @return: java.lang.String
+     * @Author: fan
+     * @Date: 2019/03/22 17:58
+     **/
     public static String getUrlEncoderString(String str) {
         String result = "";
         if (null == str) {
@@ -154,11 +155,12 @@ public class EncryptUtils {
     }
 
     /**
-     * URL解码
-     *
-     * @param str
-     * @return
-     */
+     * @Description: URL解码
+     * @Param: [str]
+     * @return: java.lang.String
+     * @Author: fan
+     * @Date: 2019/03/22 17:58
+     **/
     public static String urlDecoderString(String str) {
         String result = "";
         if (null == str) {
@@ -173,12 +175,12 @@ public class EncryptUtils {
     }
 
     /**
-     * 将 s 进行 BASE64 编码
-     *
-     * @return String
-     * @author lifq
-     * @date 2015-3-4 上午09:24:02
-     */
+     * @Description: 将 s 进行 BASE64 编码
+     * @Param: [s]
+     * @return: java.lang.String
+     * @Author: fan
+     * @Date: 2019/03/22 17:58
+     **/
     public static String base64Enc(String s) {
         if (s == null) {
             return null;
@@ -193,12 +195,12 @@ public class EncryptUtils {
     }
 
     /**
-     * 将 BASE64 编码的字符串 s 进行解码
-     *
-     * @return String
-     * @author lifq
-     * @date 2015-3-4 上午09:24:26
-     */
+     * @Description: 将 BASE64 编码的字符串 s 进行解码
+     * @Param: [s]
+     * @return: java.lang.String
+     * @Author: fan
+     * @Date: 2019/03/22 17:58
+     **/
     public static String base64Dec(String s) {
         if (s == null) {
             return null;
