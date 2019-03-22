@@ -26,7 +26,7 @@ import java.util.Objects;
 
 
 /**
- * @ClassName MailUtil
+ * @ClassName MailUtils
  * @Description: 邮件发送工具类
  * @Author fan
  * @Date 2019-03-18 17:52
@@ -36,7 +36,7 @@ import java.util.Objects;
 @ConfigurationProperties(prefix = "spring.mail")
 @Data
 @Slf4j
-public class MailUtil {
+public class MailUtils {
     /**
      * 邮件发送者
      */

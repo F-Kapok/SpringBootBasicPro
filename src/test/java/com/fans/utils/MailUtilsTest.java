@@ -16,10 +16,10 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class MailUtilTest {
+public class MailUtilsTest {
 
     @Resource(name = "mailUtil")
-    private MailUtil mailUtil;
+    private MailUtils mailUtils;
 
     @Test
     public void sendSimpleMail() {
@@ -29,7 +29,7 @@ public class MailUtilTest {
                 .subject("测试邮件")
                 .content("测试")
                 .build();
-        mailUtil.sendSimpleMail(mail);
+        mailUtils.sendSimpleMail(mail);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class MailUtilTest {
                 .content(htmlTemplate)
                 .build();
 
-        mailUtil.sendHTMLMail(mail);
+        mailUtils.sendHTMLMail(mail);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class MailUtilTest {
                 .content("测试")
                 .build();
         String pathName = "src/main/resources/static/image/kapok.jpg";
-        mailUtil.sendAttachmentMail(mail, pathName);
+        mailUtils.sendAttachmentMail(mail, pathName);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class MailUtilTest {
                         "</body></html>")
                 .build();
         String pathName = "src/main/resources/static/image/kapok.jpg";
-        mailUtil.sendInlineMail(mail, contentId, pathName);
+        mailUtils.sendInlineMail(mail, contentId, pathName);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class MailUtilTest {
         model.put("username", mail.getContent());
         model.put("title", "标题Mail中使用了FreeMarker");
         String templateName = "/mail/freemarkerMail.ftl";
-        mailUtil.sendFreemarkerTemplateMail(mail, model, templateName);
+        mailUtils.sendFreemarkerTemplateMail(mail, model, templateName);
     }
 
     @Test
@@ -102,6 +102,6 @@ public class MailUtilTest {
         model.put("username", mail.getContent());
         model.put("title", "标题Mail中使用了Thymeleaf");
         String templateName = "/mail/thymeleafMail.html";
-        mailUtil.sendThymeleafTemplateMail(mail, model, templateName);
+        mailUtils.sendThymeleafTemplateMail(mail, model, templateName);
     }
 }

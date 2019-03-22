@@ -3,8 +3,8 @@ package com.fans.service.impl;
 import com.fans.common.CacheKeyConstants;
 import com.fans.common.RedisPool;
 import com.fans.service.interfaces.SysCacheService;
-import com.fans.utils.JsonMapper;
-import com.fans.utils.ObjectSerializeUtil;
+import com.fans.utils.JsonUtils;
+import com.fans.utils.ObjectSerializeUtils;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,7 +74,7 @@ public class SysCacheServiceImpl implements SysCacheService {
                 shardedJedis.setex(key, timeOut, value);
             }
         } catch (Exception e) {
-            log.error("save cache exception, prefix:{}, keys:{}", prefix.name(), JsonMapper.obj2String(keys));
+            log.error("save cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
         } finally {
             redisPool.safeClose(shardedJedis);
         }
@@ -88,7 +88,7 @@ public class SysCacheServiceImpl implements SysCacheService {
             shardedJedis = redisPool.instance();
             return shardedJedis.get(key);
         } catch (Exception e) {
-            log.error("get from cache exception, prefix:{}, keys:{}", prefix.name(), JsonMapper.obj2String(keys));
+            log.error("get from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
             return null;
         } finally {
             redisPool.safeClose(shardedJedis);
@@ -104,9 +104,9 @@ public class SysCacheServiceImpl implements SysCacheService {
         try {
             shardedJedis = redisPool.instance();
             if (timeOut == 0) {
-                shardedJedis.set(key.name().getBytes(), ObjectSerializeUtil.serialization(value));
+                shardedJedis.set(key.name().getBytes(), ObjectSerializeUtils.serialization(value));
             } else {
-                shardedJedis.setex(key.name().getBytes(), timeOut, ObjectSerializeUtil.serialization(value));
+                shardedJedis.setex(key.name().getBytes(), timeOut, ObjectSerializeUtils.serialization(value));
             }
         } catch (Exception e) {
             log.error("save cache exception, keys:{}", key.name());
@@ -121,7 +121,7 @@ public class SysCacheServiceImpl implements SysCacheService {
         try {
             shardedJedis = redisPool.instance();
             byte[] result = shardedJedis.get(key.name().getBytes());
-            return ObjectSerializeUtil.deserialization(result);
+            return ObjectSerializeUtils.deserialization(result);
         } catch (Exception e) {
             log.error("get from cache exception, keys:{}", key.name());
             return null;
@@ -140,12 +140,12 @@ public class SysCacheServiceImpl implements SysCacheService {
             String key = generateCacheKey(prefix, keys);
             shardedJedis = redisPool.instance();
             if (timeOut == 0) {
-                shardedJedis.set(key.getBytes(), ObjectSerializeUtil.serialization(value));
+                shardedJedis.set(key.getBytes(), ObjectSerializeUtils.serialization(value));
             } else {
-                shardedJedis.setex(key.getBytes(), timeOut, ObjectSerializeUtil.serialization(value));
+                shardedJedis.setex(key.getBytes(), timeOut, ObjectSerializeUtils.serialization(value));
             }
         } catch (Exception e) {
-            log.error("save cache exception, prefix:{}, keys:{}", prefix.name(), JsonMapper.obj2String(keys));
+            log.error("save cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
         } finally {
             redisPool.safeClose(shardedJedis);
         }
@@ -158,9 +158,9 @@ public class SysCacheServiceImpl implements SysCacheService {
         try {
             shardedJedis = redisPool.instance();
             byte[] result = shardedJedis.get(key.getBytes());
-            return ObjectSerializeUtil.deserialization(result);
+            return ObjectSerializeUtils.deserialization(result);
         } catch (Exception e) {
-            log.error("get from cache exception, prefix:{}, keys:{}", prefix.name(), JsonMapper.obj2String(keys));
+            log.error("get from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
             return null;
         } finally {
             redisPool.safeClose(shardedJedis);
@@ -188,7 +188,7 @@ public class SysCacheServiceImpl implements SysCacheService {
             shardedJedis = redisPool.instance();
             shardedJedis.del(key);
         } catch (Exception e) {
-            log.error("del from cache exception, prefix:{}, keys:{}", prefix.name(), JsonMapper.obj2String(keys));
+            log.error("del from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
         } finally {
             redisPool.safeClose(shardedJedis);
         }

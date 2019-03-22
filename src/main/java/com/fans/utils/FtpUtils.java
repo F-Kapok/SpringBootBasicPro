@@ -23,13 +23,13 @@ import java.util.Objects;
 @Slf4j
 @NoArgsConstructor
 @ToString
-public class FtpUtil {
-    private static final String HOST = PropertiesUtil.loadProperties("ftp", "host");
-    private static final String PORT = PropertiesUtil.loadProperties("ftp", "port");
-    private static final String USERNAME = PropertiesUtil.loadProperties("ftp", "userName");
-    private static final String PASSWORD = PropertiesUtil.loadProperties("ftp", "passWord");
-    private static final String BASE_PATH = PropertiesUtil.loadProperties("ftp", "basePath");
-    private static final String URL = PropertiesUtil.loadProperties("ftp", "url");
+public class FtpUtils {
+    private static final String HOST = PropertiesUtils.loadProperties("ftp", "host");
+    private static final String PORT = PropertiesUtils.loadProperties("ftp", "port");
+    private static final String USERNAME = PropertiesUtils.loadProperties("ftp", "userName");
+    private static final String PASSWORD = PropertiesUtils.loadProperties("ftp", "passWord");
+    private static final String BASE_PATH = PropertiesUtils.loadProperties("ftp", "basePath");
+    private static final String URL = PropertiesUtils.loadProperties("ftp", "url");
     private static String FILE_PATH = new DateTime().toString("/yyyy/MM/dd");
     private static FTPClient ftpClient = new FTPClient();
 

@@ -15,7 +15,7 @@ import java.util.*;
  * @Date: 2018/11/20 9:50
  **/
 @Slf4j
-public class ConnJDBC {
+public class JdbcUtils {
 
     /**
      * 创建数据库连接 对象

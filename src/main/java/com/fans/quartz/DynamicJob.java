@@ -1,22 +1,16 @@
 package com.fans.quartz;
 
 import com.fans.common.CommonConstants;
-import com.fans.exception.ParamException;
-import com.fans.utils.JsonMapper;
-import com.google.common.base.Splitter;
+import com.fans.utils.JsonUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @ClassName DynamicJob
@@ -129,7 +123,7 @@ public class DynamicJob implements Job {
                     commands.add(parameter);
                 }
                 processBuilder.command(commands);
-                log.info("quartz--> Running Job Commands : {}  ", JsonMapper.obj2String(commands));
+                log.info("quartz--> Running Job Commands : {}  ", JsonUtils.obj2String(commands));
                 try {
                     Process process = processBuilder.start();
                     logProcess(process.getInputStream(), process.getErrorStream());

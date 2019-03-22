@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.*;
 
 /**
- * @ClassName ObjectSerializeUtil
+ * @ClassName ObjectSerializeUtils
  * @Description: 对象序列化工具类
  * @Author fan
  * @Date 2018-12-09 14:14
  * @Version 1.0
  **/
 @Slf4j
-public class ObjectSerializeUtil {
+public class ObjectSerializeUtils {
     /**
      * @Description: 将复杂对象序列化成字节
      * @Param: [obj]
@@ -30,7 +30,7 @@ public class ObjectSerializeUtil {
             outputStream.close();
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            log.error("ObjectSerializeUtil-IOException:{}", e);
+            log.error("ObjectSerializeUtils-IOException:{}", e);
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class ObjectSerializeUtil {
             inputStream = new ObjectInputStream(byteArrayInputStream);
             return inputStream.readObject();
         } catch (Exception e) {
-            log.error("ObjectSerializeUtil-IOException:{}", e);
+            log.error("ObjectSerializeUtils-IOException:{}", e);
             return null;
         }
     }

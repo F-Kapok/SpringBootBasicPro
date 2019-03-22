@@ -1,18 +1,18 @@
-package com.szkingdom.utils;
+package com.fans.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @ClassName NetWorkUtil
+ * @ClassName NetWorkUtils
  * @Description: 获取网络Ip地址工具类
  * @Author fan
  * @Date 2018-11-08 13:51
  * @Version 1.0
  **/
 @Slf4j
-public class NetWorkUtil {
+public class NetWorkUtils {
 
     private static final String PROXY_CLIENT_IP = "Proxy-Client-IP";
     private static final String UNKNOWN = "unknown";
@@ -28,7 +28,7 @@ public class NetWorkUtil {
      * @Author: fan
      * @Date: 2018/11/08 13:52
      **/
-    public final static String getIpAddress(HttpServletRequest request) {
+    public static String getIpAddress(HttpServletRequest request) {
         // 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址
         String ip = request.getHeader("X-Forwarded-For");
         if (log.isInfoEnabled()) {

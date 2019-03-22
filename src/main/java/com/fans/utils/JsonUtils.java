@@ -12,14 +12,14 @@ import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.STRING;
 
 /**
- * @ClassName JsonMapper
+ * @ClassName JsonUtils
  * @Description: 对象与字符串转换工具
  * @Author fan
  * @Date 2018-11-06 12:41
  * @Version 1.0
  **/
 @Slf4j
-public class JsonMapper {
+public class JsonUtils {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {

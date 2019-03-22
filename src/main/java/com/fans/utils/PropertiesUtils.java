@@ -20,7 +20,7 @@ import java.util.Properties;
  * @Date: 2019/01/17 9:59
  **/
 @Slf4j
-public class PropertiesUtil {
+public class PropertiesUtils {
 
     private static Properties properties;
 

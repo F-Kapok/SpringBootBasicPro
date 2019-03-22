@@ -6,13 +6,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @ClassName FileUtil
+ * @ClassName FileUtils
  * @Description: 文件工具类
  * @Author fan
  * @Date 2018-09-14 11:23
  * @Version 1.0
  **/
-public class FileUtil {
+public class FileUtils {
     private static final int BUFFER_SIZE = 2 * 1024;
 
     /**

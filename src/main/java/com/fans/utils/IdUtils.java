@@ -2,7 +2,7 @@ package com.fans.utils;
 
 import java.util.Random;
 
-public class IdUtil {
+public class IdUtils {
 
     public static String getTimestampId() {
         String idStr = "";
