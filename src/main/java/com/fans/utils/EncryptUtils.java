@@ -1,5 +1,6 @@
 package com.fans.utils;
 
+import com.google.common.base.Charsets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 import sun.misc.BASE64Decoder;
@@ -133,4 +134,81 @@ public class EncryptUtils {
         return StringUtils.isEmpty(encryptStr) ? null : aesDecode(base64Decode(encryptStr), decryptKey);
     }
 
+    /**
+     * URL编码
+     *
+     * @param str
+     * @return
+     */
+    public static String getUrlEncoderString(String str) {
+        String result = "";
+        if (null == str) {
+            return "";
+        }
+        try {
+            result = java.net.URLEncoder.encode(str, Charsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * URL解码
+     *
+     * @param str
+     * @return
+     */
+    public static String urlDecoderString(String str) {
+        String result = "";
+        if (null == str) {
+            return "";
+        }
+        try {
+            result = java.net.URLDecoder.decode(str, Charsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 将 s 进行 BASE64 编码
+     *
+     * @return String
+     * @author lifq
+     * @date 2015-3-4 上午09:24:02
+     */
+    public static String base64Enc(String s) {
+        if (s == null) {
+            return null;
+        }
+        String res = "";
+        try {
+            res = new sun.misc.BASE64Encoder().encode(s.getBytes("GBK"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    /**
+     * 将 BASE64 编码的字符串 s 进行解码
+     *
+     * @return String
+     * @author lifq
+     * @date 2015-3-4 上午09:24:26
+     */
+    public static String base64Dec(String s) {
+        if (s == null) {
+            return null;
+        }
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            byte[] b = decoder.decodeBuffer(s);
+            return new String(b, "GBK");
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
