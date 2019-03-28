@@ -106,6 +106,7 @@ spring:
       content-type: text/html;charset=utf-8
     # 关闭缓存, 即时刷新, 上线生产环境需要改为true
     cache: false
+    check-template-location: false
   ############################################################
   #
   # freemarker 静态资源配置
