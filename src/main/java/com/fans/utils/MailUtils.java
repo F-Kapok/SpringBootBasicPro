@@ -60,7 +60,7 @@ public class MailUtils {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    void sendSimpleMail(Mail mail) {
+    public void sendSimpleMail(Mail mail) {
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             //邮件发送人
@@ -86,7 +86,7 @@ public class MailUtils {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    void sendHTMLMail(Mail mail) {
+    public void sendHTMLMail(Mail mail) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
@@ -105,7 +105,7 @@ public class MailUtils {
      * @Author: fan
      * @Date: 2019/03/18 17:51
      **/
-    void sendAttachmentMail(Mail mail, String pathName) {
+    public void sendAttachmentMail(Mail mail, String pathName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
@@ -126,7 +126,7 @@ public class MailUtils {
      * @Author: fan
      * @Date: 2019/03/18 17:52
      **/
-    void sendInlineMail(Mail mail, String contentId, String pathName) {
+    public void sendInlineMail(Mail mail, String contentId, String pathName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
@@ -147,7 +147,7 @@ public class MailUtils {
      * @Author: fan
      * @Date: 2019/03/18 17:52
      **/
-    void sendFreemarkerTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
+    public void sendFreemarkerTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
@@ -162,7 +162,7 @@ public class MailUtils {
 
     }
 
-    void sendThymeleafTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
+    public void sendThymeleafTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
         try {
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = getMimeMessageHelper(mimeMailMessage, mail);
