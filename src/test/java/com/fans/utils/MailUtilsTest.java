@@ -18,7 +18,7 @@ import java.util.Map;
 @Slf4j
 public class MailUtilsTest {
 
-    @Resource(name = "mailUtil")
+    @Resource(name = "mailUtils")
     private MailUtils mailUtils;
 
     @Test
