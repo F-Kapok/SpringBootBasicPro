@@ -32,7 +32,7 @@ import java.util.Objects;
  * @Date 2019-03-18 17:52
  * @Version 1.0
  **/
-@Component(value = "mailUtil")
+@Component(value = "mailUtils")
 @ConfigurationProperties(prefix = "spring.mail")
 @Data
 @Slf4j
