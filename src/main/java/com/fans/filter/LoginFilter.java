@@ -8,6 +8,7 @@ import com.fans.utils.JsonUtils;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import static com.fans.common.CommonConstants.LOGIN_MAP;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 /**
@@ -49,17 +52,33 @@ public class LoginFilter implements Filter {
         }
         HttpSession session = request.getSession();
         Object user = session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null) {
-            response.setContentType(APPLICATION_JSON_UTF8_VALUE);
-            response.setStatus(401);
-            JsonData<Object> jsonData = JsonData.failCodeMsg(ResponseCode.NEED_LOGIN.getCode(), "未登录请进行登录操作");
-            String obj2String = JsonUtils.obj2String(jsonData);
-            response.getWriter().write(obj2String);
+        ServletContext servletContext = session.getServletContext();
+        Map<String, Object> loginMap = (Map<String, Object>) servletContext.getAttribute(LOGIN_MAP);
+        if (loginMap == null || loginMap.isEmpty()) {
+            String msg = "请进行登录！！！";
+            returnResponse(response, msg);
+            return;
+        }
+        //判断同一账号是否已登录
+        String sid = loginMap.get(CommonConstants.CURRENT_USER).toString();
+        if (!StringUtils.equals(sid, session.getId()) || user == null) {
+            String msg = "会话超时，请重新登录！！！";
+            returnResponse(response, msg);
             return;
         }
         RequestHolder.add(user);
         RequestHolder.add(request);
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private void returnResponse(HttpServletResponse response, String msg) throws IOException {
+        response.setContentType(APPLICATION_JSON_UTF8_VALUE);
+        response.setStatus(401);
+        JsonData<Object> jsonData = JsonData.failCodeMsg(ResponseCode.NEED_LOGIN.getCode(), msg);
+        String obj2String = JsonUtils.obj2String(jsonData);
+        response.getWriter().write(obj2String);
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 
     @Override

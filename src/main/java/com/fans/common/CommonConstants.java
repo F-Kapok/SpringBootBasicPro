@@ -13,6 +13,14 @@ public class CommonConstants {
     public static final String USERNAME = "username";
     public static final String JAR_JOB = "0";
     public static final String CLASS_JOB = "1";
+    /**
+     * session在线人数
+     */
+    public static final String ON_LINE_COUNT = "onLineCount";
+    /**
+     * session管理列表
+     */
+    public static final String LOGIN_MAP = "loginMap";
 
     public interface Role {
         /**
