@@ -5,6 +5,7 @@ import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -65,7 +66,7 @@ public class HelloController {
     @ApiOperation(value = "展示用户列表")
     @RequestMapping(value = "/list.do", method = RequestMethod.GET)
     @ResponseBody
-    public JsonData<List<User>> getList() {
+    public JsonData<PageInfo<User>> getList() {
         return JsonData.success("查询成功", userService.getList());
     }
 

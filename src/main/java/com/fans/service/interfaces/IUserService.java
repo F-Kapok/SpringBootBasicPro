@@ -1,6 +1,7 @@
 package com.fans.service.interfaces;
 
 import com.fans.pojo.User;
+import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public interface IUserService {
      * @Author: fan
      * @Date: 2018/12/20 10:13
      **/
-    List<User> getList();
+    PageInfo<User> getList();
 
     /**
      * 增加人员
