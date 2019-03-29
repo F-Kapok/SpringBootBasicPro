@@ -20,6 +20,7 @@
             <!--格式化输出：%d表示日期，%thread表示线程名，%highlight高亮，%cyan深绿，%green绿色，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) %green(%msg) %n
             </pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -53,6 +54,7 @@
         </triggeringPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -72,6 +74,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -91,6 +94,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -111,6 +115,7 @@
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) %green(%msg) %n
             </pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -130,6 +135,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -144,6 +150,7 @@
         <encoder>
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
         <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
