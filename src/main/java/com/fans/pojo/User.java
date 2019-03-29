@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Objects;
 
 @Builder
@@ -29,7 +30,11 @@ public class User {
     @NotNull(message = "状态不能为空")
     private Integer status;
     @MyRule
-    private String descn;
+    private String desc;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     @JsonIgnore
     public String getUserStatusDesc() {

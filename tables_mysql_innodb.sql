@@ -25,23 +25,21 @@ DROP TABLE IF EXISTS QRTZ_CALENDARS;
 DROP TABLE IF EXISTS job_entity;
 DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `user`
-(
-  `id`       bigint(20) NOT NULL DEFAULT '0',
-  `username` varchar(50)         DEFAULT NULL,
-  `password` varchar(50)         DEFAULT NULL,
-  `status`   int(11)             DEFAULT NULL,
-  `descn`    varchar(200)        DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
-INSERT INTO `user` (`id`, `username`, `password`, `status`, `descn`)
-VALUES ('1', 'admin', 'admin', '1', '管理员');
-INSERT INTO `user` (`id`, `username`, `password`, `status`, `descn`)
-VALUES ('2', 'user', 'user', '1', '用户');
-INSERT INTO `user` (`id`, `username`, `password`, `status`, `descn`)
-VALUES ('3', 'test', 'test', '1', '测试');
-INSERT INTO `user` (`id`, `username`, `password`, `status`, `descn`)
-VALUES ('10', 'jom', 'jom', '1', '我是 jom skr');
+CREATE TABLE `user` (
+                      `id` bigint(20) NOT NULL DEFAULT '0',
+                      `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+                      `password` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+                      `status` int(11) DEFAULT NULL,
+                      `desc` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+                      `create_time` timestamp NULL DEFAULT NULL,
+                      `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+                      PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+INSERT INTO `cloudy`.`user` (`id`, `username`, `password`, `status`, `desc`, `create_time`, `update_time`) VALUES ('1', 'admin', 'admin', '1', '管理员', '2019-03-27 14:10:10', '2019-03-29 14:10:15');
+INSERT INTO `cloudy`.`user` (`id`, `username`, `password`, `status`, `desc`, `create_time`, `update_time`) VALUES ('2', 'user', 'user', '1', '用户', '2019-03-27 14:10:10', '2019-03-29 14:10:15');
+INSERT INTO `cloudy`.`user` (`id`, `username`, `password`, `status`, `desc`, `create_time`, `update_time`) VALUES ('3', 'test', 'test', '1', '测试', '2019-03-27 14:10:10', '2019-03-29 14:10:15');
+INSERT INTO `cloudy`.`user` (`id`, `username`, `password`, `status`, `desc`, `create_time`, `update_time`) VALUES ('10', 'jom', 'jom', '1', '我是 jom skr', '2019-03-27 14:10:10', '2019-03-29 14:10:15');
+
 
 
 CREATE TABLE `job_entity`

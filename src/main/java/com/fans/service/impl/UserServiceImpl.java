@@ -35,7 +35,7 @@ public class UserServiceImpl implements IUserService {
                     .id(10L)
                     .username("jom")
                     .password("jom")
-                    .descn("我是 jom skr")
+                    .desc("我是 jom skr")
                     .status(1)
                     .build();
         }

@@ -50,10 +50,11 @@ public class HelloController {
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         User user = User.builder()
                 .username("kapok")
-                .descn("管理用户")
+                .desc("管理用户")
                 .status(0)
                 .build();
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(1800);
