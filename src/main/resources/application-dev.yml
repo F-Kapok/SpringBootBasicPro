@@ -143,7 +143,7 @@ spring:
   ############################################################
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cloudy?characterEncoding=utf-8&serverTimezone=GMT&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/cloudy?characterEncoding=utf-8&serverTimezone=GMT%2b8&allowMultiQueries=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
