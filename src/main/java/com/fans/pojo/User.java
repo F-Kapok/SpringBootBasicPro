@@ -2,8 +2,10 @@ package com.fans.pojo;
 
 import com.fans.annotation.MyRule;
 import com.fans.common.UserStatusEnum;
+import com.fans.serializer.Date2LongSerializer;
 import com.fans.utils.EnumUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -32,8 +34,9 @@ public class User {
     @MyRule
     private String desc;
 
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
-
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     @JsonIgnore
