@@ -1,12 +1,16 @@
 package com.fans.pojo;
 
 import com.fans.annotation.MyRule;
+import com.fans.common.UserStatusEnum;
+import com.fans.utils.EnumUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -26,4 +30,11 @@ public class User {
     private Integer status;
     @MyRule
     private String descn;
+
+    @JsonIgnore
+    public String getUserStatusDesc() {
+        return Objects.requireNonNull(EnumUtils.getByCode(status, UserStatusEnum.class)).getDesc();
+    }
+
+
 }
