@@ -1,8 +1,14 @@
-spring:
-  profiles:
-    active: dev
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+##### 日志 #####
+logging:
+  # 日志文件目录
+  #  path: C:/
+  # 日志文件名称，默认为spring.log
+  # file: spring.log
+  ############################################################
+  #
+  # logback 配置
+  #
+  ############################################################
+  config: classpath:logback.xml
+  level:
+    com.fans.dao: debug

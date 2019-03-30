@@ -1,6 +1,19 @@
 spring:
   profiles:
     active: dev
+    include:
+      - log
+      - mybatis
+      - spring-datasource
+      - spring-devtools
+      - spring-freemarker
+      - spring-jackson
+      - spring-jpa
+      - spring-mail
+      - spring-redis
+      - spring-resource
+      - spring-thymeleaf
+      - swagger
 management:
   endpoints:
     web:

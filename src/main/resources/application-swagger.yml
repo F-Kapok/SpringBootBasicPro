@@ -1,10 +1,2 @@
-spring:
-  profiles:
-    active: dev
-    include:
-      - log
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+swagger:
+  enable: true

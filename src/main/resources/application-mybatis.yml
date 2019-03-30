@@ -1,10 +1,10 @@
-spring:
-  profiles:
-    active: dev
-    include:
-      - log
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+##### Mybatis相关配置 #####
+mybatis:
+  type-aliases-package: com.fans.pojo
+  mapper-locations: classpath:mappers/*.xml
+##### 分页插件相关配置 #####
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
