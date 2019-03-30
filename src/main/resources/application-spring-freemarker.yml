@@ -1,0 +1,18 @@
+spring:
+  ############################################################
+  #
+  # freemarker 静态资源配置
+  #
+  ############################################################
+  freemarker:
+    charset: UTF-8
+    content-type: text/html;charset=utf-8
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    suffix: .ftl
+    cache: false
+    template-loader-path: classpath:/templates
+    settings:
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      default_encoding: UTF-8

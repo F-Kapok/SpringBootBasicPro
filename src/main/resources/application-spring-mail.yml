@@ -1,0 +1,22 @@
+spring:
+  ############################################################
+  #
+  # 邮箱配置
+  #
+  ############################################################
+  mail:
+    #邮件发送者
+    mailSender: 5219824@qq.com
+    # smtp.163.com
+    host: smtp.qq.com
+    username: 5219824@qq.com
+    #QQ邮箱的授权码 163是邮箱密码
+    password: lhvqkgksidggbgji
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true

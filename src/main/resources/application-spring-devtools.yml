@@ -1,0 +1,17 @@
+spring:
+  ############################################################
+  #
+  # devtools 热部署配置
+  #
+  ############################################################
+  devtools:
+    restart:
+      # 热部署生效
+      enabled: false
+      # 设置重启的目录,添加那个目录的文件需要restart
+      additional-paths: src/main/java
+      # 排除那个目录的文件不需要restart
+      exclude: static/**,public/**,WEB-INF/**
+  mvc:
+    # 设定静态文件路径，js,css等
+    static-path-pattern: /static/**
