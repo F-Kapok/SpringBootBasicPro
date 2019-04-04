@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class LocalCache {
 
     public static final String TOKEN_PREFIX = "token_";
+    public static final String NULL = "null";
 
     private static LoadingCache<String, String> loadingCache = CacheBuilder.newBuilder()
             .initialCapacity(1000)
@@ -27,6 +28,7 @@ public class LocalCache {
             .build(new CacheLoader<String, String>() {
                 @Override
                 public String load(String s) {
+                    //在这里可以初始化加载数据的缓存信息，读取数据库中信息或者是加载文件中的某些数据信息
                     return "null";
                 }
             });
@@ -35,7 +37,7 @@ public class LocalCache {
         String token;
         try {
             token = loadingCache.get(key);
-            if ("null".equals(token)) {
+            if (NULL.equals(token)) {
                 return null;
             }
         } catch (ExecutionException e) {
