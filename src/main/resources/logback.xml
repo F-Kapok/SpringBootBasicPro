@@ -188,7 +188,7 @@
         <appender-ref ref="ERROR"/>
         <appender-ref ref="INFO"/>
         <appender-ref ref="WARN"/>
-        <!--以下这两个级别不输出日志文件-->
+        <!--因为 level 为 info 以下这两个级别不输出日志文件-->
         <appender-ref ref="DEBUG"/>
         <appender-ref ref="TRACE"/>
     </root>
