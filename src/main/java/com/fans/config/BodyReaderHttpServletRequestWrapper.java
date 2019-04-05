@@ -1,6 +1,5 @@
 package com.fans.config;
 
-import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
