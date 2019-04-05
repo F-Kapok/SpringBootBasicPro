@@ -30,14 +30,17 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //不拦截的列表
+        List<String> exclude = Lists.newArrayList();
+        exclude.add("/static/**");
         registry.addInterceptor(new HttpInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/static/**");
+                .excludePathPatterns(exclude);
     }
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
+        registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/templates/**")
                 .addResourceLocations("classpath:/templates/");
