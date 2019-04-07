@@ -36,6 +36,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(new HttpInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns(exclude);
+        super.addInterceptors(registry);
     }
 
     @Override
