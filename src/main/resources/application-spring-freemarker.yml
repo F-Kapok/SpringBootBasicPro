@@ -16,3 +16,4 @@ spring:
     settings:
       datetime_format: yyyy-MM-dd HH:mm:ss
       default_encoding: UTF-8
+    allow-session-override: true
