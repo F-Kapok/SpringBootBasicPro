@@ -57,7 +57,7 @@ public class ObjectUtils {
      **/
     public static Map<String, Object> object2Map(Object obj) {
         if (obj == null) {
-            return null;
+            return Maps.newHashMap();
         }
         Map<String, Object> map = null;
         try {
