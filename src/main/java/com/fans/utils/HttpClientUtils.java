@@ -77,7 +77,7 @@ public class HttpClientUtils {
 
     public static String doGet(String url, Map<String, Object> param) {
 
-        // 创建Httpclient对象
+        // 创建HttpClient对象
         CloseableHttpClient closeableHttpClient = (CloseableHttpClient) initialize();
 
         String resultString = "";
@@ -121,7 +121,7 @@ public class HttpClientUtils {
     }
 
     public static String doPost(String url, Map<String, Object> param) {
-        // 创建Httpclient对象
+        // 创建HttpClient对象
         CloseableHttpClient closeableHttpClient = (CloseableHttpClient) initialize();
         CloseableHttpResponse response = null;
         String resultString = "";
@@ -161,7 +161,7 @@ public class HttpClientUtils {
     }
 
     public static String doPostJson(String url, String json) {
-        // 创建Httpclient对象
+        // 创建HttpClient对象
         CloseableHttpClient closeableHttpClient = (CloseableHttpClient) initialize();
         CloseableHttpResponse response = null;
         String resultString = "";
