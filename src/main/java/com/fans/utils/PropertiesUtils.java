@@ -31,7 +31,7 @@ public class PropertiesUtils {
     public static String loadProperties(String fileName, String key) {
         initializeProperties(fileName);
         String value = properties.getProperty(key.trim());
-        if (StringUtils.isBlank(key)) {
+        if (StringUtils.isBlank(value)) {
             return null;
         }
         return value.trim();
