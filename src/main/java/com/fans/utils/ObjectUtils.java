@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
@@ -89,5 +90,33 @@ public class ObjectUtils {
      **/
     public static boolean equals(Object o1, Object o2) {
         return Objects.equals(o1, o2);
+    }
+
+    /**
+     * @Description: 对象深拷贝  可用于集合
+     * @Param: [object]
+     * @return: T
+     * @Author: fan
+     * @Date: 2019/07/26 9:46
+     **/
+    public static <T extends Serializable> T clone(T object) {
+        T cloneObj = null;
+        try {
+            //写入字节流
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(out);
+            oos.writeObject(object);
+            oos.close();
+
+            //分配内存，写入原始对象，生成新的对象
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(in);
+            //返回生成的新对象
+            cloneObj = (T) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cloneObj;
     }
 }
