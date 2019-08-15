@@ -1,7 +1,10 @@
 package com.fans.utils;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -76,5 +79,39 @@ public class DateUtils {
 
     public static String getIncrDay(Integer day) {
         return new DateTime().plusDays(day).toString(YYYY_MM_DD);
+    }
+
+    /**
+     * 获取相差天数
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static int getDaysDiffer(LocalDate start, LocalDate end) {
+        return Math.abs(Days.daysBetween(start, end).getDays());
+    }
+
+    /**
+     * 月份区间时间戳集合
+     *
+     * @param year
+     * @return
+     */
+    public static ImmutableList<Long> getMonthOfYearList(int year) {
+        if (year == 0) {
+            year = DateTime.now().getYear();
+        }
+        final ImmutableList.Builder<Long> monthList = ImmutableList.builder();
+        DateTime dateTime = new DateTime(year, 1, 1, 0, 0, 0);
+        //第一个月时间
+        LocalDate firstMonth = dateTime.toLocalDate().withMonthOfYear(1).withDayOfMonth(1);
+        //最后一个月时间
+        final LocalDate lastMoth = dateTime.toLocalDate().plusYears(1).plusMonths(1);
+        while (firstMonth.isBefore(lastMoth)) {
+            monthList.add(firstMonth.toDateTimeAtStartOfDay().getMillis());
+            firstMonth = firstMonth.plusMonths(1);
+        }
+        return monthList.build();
     }
 }
