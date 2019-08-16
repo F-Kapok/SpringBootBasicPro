@@ -5,6 +5,8 @@ import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
+import com.fans.threadpool.basic.PoolRegister;
+import com.fans.threadpool.eventBean.MessageBean;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.*;
@@ -46,6 +48,12 @@ public class HelloController {
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     @ResponseBody
     public JsonData<String> index() {
+        MessageBean messageBean = MessageBean.builder()
+                .name("范凯")
+                .age(18)
+                .sex("男")
+                .build();
+        PoolRegister.sendMsgEventQueue.add(messageBean);
         //thymeleaf 模板用 去除@ResponseBody 将返回值改为 String 返回网页名称
         //ModelMap modelMap = new ModelMap();
         //modelMap.addAttribute("host", configProperties.getHost());
