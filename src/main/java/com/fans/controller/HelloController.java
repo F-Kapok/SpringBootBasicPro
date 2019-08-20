@@ -5,9 +5,11 @@ import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
+import com.fans.singleton.LocalCacheSingleton;
 import com.fans.threadpool.basic.PoolRegister;
 import com.fans.threadpool.eventBean.MessageBean;
 import com.github.pagehelper.PageInfo;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import static com.fans.common.CommonConstants.LOGIN_MAP;
 
@@ -44,10 +47,13 @@ public class HelloController {
     @Resource(name = "sysCacheService")
     private SysCacheService cacheService;
 
+    private LocalCacheSingleton instance = LocalCacheSingleton.getInstance();
+
     @ApiOperation(value = "登录")
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     @ResponseBody
-    public JsonData<String> index() {
+    public JsonData<String> login() {
+        instance.put(instance.TOKEN_PREFIX.concat("username"), "111111");
         MessageBean messageBean = MessageBean.builder()
                 .name("范凯")
                 .age(18)
@@ -86,6 +92,17 @@ public class HelloController {
         //4. 验证通过后正常的登陆
         loginAction(session, servletContext, loginMap, CommonConstants.CURRENT_USER);
         return JsonData.success("登录成功！！！");
+    }
+
+    @RequestMapping(value = "/get.do", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonData<Object> get() {
+        instance.refreshAll();
+        Object localCache = instance.get(instance.TOKEN_PREFIX.concat("username"));
+        if (localCache == null) {
+            return JsonData.fail("获取失败");
+        }
+        return JsonData.success("获取成功", localCache);
     }
 
     /**

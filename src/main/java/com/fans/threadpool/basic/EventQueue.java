@@ -1,11 +1,11 @@
 package com.fans.threadpool.basic;
 
-import com.fans.utils.ThreadPoolSingleton;
+import com.fans.singleton.ThreadPoolSingleton;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Vector;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 /**
  * @ClassName EventQueue
@@ -24,10 +24,17 @@ public class EventQueue<T> extends Observable {
      */
     private final Vector<T> queue = new Vector<>();
 
-    EventQueue(final EventHandler<T> handler, int corePoolSize) {
+    EventQueue(final EventHandler<T> handler, int corePoolSize, String threadName) {
         super();
         //获取单例线程池
-        executor = ThreadPoolSingleton.getInstance().getThreadPool(corePoolSize);
+        executor = new ThreadPoolExecutor(corePoolSize,
+                corePoolSize,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(),
+                new ThreadFactoryBuilder()
+                        .setNameFormat(threadName.concat("-thread-task-runner-%d"))
+                        .build());
         handler.setQueue(this);
         this.addObserver((observable, object) -> executor.execute(handler));
     }

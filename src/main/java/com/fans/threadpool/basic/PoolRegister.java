@@ -40,6 +40,6 @@ public class PoolRegister {
     }
 
     private void initStatic() {
-        sendMsgEventQueue = new EventQueue<>(messageHandler, 50);
+        sendMsgEventQueue = new EventQueue<>(messageHandler, 50, "message");
     }
 }
