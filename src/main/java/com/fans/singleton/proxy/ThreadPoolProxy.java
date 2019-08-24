@@ -1,5 +1,6 @@
 package com.fans.singleton.proxy;
 
+import com.fans.singleton.parent.AbstractThreadPoolProxy;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.*;
@@ -11,7 +12,7 @@ import java.util.concurrent.*;
  * @Date 2019-08-16 15:02
  * @Version 1.0
  **/
-public class ThreadPoolProxy {
+public class ThreadPoolProxy extends AbstractThreadPoolProxy {
     /**
      * 线程池基本大小，大于此值会开启新的线程执行至maximumPoolSize
      */
@@ -78,6 +79,23 @@ public class ThreadPoolProxy {
 
     public ThreadPoolExecutor getThreadPool() {
         return threadPoolExecutor;
+    }
+
+
+    @Override
+    public Future<?> submit(Runnable task) {
+        return threadPoolExecutor.submit(task);
+
+    }
+
+    @Override
+    public void execute(Runnable task) {
+        threadPoolExecutor.execute(task);
+    }
+
+    @Override
+    public void remove(Runnable task) {
+        threadPoolExecutor.remove(task);
     }
 
     private enum Instance {

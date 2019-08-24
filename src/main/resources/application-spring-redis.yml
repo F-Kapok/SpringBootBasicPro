@@ -12,7 +12,7 @@ spring:
     # redis端口号
     port: 6379
     # redis密码，默认为空
-    password:
+    password: sl6819961
     # 连接redis超时时间（毫秒）
     timeout: 0
     #jedis连接池

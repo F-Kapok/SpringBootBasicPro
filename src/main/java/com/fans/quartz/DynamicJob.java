@@ -18,7 +18,7 @@ import java.util.List;
  * @Description: @DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行
  * @Description: 注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个
  * @Description: 否则@DisallowConcurrentExecution不生效
- * @Description: 假如Job的设置时间间隔为3秒,但Job执行时间是5秒
+ * @Description: 假如Job的设置时间间隔为3秒, 但Job执行时间是5秒
  * @Description: 设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行
  * @Description: 否则会在3秒时再启用新的线程执行
  * @Author fan
@@ -80,11 +80,7 @@ public class DynamicJob implements Job {
             long endTime = System.currentTimeMillis();
             log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
         } catch (Exception e) {
-            if (StringUtils.isNotBlank(e.getMessage())) {
-                log.error("quartz--> Job Running Error : {}", e.getMessage());
-            } else {
-                log.error("quartz--> Job Running Error , ClassName Is Empty");
-            }
+            log.error("quartz--> Job Running Error", e);
             long endTime = System.currentTimeMillis();
             log.info("quartz--> >>>>>>>>>>>>> Running Job has been completed , cost time :  " + (endTime - startTime) + "ms\n");
         }

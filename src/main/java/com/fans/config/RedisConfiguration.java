@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
@@ -33,13 +34,15 @@ public class RedisConfiguration {
         return config;
     }
 
-   @Bean
+    @Bean
     public ShardedJedisPool getShardedJdsPool() {
         JedisPoolConfig config = assemble();
         List<JedisShardInfo> jdsInfoList = Lists.newArrayList();
         String[] hosts = properties.getHost().split(",");
         for (String host : hosts) {
-            jdsInfoList.add(new JedisShardInfo(host));
+            JedisShardInfo jedisShardInfo = new JedisShardInfo(host, properties.getPort(), 5000);
+            jedisShardInfo.setPassword(properties.getPassword());
+            jdsInfoList.add(jedisShardInfo);
         }
         return new ShardedJedisPool(config, jdsInfoList);
     }

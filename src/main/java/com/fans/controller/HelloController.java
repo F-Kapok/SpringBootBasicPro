@@ -5,6 +5,7 @@ import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
+import com.fans.singleton.factory.LocalCacheProxyFactory;
 import com.fans.singleton.proxy.LocalCacheProxy;
 import com.fans.threadpool.basic.PoolRegister;
 import com.fans.threadpool.eventBean.MessageBean;
@@ -51,7 +52,7 @@ public class HelloController {
     @Resource(name = "poolRegister")
     private PoolRegister<PayBean> payBeanPool;
 
-    private LocalCacheProxy instance = LocalCacheProxy.getInstance();
+    private LocalCacheProxy instance = LocalCacheProxyFactory.getLocalCacheProxy();
 
     @ApiOperation(value = "登录")
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
@@ -65,7 +66,7 @@ public class HelloController {
                 .productName("雪糕")
                 .createTime(DateTime.now().toDate())
                 .build();
-        MessageBean messageBean=MessageBean.builder()
+        MessageBean messageBean = MessageBean.builder()
                 .name("范凯")
                 .age(18)
                 .sex("男")
@@ -113,14 +114,8 @@ public class HelloController {
         instance.refreshAll();
         Object localCache = instance.get(instance.TOKEN_PREFIX.concat("username"));
         if (localCache == null) {
-            return JsonData.fail("获取失败");
+            return JsonData.fail("获取失败，过期");
         }
-        MessageBean messageBean = MessageBean.builder()
-                .name("范凯")
-                .age(18)
-                .sex("男")
-                .build();
-
         return JsonData.success("获取成功", localCache);
     }
 
