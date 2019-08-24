@@ -7,7 +7,7 @@ package com.fans.threadpool.basic;
  * @Date 2019-08-16 16:58
  * @Version 1.0
  **/
-public abstract class EventHandler<T> implements Runnable {
+public abstract class BaseEventHandler<T> implements Runnable {
 
     private EventQueue<T> queue;
 
@@ -32,6 +32,13 @@ public abstract class EventHandler<T> implements Runnable {
      * @param event
      */
     public abstract void execute(T event);
+
+    /**
+     * 事件描述
+     *
+     * @return
+     */
+    public abstract String getDescription();
 
 
 }

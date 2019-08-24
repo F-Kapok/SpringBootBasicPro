@@ -1,6 +1,6 @@
 package com.fans.threadpool.handler;
 
-import com.fans.threadpool.basic.EventHandler;
+import com.fans.threadpool.basic.BaseEventHandler;
 import com.fans.threadpool.eventBean.MessageBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  **/
 @Component("messageHandler")
 @Slf4j
-public class MessageHandler extends EventHandler<MessageBean> {
+public class MessageHandler extends BaseEventHandler<MessageBean> {
 
 
     @Override
@@ -23,4 +23,10 @@ public class MessageHandler extends EventHandler<MessageBean> {
         log.info("--> 你好" + event.getName() + "，我今年" + event.getAge() + "岁");
 
     }
+
+    @Override
+    public String getDescription() {
+        return "消息执行器,发送消息专用";
+    }
+
 }

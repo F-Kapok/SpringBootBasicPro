@@ -3,6 +3,7 @@ package com.fans.config;
 import com.fans.filter.LoginFilter;
 import com.fans.filter.RequestBodyFilter;
 import com.fans.interceptor.HttpInterceptor;
+import com.fans.threadpool.basic.PoolRegister;
 import com.google.common.collect.Lists;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -110,5 +111,10 @@ public class WebConfig extends WebMvcConfigurationSupport {
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(configSource));
         bean.setOrder(0);
         return bean;
+    }
+
+    @Bean(name = "poolRegister")
+    public PoolRegister poolRegister() {
+        return new PoolRegister();
     }
 }

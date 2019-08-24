@@ -8,11 +8,13 @@ import com.fans.service.interfaces.SysCacheService;
 import com.fans.singleton.LocalCacheSingleton;
 import com.fans.threadpool.basic.PoolRegister;
 import com.fans.threadpool.eventBean.MessageBean;
+import com.fans.threadpool.eventBean.PayBean;
 import com.github.pagehelper.PageInfo;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,10 @@ public class HelloController {
     private ConfigProperties configProperties;
     @Resource(name = "sysCacheService")
     private SysCacheService cacheService;
+    @Resource(name = "poolRegister")
+    private PoolRegister<MessageBean> messageBeanPool;
+    @Resource(name = "poolRegister")
+    private PoolRegister<PayBean> payBeanPool;
 
     private LocalCacheSingleton instance = LocalCacheSingleton.getInstance();
 
@@ -59,7 +65,16 @@ public class HelloController {
                 .age(18)
                 .sex("男")
                 .build();
-        PoolRegister.sendMsgEventQueue.add(messageBean);
+        PayBean payBean = PayBean.builder()
+                .productId(1L)
+                .orderNo(1L)
+                .price(200)
+                .productName("雪糕")
+                .createTime(DateTime.now().toDate())
+                .build();
+        messageBeanPool.executeHandler(messageBean);
+        payBeanPool.peek(payBean);
+        payBeanPool.executeHandler(payBean);
         //thymeleaf 模板用 去除@ResponseBody 将返回值改为 String 返回网页名称
         //ModelMap modelMap = new ModelMap();
         //modelMap.addAttribute("host", configProperties.getHost());
