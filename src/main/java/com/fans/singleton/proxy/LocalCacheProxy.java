@@ -1,4 +1,4 @@
-package com.fans.singleton;
+package com.fans.singleton.proxy;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -16,14 +16,14 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName LocalCacheSingleton
- * @Description: 本地内存单例对象---根据需求定制
+ * @ClassName LocalCacheProxy
+ * @Description: 本地内存单例对象---根据需求定制（工厂生成）
  * @Author k
  * @Date 2019-08-20 10:28
  * @Version 1.0
  **/
 @Slf4j
-public class LocalCacheSingleton {
+public class LocalCacheProxy {
 
     /**
      * token缓存前缀
@@ -142,10 +142,10 @@ public class LocalCacheSingleton {
         }
     }
 
-    private LocalCacheSingleton() {
+    private LocalCacheProxy() {
     }
 
-    public static LocalCacheSingleton getInstance() {
+    public static LocalCacheProxy getInstance() {
         return Instance.INSTANCE.getLocalCache();
     }
 
@@ -316,13 +316,13 @@ public class LocalCacheSingleton {
          */
         INSTANCE;
 
-        private LocalCacheSingleton localCache;
+        private LocalCacheProxy localCache;
 
         Instance() {
-            this.localCache = new LocalCacheSingleton();
+            this.localCache = new LocalCacheProxy();
         }
 
-        public LocalCacheSingleton getLocalCache() {
+        public LocalCacheProxy getLocalCache() {
             return localCache;
         }
 

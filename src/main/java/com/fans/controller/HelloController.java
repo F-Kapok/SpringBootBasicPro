@@ -5,12 +5,11 @@ import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
 import com.fans.service.interfaces.SysCacheService;
-import com.fans.singleton.LocalCacheSingleton;
+import com.fans.singleton.proxy.LocalCacheProxy;
 import com.fans.threadpool.basic.PoolRegister;
 import com.fans.threadpool.eventBean.MessageBean;
 import com.fans.threadpool.eventBean.PayBean;
 import com.github.pagehelper.PageInfo;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import static com.fans.common.CommonConstants.LOGIN_MAP;
 
@@ -53,24 +51,24 @@ public class HelloController {
     @Resource(name = "poolRegister")
     private PoolRegister<PayBean> payBeanPool;
 
-    private LocalCacheSingleton instance = LocalCacheSingleton.getInstance();
+    private LocalCacheProxy instance = LocalCacheProxy.getInstance();
 
     @ApiOperation(value = "登录")
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     @ResponseBody
     public JsonData<String> login() {
         instance.put(instance.TOKEN_PREFIX.concat("username"), "111111");
-        MessageBean messageBean = MessageBean.builder()
-                .name("范凯")
-                .age(18)
-                .sex("男")
-                .build();
         PayBean payBean = PayBean.builder()
                 .productId(1L)
                 .orderNo(1L)
                 .price(200)
                 .productName("雪糕")
                 .createTime(DateTime.now().toDate())
+                .build();
+        MessageBean messageBean=MessageBean.builder()
+                .name("范凯")
+                .age(18)
+                .sex("男")
                 .build();
         messageBeanPool.executeHandler(messageBean);
         payBeanPool.peek(payBean);
@@ -117,6 +115,12 @@ public class HelloController {
         if (localCache == null) {
             return JsonData.fail("获取失败");
         }
+        MessageBean messageBean = MessageBean.builder()
+                .name("范凯")
+                .age(18)
+                .sex("男")
+                .build();
+
         return JsonData.success("获取成功", localCache);
     }
 

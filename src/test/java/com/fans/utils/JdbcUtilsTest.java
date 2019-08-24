@@ -1,6 +1,6 @@
 package com.fans.utils;
 
-import com.fans.singleton.LocalCacheSingleton;
+import com.fans.singleton.proxy.LocalCacheProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +13,7 @@ public class JdbcUtilsTest {
 
     @Test
     public void main() {
-        LocalCacheSingleton instance = LocalCacheSingleton.getInstance();
+        LocalCacheProxy instance = LocalCacheProxy.getInstance();
         instance.put("1", "111111");
         instance.put("2", "222222");
         instance.put("3", "333333");
