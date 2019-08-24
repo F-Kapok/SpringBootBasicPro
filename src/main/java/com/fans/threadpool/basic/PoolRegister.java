@@ -63,6 +63,7 @@ public class PoolRegister<T> {
             eventQueueMap = eventQueueMapBuilder.build();
             log.info("--> 可用线程队列列表 : \r\n{}", JsonUtils.obj2FormattingString(threadNameMap.values()));
         } catch (Exception e) {
+            log.error("-->  PoolRegister init() Fail", e);
             e.printStackTrace();
         }
     }
