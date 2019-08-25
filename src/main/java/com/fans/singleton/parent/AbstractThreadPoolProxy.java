@@ -16,21 +16,24 @@ public abstract class AbstractThreadPoolProxy {
 
 
     /**
+     * 提交任务
+     *
      * @param task
      * @return 得到异步执行完成之后的结果
-     * @des 提交任务
      */
     public abstract Future<?> submit(Runnable task);
 
     /**
+     * 执行任务
+     *
      * @param task
-     * @des 执行任务
      */
     public abstract void execute(Runnable task);
 
     /**
+     * 移除任务
+     *
      * @param task
-     * @des 移除任务
      */
     public abstract void remove(Runnable task);
 }

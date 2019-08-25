@@ -100,6 +100,11 @@ public class EventQueue<T> extends Observable {
             String name = e.getClass().getName();
             if (name.equals(TimeoutException.class.getName())) {
                 log.error("--> gatherSubmit : callable {} have error {}", callableName, name);
+                try {
+                    throw new Exception("--> gatherSubmit : callable {} have error {}");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             } else {
                 log.error("--> gatherSubmit : callable {} have error", callableName, e);
             }
