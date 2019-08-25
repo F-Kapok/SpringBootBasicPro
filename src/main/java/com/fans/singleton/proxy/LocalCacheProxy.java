@@ -1,18 +1,14 @@
 package com.fans.singleton.proxy;
 
+import com.fans.singleton.parent.AbstractLocalCacheProxy;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  **/
 @Slf4j
-public class LocalCacheProxy {
+public class LocalCacheProxy extends AbstractLocalCacheProxy<LocalCacheProxy> {
 
     /**
      * token缓存前缀
@@ -70,7 +66,7 @@ public class LocalCacheProxy {
             //设置要统计缓存的命中率
             .recordStats()
             .removalListener(notification -> {
-                //TODO 缓存移除事件添加
+                removeEvent();
                 switch (notification.getCause()) {
                     case SIZE:
                         log.info("--> {} : key({}) was size", this.getClass().getSimpleName(), notification.getKey());
@@ -127,8 +123,8 @@ public class LocalCacheProxy {
                 log.info("--> {} : loadAll key ({})", this.getClass().getSimpleName(), key);
                 break;
         }
-        //TODO 根据key获取数据表中的值或redis中的值 然后返回
-        if (false) {
+        Object data = getDataByKey();
+        if (data != null) {
             return "object";
         } else {
             //如果没有返回值则取旧的值
@@ -142,6 +138,20 @@ public class LocalCacheProxy {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return "本地缓存";
+    }
+
+    @Override
+    public Object getDataByKey() {
+        return null;
+    }
+
+    @Override
+    public void removeEvent() {
+    }
+
     private LocalCacheProxy() {
     }
 
@@ -149,165 +159,8 @@ public class LocalCacheProxy {
         return Instance.INSTANCE.getLocalCache();
     }
 
-    /**
-     * 获取缓存值根据指定key
-     *
-     * @param key
-     * @return
-     */
-    public Object get(String key) {
-        Object value;
-        try {
-            value = localCache.get(key);
-        } catch (Exception e) {
-            log.error("--> {} get error", this.getClass().getSimpleName(), e);
-            value = null;
-        }
-        return value;
-    }
-
-    /**
-     * 设置缓存值
-     *
-     * @param key
-     * @param value
-     */
-    public void put(String key, Object value) {
-        try {
-            localCache.put(key, value);
-            log.info("--> {} put success！", this.getClass().getSimpleName());
-        } catch (Exception e) {
-            log.error("--> {} put error", this.getClass().getSimpleName(), e);
-        }
-    }
-
-    /**
-     * 获取所有Key的值，有一个key不存在则返回空
-     *
-     * @param keys
-     * @return
-     */
-    public ImmutableMap<String, Object> getAll(Collection<String> keys) {
-        try {
-            return localCache.getAll(keys);
-        } catch (Exception e) {
-            log.error("--> {} getAll error", this.getClass().getSimpleName(), e);
-            return ImmutableMap.<String, Object>builder().build();
-        }
-    }
-
-    /**
-     * 获取所有Key的值，有一个key不存在则忽略掉，返回其他存在的值
-     *
-     * @param keys
-     * @return
-     */
-    public ImmutableMap<String, Object> getAllPresent(Collection<String> keys) {
-        try {
-            return localCache.getAllPresent(keys);
-        } catch (Exception e) {
-            log.error("--> {} getAllPresent error", this.getClass().getSimpleName(), e);
-            return ImmutableMap.<String, Object>builder().build();
-        }
-    }
-
-    /**
-     * 获取Key的值，若不存在返回null
-     *
-     * @param key
-     * @return
-     */
-    public Object getIfPresent(String key) {
-        if (StringUtils.isNotBlank(key)) {
-            return localCache.getIfPresent(key);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * 删除指定key和value
-     *
-     * @param key
-     */
-    public void invalidate(String key) {
-        if (StringUtils.isNotBlank(key)) {
-            localCache.invalidate(key);
-            log.info("--> {} invalidate success！", this.getClass().getSimpleName());
-        } else {
-            log.error("--> {} invalidate error : The key is empty", this.getClass().getSimpleName());
-        }
-    }
-
-    /**
-     * 清除所有缓存
-     */
-    public void invalidateAll() {
-        localCache.invalidateAll();
-        log.info("--> {} invalidateAll success！", this.getClass().getSimpleName());
-    }
-
-    /**
-     * 批量删除指定key和value
-     *
-     * @param keys
-     */
-    public void invalidateAll(Collection<String> keys) {
-        if (keys != null) {
-            localCache.invalidateAll(keys);
-            log.info("--> {} invalidateAll success！", this.getClass().getSimpleName());
-        } else {
-            log.error("--> {} invalidateAll error : Keys is null", this.getClass().getSimpleName());
-        }
-    }
-
-    /**
-     * 缓存刷新数据，主要针对数据表中的数据同步，如果没有新值则返回旧的值
-     *
-     * @param key
-     */
-    public void refresh(String key) {
-        if (StringUtils.isNotBlank(key)) {
-            Object oldValue = getIfPresent(key);
-            if (oldValue != null) {
-                localCache.refresh(key);
-                Object newValue = get(key);
-                if (newValue == null) {
-                    put(key, oldValue);
-                }
-                log.info("--> {} refresh success！", this.getClass().getSimpleName());
-            } else {
-                log.warn("--> {} refresh error :  The key {} does not exist", this.getClass().getSimpleName(), key);
-            }
-        } else {
-            log.warn("--> {} refresh error : The key is empty", this.getClass().getSimpleName());
-        }
-    }
-
-    /**
-     * 刷新所有缓存数据
-     */
-    public void refreshAll() {
-        Set<String> keySet = toMap().keySet();
-        keySet.forEach(this::refresh);
-    }
-
-    /**
-     * 获取缓存数据转换成Map类型
-     *
-     * @return
-     */
-    public ConcurrentMap<String, Object> toMap() {
-        return localCache.asMap();
-    }
-
-    /**
-     * 获取缓存大小
-     *
-     * @return
-     */
-    public int getSize() {
-        return toMap().size();
+    public LoadingCache<String, Object> getLocalCache() {
+        return localCache;
     }
 
     private enum Instance {

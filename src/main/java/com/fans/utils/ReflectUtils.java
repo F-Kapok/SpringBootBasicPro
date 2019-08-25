@@ -2,16 +2,18 @@ package com.fans.utils;
 
 import com.google.common.collect.ImmutableSet;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Enumeration;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
@@ -126,6 +128,25 @@ public class ReflectUtils {
             log.warn("--> file 404 or empty");
         }
         return classSet.build();
+    }
+
+    /**
+     * 获取maven配置文件对象模型
+     *
+     * @return
+     * @throws IOException
+     * @throws XmlPullParserException
+     */
+    public static Model getMavenModel() {
+        try {
+            File file = new File("pom.xml");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            MavenXpp3Reader mavenXpp3Reader = new MavenXpp3Reader();
+            return mavenXpp3Reader.read(fileInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Model();
+        }
     }
 
     /**

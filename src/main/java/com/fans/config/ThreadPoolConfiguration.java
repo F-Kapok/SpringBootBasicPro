@@ -6,17 +6,16 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.fans.utils.ReflectUtils.getMavenModel;
 
 /**
  * @ClassName ThreadPoolConfiguration
@@ -39,10 +38,7 @@ public class ThreadPoolConfiguration {
             String[] beanNames = applicationContext.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             List<String> beanNameList = Lists.newArrayList(beanNames);
-            MavenXpp3Reader mavenXpp3Reader = new MavenXpp3Reader();
-            File file = new File("pom.xml");
-            FileInputStream fileInputStream = new FileInputStream(file);
-            Model mavenModel = mavenXpp3Reader.read(fileInputStream);
+            Model mavenModel = getMavenModel();
             beanNameList = beanNameList.stream().filter(beanName -> applicationContext.getBean(beanName).getClass().getName().contains(mavenModel.getGroupId())).collect(Collectors.toList());
             ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
             beanNameList.forEach(beanName -> {

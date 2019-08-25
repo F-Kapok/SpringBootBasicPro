@@ -12,7 +12,7 @@ import java.util.concurrent.*;
  * @Date 2019-08-16 15:02
  * @Version 1.0
  **/
-public class ThreadPoolProxy extends AbstractThreadPoolProxy {
+public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
     /**
      * 线程池基本大小，大于此值会开启新的线程执行至maximumPoolSize
      */
@@ -81,11 +81,9 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy {
         return threadPoolExecutor;
     }
 
-
     @Override
-    public Future<?> submit(Runnable task) {
-        return threadPoolExecutor.submit(task);
-
+    public String getDescription() {
+        return "本地线程池";
     }
 
     @Override

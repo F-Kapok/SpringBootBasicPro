@@ -113,6 +113,7 @@ public class HelloController {
     public JsonData<Object> get() {
         instance.refreshAll();
         Object localCache = instance.get(instance.TOKEN_PREFIX.concat("username"));
+        System.out.println(instance.getSize());
         if (localCache == null) {
             return JsonData.fail("获取失败，过期");
         }
