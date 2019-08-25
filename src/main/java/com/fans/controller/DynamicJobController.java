@@ -15,6 +15,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 
+import static com.fans.quartz.SchedulerOperate.restartAllJobs;
+
 /**
  * @ClassName JobController
  * @Description: 调用中心控制层
@@ -25,27 +27,10 @@ import java.util.Set;
 @RestController
 @Slf4j
 public class DynamicJobController {
-    @Resource(type =SchedulerFactoryBean.class)
+    @Resource(type = SchedulerFactoryBean.class)
     private SchedulerFactoryBean factory;
     @Resource(name = "iDynamicJobService")
     private IDynamicJobService dynamicJobService;
-
-    /**
-     * @Description: 初始化所有Job
-     * @Param: []
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/22 15:56
-     **/
-    @PostConstruct
-    public void initialize() {
-        try {
-            restartAllJobs();
-            log.info("quartz--> All Job Init Success");
-        } catch (Exception e) {
-            log.error("quartz--> All Job Init Error : {}", e.getMessage());
-        }
-    }
 
     @GetMapping(value = "/refresh/{id}")
     public JsonData<String> refresh(@PathVariable Integer id) {
@@ -84,34 +69,4 @@ public class DynamicJobController {
         }
     }
 
-    /**
-     * @Description: 重启所有Job
-     * @Param: []
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/22 16:15
-     **/
-    private void restartAllJobs() {
-        Scheduler scheduler = factory.getScheduler();
-        try {
-            Set<JobKey> jobKeySet = scheduler.getJobKeys(GroupMatcher.anyGroup());
-            for (JobKey jobKey : jobKeySet) {
-                scheduler.deleteJob(jobKey);
-            }
-            List<JobEntity> jobEntities = dynamicJobService.loadJobs();
-            for (JobEntity entity : jobEntities) {
-                log.info("quartz--> Job Register name : {} , group : {} , cron : {} ", entity.getName(), entity.getGroup(), entity.getCron());
-                JobDataMap jobDataMap = dynamicJobService.getJobDataMap(entity);
-                JobKey jobKey = dynamicJobService.getJobKey(entity);
-                JobDetail jobDetail = dynamicJobService.getJobDetail(jobKey, entity.getDescription(), jobDataMap);
-                if (StringUtils.equals(entity.getStatus(), "OPEN")) {
-                    scheduler.scheduleJob(jobDetail, dynamicJobService.getTrigger(entity));
-                } else {
-                    log.info("quartz--> Job jump name : {} , group : {} , Because {} status is {}", entity.getName(), entity.getGroup(), entity.getName(), entity.getStatus());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

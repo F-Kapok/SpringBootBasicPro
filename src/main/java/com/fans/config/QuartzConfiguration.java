@@ -1,5 +1,6 @@
 package com.fans.config;
 
+import com.fans.quartz.SchedulerOperate;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -79,8 +80,13 @@ public class QuartzConfiguration {
         return propertiesFactoryBean.getObject();
     }
 
+    @Bean
+    public SchedulerOperate schedulerOperate() {
+        return new SchedulerOperate();
+    }
+
     /**
-     * @Description: 配置JobFactory,为quartz作业添加自动连接支持
+     * @Description: 配置JobFactory, 为quartz作业添加自动连接支持
      * @Param:
      * @return:
      * @Author: fan

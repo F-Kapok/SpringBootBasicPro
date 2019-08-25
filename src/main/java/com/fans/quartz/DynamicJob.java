@@ -70,8 +70,12 @@ public class DynamicJob implements Job {
             for (Method method : methods) {
                 if (StringUtils.equals(method.getName(), classMethod)) {
                     isHas = true;
-                    Object[] params = parameter.split(",");
-                    method.invoke(objectClass.newInstance(), params);
+                    if (StringUtils.isBlank(parameter)) {
+                        method.invoke(objectClass.newInstance());
+                    } else {
+                        Object[] params = parameter.split(",");
+                        method.invoke(objectClass.newInstance(), params);
+                    }
                 }
             }
             if (!isHas) {
