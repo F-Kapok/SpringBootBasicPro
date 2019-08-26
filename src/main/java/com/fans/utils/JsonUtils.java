@@ -45,6 +45,9 @@ public class JsonUtils {
     }
 
     public static <T> String obj2FormattingString(T src) {
+        if (src == null) {
+            return null;
+        }
         return prettyPrint(obj2String(src));
     }
 
