@@ -21,6 +21,7 @@ import java.util.Properties;
 /**
  * @ClassName QuartzConfiguration
  * @Description: 定时任务配置
+ * https://www.cnblogs.com/interdrp/p/5003257.html Cron表达式
  * @Author fan
  * @Date 2018-12-22 13:57
  * @Version 1.0
