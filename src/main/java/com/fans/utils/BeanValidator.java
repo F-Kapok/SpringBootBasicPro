@@ -25,13 +25,12 @@ public class BeanValidator {
 
     private static <T> Map<String, String> validate(T t, Class... groups) {
         Validator validator = validatorFactory.getValidator();
-        Set validateResult = validator.validate(t, groups);
+        Set<ConstraintViolation<Object>> validateResult = validator.validate(t, groups);
         if (validateResult.isEmpty()) {
             return Collections.emptyMap();
         } else {
             LinkedHashMap<String, String> errors = Maps.newLinkedHashMap();
-            for (Object o : validateResult) {
-                ConstraintViolation violation = (ConstraintViolation) o;
+            for (ConstraintViolation violation : validateResult) {
                 errors.put(violation.getPropertyPath().toString(), violation.getMessage());
             }
             return errors;
