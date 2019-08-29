@@ -14,7 +14,8 @@ import java.util.*;
 
 /**
  * @ClassName BeanValidator
- * @Description: 字段校验类
+ * @Description: hibernate-validator数据校验工具类
+ * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
  * @Author fan
  * @Date 2018-11-06 12:12
  * @Version 1.0
