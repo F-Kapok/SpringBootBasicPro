@@ -1,6 +1,6 @@
 package com.fans.utils;
 
-import com.fans.common.exception.CustomException;
+import com.fans.exception.ParamException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -84,7 +84,7 @@ public class ValidatorUtils {
     public static void check(Object param, Class... groups) {
         Map<String, String> map = ValidatorUtils.validateObject(param, groups);
         if (MapUtils.isNotEmpty(map)) {
-            throw new CustomException(map.toString());
+            throw new ParamException(map.toString());
         }
     }
 }
