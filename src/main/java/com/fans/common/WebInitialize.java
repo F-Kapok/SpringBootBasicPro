@@ -29,4 +29,23 @@ public class WebInitialize {
         session = request.getSession();
         return this;
     }
+
+    /**
+     * 获取域名
+     *
+     * @return
+     */
+    public String getDomain() {
+        StringBuffer url = request.getRequestURL();
+        return url.delete(url.length() - request.getRequestURI().length(), url.length()).toString();
+    }
+
+    /**
+     * 获取请求来源
+     *
+     * @return
+     */
+    public String getOrigin() {
+        return request.getHeader("Origin");
+    }
 }
