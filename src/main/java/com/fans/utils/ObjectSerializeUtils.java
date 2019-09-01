@@ -30,7 +30,7 @@ public class ObjectSerializeUtils {
             outputStream.close();
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            log.error("ObjectSerializeUtils-IOException:{}", e);
+            log.error("ObjectSerializeUtils-IOException:{}", e.getMessage(), e);
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class ObjectSerializeUtils {
             inputStream = new ObjectInputStream(byteArrayInputStream);
             return inputStream.readObject();
         } catch (Exception e) {
-            log.error("ObjectSerializeUtils-IOException:{}", e);
+            log.error("ObjectSerializeUtils-IOException:{}", e.getMessage(), e);
             return null;
         }
     }
