@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -53,23 +54,23 @@ public class JsonData<T> implements Serializable {
     }
 
     public static <T> JsonData<T> success(String msg, T data) {
-        return new JsonData<>(ResponseCode.SUCCESS.getCode(), msg, data);
+        return new JsonData<>(HttpStatus.OK.value(), msg, data);
     }
 
     public static <T> JsonData<T> success(T data) {
-        return new JsonData<>(ResponseCode.SUCCESS.getCode(), data);
+        return new JsonData<>(HttpStatus.OK.value(), data);
     }
 
     public static <T> JsonData<T> success(String msg) {
-        return new JsonData<>(ResponseCode.SUCCESS.getCode(), msg);
+        return new JsonData<>(HttpStatus.OK.value(), msg);
     }
 
     public static <T> JsonData<T> success() {
-        return new JsonData<>(ResponseCode.SUCCESS.getCode());
+        return new JsonData<>(HttpStatus.OK.value());
     }
 
     public static <T> JsonData<T> fail(String msg) {
-        return new JsonData<>(ResponseCode.ERROR.getCode(), msg);
+        return new JsonData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
     }
 
     public static <T> JsonData<T> failCodeMsg(Integer flag, String msg) {
@@ -78,7 +79,7 @@ public class JsonData<T> implements Serializable {
 
     @JsonIgnore
     public boolean isSuccess() {
-        return this.flag.equals(ResponseCode.SUCCESS.getCode());
+        return this.flag.equals(HttpStatus.OK.value());
     }
 
     public Map<String, Object> toMap() {
