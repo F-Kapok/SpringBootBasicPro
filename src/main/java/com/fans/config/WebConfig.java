@@ -73,7 +73,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     }
 
     @Bean
-    public FilterRegistrationBean RequestBodyFilter() {
+    public FilterRegistrationBean requestBodyFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         RequestBodyFilter requestBodyFilter = new RequestBodyFilter();
         filterRegistrationBean.setFilter(requestBodyFilter);
