@@ -122,7 +122,7 @@ public class QuartzConfiguration {
      * @Author: fan
      * @Date: 2018/12/22 13:59
      **/
-    public final class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory implements
+    public static final class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory implements
             ApplicationContextAware {
         private transient AutowireCapableBeanFactory beanFactory;
 
