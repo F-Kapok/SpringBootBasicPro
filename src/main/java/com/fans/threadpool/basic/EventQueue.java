@@ -2,11 +2,11 @@ package com.fans.threadpool.basic;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Observable;
-import java.util.Vector;
 import java.util.concurrent.*;
 
 /**
@@ -26,7 +26,7 @@ public class EventQueue<T> extends Observable {
     /**
      * 事件队列
      */
-    private final Vector<T> queue = new Vector<>();
+    private final CopyOnWriteArrayList<T> queue = Lists.newCopyOnWriteArrayList();
 
     private static int i = 0;
 
