@@ -21,6 +21,13 @@ public class ApplicationContextHelper implements ApplicationContextAware {
         ApplicationContextHelper.applicationContext = applicationContext;
     }
 
+    public static Object popBean(String beanName) {
+        if (applicationContext == null) {
+            return null;
+        }
+        return applicationContext.getBean(beanName);
+    }
+
     public static <T> T popBean(Class<T> tClass) {
         if (applicationContext == null) {
             return null;
