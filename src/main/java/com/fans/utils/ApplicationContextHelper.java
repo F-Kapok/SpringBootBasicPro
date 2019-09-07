@@ -3,6 +3,7 @@ package com.fans.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,10 +15,11 @@ import org.springframework.stereotype.Component;
  **/
 @Component("applicationContextHelper")
 public class ApplicationContextHelper implements ApplicationContextAware {
+
     private static ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
         ApplicationContextHelper.applicationContext = applicationContext;
     }
 
