@@ -1,13 +1,15 @@
 package com.fans.threadpool.basic;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Observable;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName EventQueue
@@ -63,52 +65,7 @@ public class EventQueue<T> extends Observable {
         return queue.remove(0);
     }
 
-    private static <T> ThreadPoolExecutor getThreadPoolExecutor(T obj) {
+    static <T> ThreadPoolExecutor getThreadPoolExecutor(T obj) {
         return executorMap.get(obj.getClass().getName());
     }
-
-    /**
-     * 汇总模式 子任务全部完成 才执行父任务
-     *
-     * @param obj        线程池key
-     * @param time       超时时间
-     * @param timeUnit   时间单位
-     * @param parentTask 父任务
-     * @param childTask  子任务
-     * @param <T>        线程池key对象
-     */
-    public static <T> void gatherSubmit(T obj, long time, TimeUnit timeUnit, Callable<Boolean> parentTask, Callable<Boolean>... childTask) {
-        ThreadPoolExecutor executor = getThreadPoolExecutor(obj);
-        Future<Boolean> future;
-        String callableName = "";
-        try {
-            ImmutableSet.Builder<Boolean> builder = ImmutableSet.builder();
-            ImmutableSet<Boolean> set;
-
-            for (Callable<Boolean> callable : childTask) {
-                callableName = callable.getClass().getSimpleName();
-                future = executor.submit(callable);
-                builder.add(future.get(time, timeUnit));
-            }
-            set = builder.build();
-            if (set.size() == 1 && set.contains(true)) {
-                executor.submit(parentTask);
-            }
-        } catch (Exception e) {
-            String name = e.getClass().getName();
-            if (name.equals(TimeoutException.class.getName())) {
-                log.error("--> gatherSubmit : callable {} have error {}", callableName, name);
-                try {
-                    throw new Exception("--> gatherSubmit : callable {} have error {}");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            } else {
-                log.error("--> gatherSubmit : callable {} have error", callableName, e);
-            }
-        }
-
-
-    }
-
 }
