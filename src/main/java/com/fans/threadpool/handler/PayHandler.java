@@ -18,6 +18,10 @@ import java.util.concurrent.*;
 @Component(value = "payHandler")
 @Slf4j
 public class PayHandler extends BaseEventHandler<PayBean> {
+    @Override
+    public int getCorePoolSize() {
+        return 10;
+    }
 
     @Override
     public void execute(PayBean event) {

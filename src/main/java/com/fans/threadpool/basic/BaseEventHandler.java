@@ -34,6 +34,15 @@ public abstract class BaseEventHandler<T> implements Runnable {
     public abstract void execute(T event);
 
     /**
+     * 设置事件执行线程池容量
+     *
+     * @return 容量大小 默认20
+     */
+    public int getCorePoolSize() {
+        return 20;
+    }
+
+    /**
      * 事件描述
      *
      * @return

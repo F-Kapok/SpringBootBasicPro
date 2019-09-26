@@ -6,6 +6,7 @@ import com.fans.utils.JsonUtils;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.model.Model;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -47,15 +48,21 @@ public class PoolRegister<T> {
         Set<Class<? extends AbstractLocalCacheProxy>> loadingCache = getloadingCache();
         threadPoolQueue.forEach(aClass -> {
             try {
+                BaseEventHandler baseEventHandler = aClass.newInstance();
+                String description = baseEventHandler.getDescription();
+                int corePoolSize = baseEventHandler.getCorePoolSize();
+                if (StringUtils.isBlank(description)) {
+                    description = "未定义";
+                }
                 String typeName = aClass.getGenericSuperclass().getTypeName();
                 String beanName = typeName.substring(typeName.indexOf("<") + 1, typeName.indexOf(">"));
                 Class cls = Class.forName(beanName);
                 String simpleName = cls.getSimpleName();
-                eventQueueMapBuilder.put(beanName, new EventQueue(aClass.newInstance(), 20, cls));
+                eventQueueMapBuilder.put(beanName, new EventQueue(aClass.newInstance(), corePoolSize, cls));
                 threadNameMapBuilder.put(beanName, "The 【"
                         .concat(simpleName)
                         .concat("】 queue ready !!!  Action : ")
-                        .concat(aClass.newInstance().getDescription())
+                        .concat(description)
                 );
             } catch (Exception e) {
                 log.error("-->  PoolRegister init() Fail", e);
