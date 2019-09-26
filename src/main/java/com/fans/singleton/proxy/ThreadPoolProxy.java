@@ -77,7 +77,7 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
         return Instance.INSTANCE.getThreadPool();
     }
 
-    public ThreadPoolExecutor getThreadPool() {
+    private ThreadPoolExecutor getThreadPool() {
         return threadPoolExecutor;
     }
 

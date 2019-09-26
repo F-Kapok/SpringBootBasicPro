@@ -102,7 +102,8 @@ public abstract class AbstractThreadPoolProxy<T> {
             //获取泛型类型
             aClass = (Class<T>) pt.getActualTypeArguments()[0];
             Method instance = aClass.getDeclaredMethod("getInstance");
-            Method method = aClass.getMethod("getThreadPool");
+            Method method = aClass.getDeclaredMethod("getThreadPool");
+            method.setAccessible(true);
             return (ThreadPoolExecutor) method.invoke(instance.invoke(null));
         } catch (Exception e) {
             e.printStackTrace();
