@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.reflections.Reflections;
 
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 
 import static com.fans.utils.ReflectUtils.getMavenModel;
 
@@ -51,6 +52,7 @@ public class PoolRegister<T> {
                 BaseEventHandler baseEventHandler = aClass.newInstance();
                 String description = baseEventHandler.getDescription();
                 int corePoolSize = baseEventHandler.getCorePoolSize();
+                BlockingQueue workQueue = baseEventHandler.getWorkQueue();
                 if (StringUtils.isBlank(description)) {
                     description = "未定义";
                 }
@@ -58,7 +60,7 @@ public class PoolRegister<T> {
                 String beanName = typeName.substring(typeName.indexOf("<") + 1, typeName.indexOf(">"));
                 Class cls = Class.forName(beanName);
                 String simpleName = cls.getSimpleName();
-                eventQueueMapBuilder.put(beanName, new EventQueue(aClass.newInstance(), corePoolSize, cls));
+                eventQueueMapBuilder.put(beanName, new EventQueue(aClass.newInstance(), corePoolSize, cls, workQueue));
                 threadNameMapBuilder.put(beanName, "The 【"
                         .concat(simpleName)
                         .concat("】 queue ready !!!  Action : ")
@@ -79,10 +81,14 @@ public class PoolRegister<T> {
                 Class cls = Class.forName(beanName);
                 String simpleName = cls.getSimpleName();
                 Object instance = aClass.getDeclaredMethod("getInstance").invoke(null);
+                Object description = aClass.getMethod("getDescription").invoke(instance);
+                if (description == null) {
+                    description = "未定义";
+                }
                 privateThreadNameMapBuilder.put(beanName, "The ThreadPool 【"
                         .concat(simpleName)
                         .concat("】 init() @ success !!! Description : ")
-                        .concat((String) aClass.getMethod("getDescription").invoke(instance)));
+                        .concat((String) description));
             } catch (Exception e) {
                 log.error("-->  PoolRegister init() Fail", e);
                 e.printStackTrace();
@@ -95,10 +101,14 @@ public class PoolRegister<T> {
                 Class cls = Class.forName(beanName);
                 String simpleName = cls.getSimpleName();
                 Object instance = aClass.getDeclaredMethod("getInstance").invoke(null);
+                Object description = aClass.getMethod("getDescription").invoke(instance);
+                if (description == null) {
+                    description = "未定义";
+                }
                 loadingCacheMapBuilder.put(beanName, "The LoadingCache 【"
                         .concat(simpleName)
                         .concat("】 init() @ success !!! Description : ")
-                        .concat((String) aClass.getMethod("getDescription").invoke(instance)));
+                        .concat((String) description));
             } catch (Exception e) {
                 log.error("-->  PoolRegister init() Fail", e);
                 e.printStackTrace();

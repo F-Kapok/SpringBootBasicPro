@@ -24,6 +24,11 @@ public class PayHandler extends BaseEventHandler<PayBean> {
     }
 
     @Override
+    public BlockingQueue<Runnable> getWorkQueue() {
+        return new ArrayBlockingQueue(10);
+    }
+
+    @Override
     public void execute(PayBean event) {
         PayHandlerKitchen payHandlerKitchen = new PayHandlerKitchen();
         PayHandlerFood payHandlerFood = new PayHandlerFood();

@@ -1,5 +1,8 @@
 package com.fans.threadpool.basic;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * @ClassName EventHandler
  * @Description: 事件处理实现
@@ -40,6 +43,15 @@ public abstract class BaseEventHandler<T> implements Runnable {
      */
     public int getCorePoolSize() {
         return 20;
+    }
+
+    /**
+     * 设置线程池队列模式
+     *
+     * @return 队列类型 默认LinkedBlockingQueue
+     */
+    public BlockingQueue<Runnable> getWorkQueue() {
+        return new LinkedBlockingQueue<>();
     }
 
     /**

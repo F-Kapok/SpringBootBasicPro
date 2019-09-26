@@ -28,9 +28,7 @@ public class EventQueue<T> extends Observable {
      */
     private final CopyOnWriteArrayList<T> queue = Lists.newCopyOnWriteArrayList();
 
-    private static int i = 0;
-
-    EventQueue(final BaseEventHandler<T> handler, int corePoolSize, Class<T> cls) {
+    EventQueue(final BaseEventHandler<T> handler, int corePoolSize, Class<T> cls, BlockingQueue<Runnable> workQueue) {
         super();
         String beanName = cls.getName();
         String simpleName = cls.getSimpleName();
@@ -40,7 +38,7 @@ public class EventQueue<T> extends Observable {
                     corePoolSize,
                     0L,
                     TimeUnit.MILLISECONDS,
-                    new LinkedBlockingQueue<>(),
+                    workQueue,
                     new ThreadFactoryBuilder()
                             .setNameFormat(threadName.concat("-thread-task-runner-%d"))
                             .build(), new ThreadPoolExecutor.AbortPolicy()));
