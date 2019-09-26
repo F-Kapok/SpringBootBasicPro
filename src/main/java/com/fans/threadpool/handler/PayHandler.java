@@ -1,12 +1,14 @@
 package com.fans.threadpool.handler;
 
 import com.fans.threadpool.basic.BaseEventHandler;
-import com.fans.threadpool.basic.EventQueue;
 import com.fans.threadpool.eventBean.PayBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName PayHandler
@@ -33,7 +35,7 @@ public class PayHandler extends BaseEventHandler<PayBean> {
         PayHandlerKitchen payHandlerKitchen = new PayHandlerKitchen();
         PayHandlerFood payHandlerFood = new PayHandlerFood();
         PayHandlerCook payHandlerCook = new PayHandlerCook();
-        EventQueue.gatherSubmit(event, 1, TimeUnit.SECONDS, payHandlerCook, payHandlerKitchen, payHandlerFood);
+        gatherSubmit(event, 1, TimeUnit.SECONDS, payHandlerCook, payHandlerKitchen, payHandlerFood);
         log.info("--> 扣款执行开始》》》》》》》");
         log.info("--> 订单号：{}", event.getOrderNo());
         log.info("--> 商品名称：{}", event.getProductName());
