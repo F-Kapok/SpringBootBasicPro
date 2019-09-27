@@ -44,19 +44,19 @@ public abstract class BaseEventHandler<T> implements Runnable {
     /**
      * 设置事件执行线程池容量
      *
-     * @return 容量大小 默认20
+     * @return 容量大小 默认0
      */
     public int getCorePoolSize() {
-        return 20;
+        return 0;
     }
 
     /**
      * 设置线程池队列模式
      *
-     * @return 队列类型 默认LinkedBlockingQueue
+     * @return 队列类型 默认SynchronousQueue
      */
     public BlockingQueue<Runnable> getWorkQueue() {
-        return new LinkedBlockingQueue<>();
+        return new SynchronousQueue<>();
     }
 
     /**

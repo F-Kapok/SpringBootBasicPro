@@ -16,7 +16,7 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
     /**
      * 线程池基本大小，大于此值会开启新的线程执行至maximumPoolSize
      */
-    private int corePoolSize = 50;
+    private int corePoolSize = 0;
     /**
      * 线程池最大处理线程数
      */
@@ -49,7 +49,7 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
      * <p>
      * LinkedBlockingDeque： 一个由链表结构组成的双向阻塞队列。
      */
-    private LinkedBlockingDeque workQueue = new LinkedBlockingDeque();
+    private SynchronousQueue workQueue = new SynchronousQueue();
 
     /**
      * ThreadPoolExecutor.AbortPolicy: 丢弃任务并抛出
