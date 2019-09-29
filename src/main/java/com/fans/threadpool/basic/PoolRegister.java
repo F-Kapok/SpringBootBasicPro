@@ -60,7 +60,7 @@ public class PoolRegister<T> {
                 String beanName = typeName.substring(typeName.indexOf("<") + 1, typeName.indexOf(">"));
                 Class cls = Class.forName(beanName);
                 String simpleName = cls.getSimpleName();
-                eventQueueMapBuilder.put(beanName, new EventQueue(aClass.newInstance(), corePoolSize, cls, workQueue));
+                eventQueueMapBuilder.put(beanName, new EventQueue(baseEventHandler, corePoolSize, cls, workQueue));
                 threadNameMapBuilder.put(beanName, "The 【"
                         .concat(simpleName)
                         .concat("】 queue ready !!!  Action : ")

@@ -37,7 +37,7 @@ public class EventQueue<T> extends Observable {
         String threadName = simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1);
         if (!executorMap.containsKey(beanName)) {
             executorMapBuilder.put(beanName, new ThreadPoolExecutor(corePoolSize,
-                    corePoolSize,
+                    Integer.MAX_VALUE,
                     0L,
                     TimeUnit.MILLISECONDS,
                     workQueue,
