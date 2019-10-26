@@ -82,8 +82,7 @@ public class HelloController {
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         //1. session管理开始
-        WebInitialize webInitialize = new WebInitialize().invoke();
-        HttpSession session = webInitialize.getSession();
+        HttpSession session = WebInitialize.session;
         ServletContext servletContext = session.getServletContext();
         //session用户管理容器
         Map<String, Object> loginMap = (Map<String, Object>) servletContext.getAttribute(LOGIN_MAP);
