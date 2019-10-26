@@ -21,13 +21,12 @@ public class WebInitialize {
     private HttpServletResponse response;
     private HttpSession session;
 
-    public WebInitialize invoke() {
+    public WebInitialize() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert attributes != null;
         request = attributes.getRequest();
         response = attributes.getResponse();
         session = request.getSession();
-        return this;
     }
 
     /**

@@ -82,7 +82,7 @@ public class HelloController {
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         //1. session管理开始
-        WebInitialize webInitialize = new WebInitialize().invoke();
+        WebInitialize webInitialize = new WebInitialize();
         HttpSession session = webInitialize.getSession();
         ServletContext servletContext = session.getServletContext();
         //session用户管理容器
