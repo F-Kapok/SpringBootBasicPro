@@ -1,5 +1,6 @@
 package com.fans.common;
 
+import com.fans.utils.NetWorkUtils;
 import lombok.Data;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,17 +18,16 @@ import javax.servlet.http.HttpSession;
  **/
 @Data
 public class WebInitialize {
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    private HttpSession session;
+    public static HttpServletRequest request;
+    public static HttpServletResponse response;
+    public static HttpSession session;
 
-    public WebInitialize invoke() {
+    static {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert attributes != null;
         request = attributes.getRequest();
         response = attributes.getResponse();
         session = request.getSession();
-        return this;
     }
 
     /**
@@ -35,7 +35,7 @@ public class WebInitialize {
      *
      * @return
      */
-    public String getDomain() {
+    public static String getDomain() {
         StringBuffer url = request.getRequestURL();
         return url.delete(url.length() - request.getRequestURI().length(), url.length()).toString();
     }
@@ -45,7 +45,12 @@ public class WebInitialize {
      *
      * @return
      */
-    public String getOrigin() {
+    public static String getOrigin() {
         return request.getHeader("Origin");
     }
+
+    public static String getIp() {
+        return NetWorkUtils.getIpAddress(request);
+    }
+
 }
