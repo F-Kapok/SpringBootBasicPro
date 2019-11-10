@@ -32,6 +32,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //@ConditionalOnExpression(value = "${swagger.enable}")
 @Slf4j
 public class SwaggerConfiguration {
+    //原路径访问地址：http://localhost:8080/swagger-ui.html
     /**
      * 授予开关权限
      */
