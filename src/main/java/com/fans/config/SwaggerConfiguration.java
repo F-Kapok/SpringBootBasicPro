@@ -12,6 +12,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -55,6 +56,11 @@ public class SwaggerConfiguration {
      * 服务接口源码地址
      */
     private String serviceUrl = "https://github.com";
+    /**
+     * 联系方式
+     */
+    private Contact contact = new Contact("kapok", serviceUrl, "5219824@qq.com");
+
 
     @Bean
     public Docket createRestApi() {
@@ -74,6 +80,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(title)
+                .contact(contact)
                 .description(description)
                 .termsOfServiceUrl(serviceUrl)
                 .version(version)
