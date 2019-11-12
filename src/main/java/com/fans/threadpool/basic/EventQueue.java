@@ -3,6 +3,7 @@ package com.fans.threadpool.basic;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.rits.cloning.Cloner;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Observable;
@@ -20,6 +21,12 @@ import java.util.concurrent.TimeUnit;
  **/
 @Slf4j
 public class EventQueue<T> extends Observable {
+
+    /**
+     * 对象拷贝类
+     */
+    private static final Cloner CLONER = new Cloner();
+
     /**
      * 初始化线程池集合  key是bean.getName();
      */
@@ -51,9 +58,10 @@ public class EventQueue<T> extends Observable {
     }
 
     public void add(T event) {
+        T clone = CLONER.deepClone(event);
         setChanged();
         synchronized (queue) {
-            queue.add(event);
+            queue.add(clone);
         }
         notifyObservers();
     }
