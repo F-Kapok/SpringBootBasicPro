@@ -39,7 +39,7 @@ public class JsonUtils {
                 return objectMapper.writeValueAsString(src);
             }
         } catch (Exception e) {
-            log.warn("parse object to String exception, error:{}", e);
+            log.warn("parse object to String exception, error:{}", e.getMessage(), e);
             return null;
         }
     }
