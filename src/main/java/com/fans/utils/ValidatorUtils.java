@@ -1,10 +1,13 @@
 package com.fans.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fans.exception.ParamException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -86,5 +89,26 @@ public class ValidatorUtils {
         if (MapUtils.isNotEmpty(map)) {
             throw new ParamException(map.toString());
         }
+    }
+
+    /**
+     * description: 获取对象验证错误信息
+     *
+     * @param bindingResult 绑定对象结果信息
+     * @return com.alibaba.fastjson.JSONObject 错误对象
+     * @author k
+     * @date 2019/11/19 21:21
+     **/
+    public static JSONObject getErrors(BindingResult bindingResult) {
+        JSONObject jsonObject = new JSONObject();
+        if (bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            fieldErrors.forEach(fieldError -> {
+                fieldError.getField();
+                fieldError.getDefaultMessage();
+                jsonObject.put(fieldError.getField(), fieldError.getDefaultMessage());
+            });
+        }
+        return jsonObject;
     }
 }
