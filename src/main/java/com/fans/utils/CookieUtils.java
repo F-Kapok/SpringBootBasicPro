@@ -3,14 +3,13 @@ package com.fans.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName CookieUtils
@@ -232,10 +231,17 @@ public class CookieUtils {
             serverName = serverName.substring(7);
             final int end = serverName.indexOf("/");
             serverName = serverName.substring(0, end);
+            String str = ":";
+            if (serverName.indexOf(str) > 0) {
+                String[] ary = serverName.split(str);
+                serverName = ary[0];
+            }
             final String[] domains = serverName.split("\\.");
             int len = domains.length;
             int size = 3;
-            if (len > size) {
+            if (isIp(serverName)) {
+                domainName = serverName;
+            } else if (len > size) {
                 // www.xxx.com.cn
                 domainName = domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
             } else if (len > 1) {
@@ -244,11 +250,6 @@ public class CookieUtils {
             } else {
                 domainName = serverName;
             }
-        }
-        String str = ":";
-        if (domainName.indexOf(str) > 0) {
-            String[] ary = domainName.split(str);
-            domainName = ary[0];
         }
         return domainName;
     }
@@ -263,5 +264,50 @@ public class CookieUtils {
                 cookie.setDomain(domainName);
             }
         }
+    }
+
+    /**
+     * description: 去掉IP字符串前后所有的空格
+     *
+     * @param ip ip地址
+     * @return java.lang.String
+     * @author k
+     * @date 2019/11/22 19:15
+     **/
+    private static String trimSpaces(String ip) {
+        String separator = " ";
+        while (ip.startsWith(separator)) {
+            ip = ip.substring(1).trim();
+        }
+        while (ip.endsWith(separator)) {
+            ip = ip.substring(0, ip.length() - 1).trim();
+        }
+        return ip;
+    }
+
+    /**
+     * description: 判断是否是一个IP
+     *
+     * @param ip ip地址
+     * @return boolean
+     * @author k
+     * @date 2019/11/22 19:15
+     **/
+    public static boolean isIp(String ip) {
+        boolean b = false;
+        ip = trimSpaces(ip);
+        if (ip.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+            String[] s = ip.split("\\.");
+            if (Integer.parseInt(s[0]) < 255) {
+                if (Integer.parseInt(s[1]) < 255) {
+                    if (Integer.parseInt(s[2]) < 255) {
+                        if (Integer.parseInt(s[3]) < 255) {
+                            b = true;
+                        }
+                    }
+                }
+            }
+        }
+        return b;
     }
 }
