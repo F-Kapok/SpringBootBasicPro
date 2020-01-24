@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 WAR_PATH=~/copy
 TOMCAT_NAME=tomcat-crm
 PROJECT_PATH=/pm/server/$TOMCAT_NAME
