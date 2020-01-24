@@ -27,8 +27,12 @@ start(){
     for f in `ls $APP_LIST`
     do
         if [ -d "$APP_LIST/$f" ]; then
-            echo "============删除[$f]文件============="
-            rm -rf $APP_LIST/$f
+          if [ $f = "docs" -o $f = "examples" -o $f = "host-manager" -o $f = "manager" -o $f = "ROOT" ]; then
+                echo "[$f]文件为tomcat默认文件，故不删除"
+          else
+                echo "============删除[$f]文件============="
+                rm -rf $APP_LIST/$f
+          fi
         else
             if [ -f "$WAR_PATH/$f" ]; then
                 echo "============删除[$f] war包============="
