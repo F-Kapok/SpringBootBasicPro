@@ -1,11 +1,11 @@
 #!/bin/bash
-WAR_PATH=~/copy
-TOMCAT_NAME=tomcat-crm
-PROJECT_PATH=/pm/server/$TOMCAT_NAME
+WAR_PATH=~/copy_catalogue
+TOMCAT_NAME=tomcat-basics
+PROJECT_PATH=/usr/local/server/$TOMCAT_NAME
 APP_LIST=$PROJECT_PATH/webapps
 DATE=`date +%Y-%m-%d--%H-%M-%S`
 usage() {
-    echo "Usage: sh 执行脚本.sh [start|stop|restart|status|log|peek]"
+    echo "Usage: sh 执行脚本.sh [start|stop|restart|status|log|peek|add|remove]"
     exit 1
 }
 
@@ -23,31 +23,82 @@ start(){
   if [ $? -eq "1" ]; then
     echo "$TOMCAT_NAME is already running. process id=$process_id ."
   else
-    echo "============[ls $APP_LIST]============="
+    # echo "============[ls $APP_LIST]============="
+    set -a file
+    i=0
     for f in `ls $APP_LIST`
     do
+      if [ -f "$APP_LIST/$f" ]; then
+        if [ "${f##*.}"x = "war"x ];then
+          file[$i]="$f"
+          ((i++))
+        fi
+      fi
+    done
+    set -a folder
+    m=0
+    for f in `ls $APP_LIST`
+    do
+        # 清除webapps下war包的目录文件
         if [ -d "$APP_LIST/$f" ]; then
-          if [ $f = "docs" -o $f = "examples" -o $f = "host-manager" -o $f = "manager" -o $f = "ROOT" ]; then
-                echo "[$f]文件为tomcat默认文件，故不删除"
-          else
-                echo "============删除[$f]文件============="
-                rm -rf $APP_LIST/$f
-          fi
-        else
-            if [ -f "$WAR_PATH/$f" ]; then
-                echo "============删除[$f] war包============="
-                rm -rf $APP_LIST/$f
-                echo "============转移war包到tomcat============="
-                mv $WAR_PATH/$f $APP_LIST
-            else
-               echo "$WAR_PATH 中没有该 $f 包，需要更新请手动添加，重启服务则忽略"
-            fi
+            for (( k=0;k<i;k++ )) 
+            do
+              fileName=${file[$k]}
+               if [ "$f.war" = $fileName ]; then
+                  # echo "============删除[$f]文件夹============="
+                  rm -rf $APP_LIST/$f
+               else
+                  folder[$m]="$f"
+                  ((m++))
+               fi
+            done
+         fi
+        if [ -f "$APP_LIST/$f" ]; then
+           if [ "${f##*.}"x = "war"x ];then
+              if [ -f "$WAR_PATH/$f" ]; then
+                  echo "============删除[$f]包============="
+                  rm -rf $APP_LIST/$f
+                  echo "============转移包[$f]到tomcat============="
+                  mv $WAR_PATH/$f $APP_LIST
+              fi
+           else
+               echo "============删除无效文件[$f]============="
+              rm -rf $APP_LIST/$f
+           fi  
         fi
     done
     $PROJECT_PATH/bin/startup.sh
     echo "$TOMCAT_NAME start success $DATE"
   fi
 }
+
+add(){
+  for w in `ls $WAR_PATH`
+  do
+      echo "============转移[$w]包到tomcat============="
+      rm -rf $APP_LIST/$w
+      mv $WAR_PATH/$w $APP_LIST
+  done
+}
+param=$2
+remove(){
+    # 为空
+    if [ -z "$param" ]; then
+      echo "Usage: sh 执行脚本.sh [remove projectName]"
+      exit 1
+    fi
+    # 不为空
+    if [ -n "$param" ]; then
+      if [ -f "$APP_LIST/$param" ]; then
+          rm -rf $APP_LIST/${param%%.*}
+          rm -rf $APP_LIST/$param
+        else
+          rm -rf $APP_LIST/$param
+        fi
+       ehco "remove $APP_LIST/$param success!!!"
+    fi
+}
+
 
 stop(){
   is_exist
@@ -81,21 +132,56 @@ log(){
 }
 
 peek(){
-  set -a file
-  i=0
-  for f in `ls $APP_LIST`
-  do
-    if [ -f "$APP_LIST/$f" ]; then
+set -a file
+i=0
+for f in `ls $APP_LIST`
+do
+  if [ -f "$APP_LIST/$f" ]; then
+    if [ "${f##*.}"x = "war"x ];then
       file[$i]="$f"
-      ((i++))    	
+      ((i++))
     fi
-  done
-  echo "$TOMCAT_NAME 下运行的war包 $i 个："
-  for (( j=0;j<i;j++ )) 
-  do
-    fileName=${file[$j]}
-    echo "--> $fileName"
-  done
+  fi
+done
+set -a folder
+m=0
+for f in `ls $APP_LIST`
+do
+  if [ -d "$APP_LIST/$f" ]; then
+    if [ $i -eq 0 ]; then
+        if [ $f = "docs" -o $f = "examples" -o $f = "host-manager" -o $f = "manager" -o $f = "ROOT" ]; then
+            #  echo "[$f]文件为tomcat默认文件，故不删除"
+            cd
+        else
+            folder[$m]="$f"
+            ((m++))
+        fi
+    else
+        for (( k=0;k<i;k++ )) 
+        do
+          fileName=${file[$k]}
+          if [ "$f.war" != $fileName ]; then
+                if [ $f = "docs" -o $f = "examples" -o $f = "host-manager" -o $f = "manager" -o $f = "ROOT" ]; then
+                  #  echo "[$f]文件为tomcat默认文件，故不删除"
+                  cd
+                else
+                  folder[$m]="$f"
+                  ((m++))
+                fi
+          fi
+        done
+    fi
+  fi
+done
+echo "$TOMCAT_NAME 下运行的项目 `expr ${i} + ${m}` 个："
+for (( j=0;j<i;j++ )) 
+do
+  echo "--> ${file[$j]}"
+done
+for (( j=0;j<m;j++ ))
+do
+  echo "--> ${folder[$j]}"
+done
 }
 
 restart(){
@@ -122,6 +208,12 @@ case "$1" in
   "peek")
     peek
     ;;
+  "add")
+    add
+    ;;
+   "remove")
+   remove
+   ;;
   *)
     usage
     ;;
