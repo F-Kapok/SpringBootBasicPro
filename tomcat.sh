@@ -3,6 +3,7 @@ WAR_PATH=~/copy_catalogue
 TOMCAT_NAME=tomcat-basics
 PROJECT_PATH=/usr/local/server/$TOMCAT_NAME
 APP_LIST=$PROJECT_PATH/webapps
+PORT=$2
 DATE=`date +%Y-%m-%d--%H-%M-%S`
 usage() {
     echo "Usage: sh 执行脚本.sh [start|stop|restart|status|log|peek|add|remove]"
@@ -67,8 +68,111 @@ start(){
            fi  
         fi
     done
-    $PROJECT_PATH/bin/startup.sh
-    echo "$TOMCAT_NAME start success $DATE"
+    # 若指定端口号则先修改端口号
+    set -a server
+    set -a two
+    z=0
+    PROJECT_LIST=/usr/local/server
+    for f in `ls $PROJECT_LIST`
+    do
+        if [ ${f:0:7} = "tomcat-" ] && [ $f != "$TOMCAT_NAME" ]; then
+            server[$z]="$f"
+            ((z++))
+        fi
+    done
+    if [ $z -eq 0 ]; then
+        # 为空
+        if [ -z "$PORT" ]; then
+            # 端口二取值
+            two_line=`sed -n  '/protocol="HTTP\/1.1"/=' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+            for line in $two_line
+            do
+                two_line=$line
+                break
+            done
+            two_str=`sed -n ''$two_line','$two_line'p' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+            two_str=${two_str#*\"}
+            two_str=${two_str%%\"*}
+            $PROJECT_PATH/bin/startup.sh
+            echo "$TOMCAT_NAME port:[$two_str] start success $DATE"
+        else
+            # 端口二取值
+            two_line=`sed -n  '/protocol="HTTP\/1.1"/=' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+            for line in $two_line
+            do
+                two_line=$line
+                break
+            done
+            two_str=`sed -n ''$two_line','$two_line'p' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+            two_str=${two_str#*\"}
+            two_str=${two_str%%\"*}
+            sudo sed -i 's/port="'$two_str'" protocol="HTTP\/1.1"/port="'$PORT'" protocol="HTTP\/1.1"/g' /usr/local/server/$TOMCAT_NAME/conf/server.xml
+            if [ ! $two_str -eq $PORT ]; then
+                sudo firewall-cmd --zone=public --add-port=$PORT/tcp --permanent
+                sudo firewall-cmd --reload
+            fi
+            $PROJECT_PATH/bin/startup.sh
+            echo "$TOMCAT_NAME port:[$PORT] start success $DATE"
+        fi
+    else
+        for(( i=0;i<$z;i++)) do
+            # 端口二取值
+            two_line=`sed -n  '/protocol="HTTP\/1.1"/=' /usr/local/server/${server[i]}/conf/server.xml`
+            for line in $two_line
+            do
+                two_line=$line
+                break
+            done
+            two_str=`sed -n ''$two_line','$two_line'p' /usr/local/server/${server[i]}/conf/server.xml`
+            two_str=${two_str#*\"}
+            two_str=${two_str%%\"*}
+            two[$x]=$two_str
+        done
+        is_repeat=-1
+        for I in ${!two[@]};do
+            if [[ $PORT -eq ${two[${I}]} ]];then
+                is_repeat=$I
+            fi
+        done
+        if [ $is_repeat -lt 0 ]; then
+            # 为空
+            if [ -z "$PORT" ]; then
+                # 端口二取值
+                two_line=`sed -n  '/protocol="HTTP\/1.1"/=' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+                for line in $two_line
+                do
+                    two_line=$line
+                    break
+                done
+                two_str=`sed -n ''$two_line','$two_line'p' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+                two_str=${two_str#*\"}
+                two_str=${two_str%%\"*}
+                $PROJECT_PATH/bin/startup.sh
+                echo "$TOMCAT_NAME port:[$two_str] start success $DATE"
+            else
+                # 端口二取值
+                two_line=`sed -n  '/protocol="HTTP\/1.1"/=' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+                for line in $two_line
+                do
+                    two_line=$line
+                    break
+                done
+                two_str=`sed -n ''$two_line','$two_line'p' /usr/local/server/$TOMCAT_NAME/conf/server.xml`
+                two_str=${two_str#*\"}
+                two_str=${two_str%%\"*}
+                sudo sed -i 's/port="'$two_str'" protocol="HTTP\/1.1"/port="'$PORT'" protocol="HTTP\/1.1"/g' /usr/local/server/$TOMCAT_NAME/conf/server.xml
+                if [ ! $two_str -eq $PORT ]; then
+                sudo firewall-cmd --zone=public --add-port=$PORT/tcp --permanent
+                sudo firewall-cmd --reload
+                fi
+                $PROJECT_PATH/bin/startup.sh
+                echo "$TOMCAT_NAME port:[$PORT] start success $DATE"
+            fi
+        else
+            echo "[${server[${is_repeat}]}]项目已使用$PORT端口，请重新指定端口！"
+            exit 1
+        fi
+    fi
   fi
 }
 
@@ -188,6 +292,16 @@ restart(){
   stop
   start
 }
+
+# 不为空
+if [ -n "$2" ]; then
+    if [ $1 = "start" ]; then 
+        if ! echo "$PORT" | grep -q '^[1-9][0-9]\+$'; then
+            echo "Port invalid"
+            exit 1
+        fi
+    fi
+fi
 
 case "$1" in
   "start")
