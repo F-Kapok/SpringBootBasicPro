@@ -1,32 +1,40 @@
 package com.fans.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fans.utils.excel.ExcelUtils;
+import com.fans.utils.excel.ExcelLocalUtils;
+import com.fans.utils.excel.NoModelExcelLocalUtils;
+import com.fans.utils.excel.base.SheetBaseHandler;
 import com.fans.utils.excel.handler.CustomCellWriteHandler;
 import com.fans.utils.excel.handler.CustomSheetWriteHandler;
 import com.fans.utils.excel.listener.ExcelListener;
 import com.fans.utils.excel.model.TableHeaderExcelProperty;
-import com.fans.utils.excel.param.MultipleSheetProperty;
-import com.fans.utils.excel.param.ReadExcelParam;
-import com.fans.utils.excel.param.WriteExcelParam;
+import com.fans.utils.excel.param.read.ReadExcelParam;
+import com.fans.utils.excel.param.read.ReadMultipleSheetParam;
+import com.fans.utils.excel.param.write.*;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName ExcelUtils
- * @Description: excel工具类测试
- * @Author k
- * @Date 2018-11-13 13:36
- * @Version 1.0
+ * className: LocalExcelUtilsTest
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2020-05-19 00:00
  **/
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class ExcelUtilsTest {
+
 
     @Test
     public void writeExcelByModel() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         List<TableHeaderExcelProperty> data = Lists.newArrayList();
         for (int i = 0; i < 10; i++) {
             TableHeaderExcelProperty tableHeaderExcelProperty = new TableHeaderExcelProperty();
@@ -37,115 +45,72 @@ public class ExcelUtilsTest {
             tableHeaderExcelProperty.setCell5("大师傅5");
             tableHeaderExcelProperty.setCell6("大师傅6");
             tableHeaderExcelProperty.setCell7("大师傅7");
-            tableHeaderExcelProperty.setCell8("大师傅8");
-            tableHeaderExcelProperty.setCell9("大师傅9");
-            tableHeaderExcelProperty.setCell10("大师傅20");
+            tableHeaderExcelProperty.setCell8(new Date());
+            tableHeaderExcelProperty.setCell9("1");
+            tableHeaderExcelProperty.setCell10("2020/05/05");
             data.add(tableHeaderExcelProperty);
         }
         WriteExcelParam<TableHeaderExcelProperty> writeExcelParam = WriteExcelParam.<TableHeaderExcelProperty>builder().
                 filePath(filePath)
                 .sheetName("自定义")
+                .autoWidth(true)
                 .modelData(data)
+                .cellBaseHandler(new CustomCellWriteHandler())
+                .sheetBaseHandler(new SheetBaseHandler())
                 .model(TableHeaderExcelProperty.class)
                 .build();
-        ExcelUtils.writeExcelByModel(writeExcelParam);
+        ExcelLocalUtils.writeExcelByModel(writeExcelParam);
     }
 
-    @Test
-    public void readLessThan1000Row() {
-        String filePath = "D:\\test1.xls";
-        ReadExcelParam readExcelParam = ReadExcelParam.builder()
-                .sheetNo(0)
-                .headRowNumber(0)
-                .filePath(filePath)
-                .build();
-        List<JSONObject> objects = ExcelUtils.readLessThan1000Row(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
-    }
 
     @Test
     public void readLessThan1000RowByModel() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         ReadExcelParam<TableHeaderExcelProperty> readExcelParam = ReadExcelParam.<TableHeaderExcelProperty>builder()
-                .sheetNo(0)
-                .headRowNumber(0)
                 .filePath(filePath)
                 .model(TableHeaderExcelProperty.class)
                 .build();
-        List<TableHeaderExcelProperty> objects = ExcelUtils.readLessThan1000RowByModel(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
+        List<TableHeaderExcelProperty> tableHeaderExcelProperties = ExcelLocalUtils.readLessThan1000RowByModel(readExcelParam);
+        System.out.println(JsonUtils.obj2FormattingString(tableHeaderExcelProperties));
     }
 
     @Test
     public void readMoreThan1000RowByModel() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         ReadExcelParam<TableHeaderExcelProperty> readExcelParam = ReadExcelParam.<TableHeaderExcelProperty>builder()
                 .sheetNo(0)
                 .headRowNumber(0)
                 .filePath(filePath)
-                .model(TableHeaderExcelProperty.class)
-                .listener(ExcelListener.class)
-                .build();
-        List<TableHeaderExcelProperty> objects = ExcelUtils.readMoreThan1000RowByModel(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
-    }
-
-    @Test
-    public void readMoreThan1000Row() {
-        String filePath = "D:\\test1.xls";
-        ReadExcelParam readExcelParam = ReadExcelParam.builder()
-                .sheetNo(0)
-                .headRowNumber(0)
-                .filePath(filePath)
-                .listener(ExcelListener.class)
-                .build();
-        List<JSONObject> objects = ExcelUtils.readMoreThan1000Row(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
-    }
-
-    @Test
-    public void readMoreSheetByModel() {
-        String filePath = "D:\\test1.xls";
-        ReadExcelParam<TableHeaderExcelProperty> readExcelParam = ReadExcelParam.<TableHeaderExcelProperty>builder()
-                .headRowNumber(0)
-                .filePath(filePath)
+                .listener(new ExcelListener<>())
                 .model(TableHeaderExcelProperty.class)
                 .build();
-        Map<Integer, List<TableHeaderExcelProperty>> objects = ExcelUtils.readMoreSheetByModel(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
-    }
-
-    @Test
-    public void readMoreSheet() {
-        String filePath = "D:\\test1.xls";
-        ReadExcelParam readExcelParam = ReadExcelParam.builder()
-                .headRowNumber(0)
-                .filePath(filePath)
-                .build();
-        Map<Integer, List<JSONObject>> objects = ExcelUtils.readMoreSheet(readExcelParam);
-        System.out.println(JsonUtils.obj2FormattingString(objects));
+        List<TableHeaderExcelProperty> tableHeaderExcelProperties = ExcelLocalUtils.readMoreThan1000RowByModel(readExcelParam);
+        System.out.println(JsonUtils.obj2FormattingString(tableHeaderExcelProperties));
     }
 
     @Test
     public void writeSimpleExcel() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         List<List<String>> data = Lists.newArrayList();
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         List<String> simpleHead = Lists.newArrayList("表头1", "表头2", "表头3", "表头4", "表头5");
-        WriteExcelParam<Object> writeExcelParam = WriteExcelParam.builder()
+        WriteFreedomParam writeFreedomParam = WriteFreedomParam.builder()
                 .filePath(filePath)
                 .sheetName("自定义")
                 .simpleHead(simpleHead)
+                .autoWidth(true)
+                .cellBaseHandler(new CustomCellWriteHandler())
+                .sheetBaseHandler(new SheetBaseHandler())
                 .data(data)
                 .build();
-        ExcelUtils.writeSimpleExcel(writeExcelParam);
+        NoModelExcelLocalUtils.writeSimpleExcel(writeFreedomParam);
     }
 
     @Test
     public void writeHardExcel() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         List<List<String>> data = Lists.newArrayList();
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
@@ -161,18 +126,46 @@ public class ExcelUtilsTest {
         headList.add(head3);
         headList.add(head4);
         headList.add(head5);
-        WriteExcelParam<Object> writeExcelParam = WriteExcelParam.builder()
+        WriteFreedomParam writeFreedomParam = WriteFreedomParam.builder()
                 .filePath(filePath)
                 .sheetName("自定义")
                 .hardHead(headList)
+                .autoWidth(true)
+                .cellBaseHandler(new CustomCellWriteHandler())
+                .sheetBaseHandler(new SheetBaseHandler())
                 .data(data)
                 .build();
-        ExcelUtils.writeHardExcel(writeExcelParam);
+        NoModelExcelLocalUtils.writeHardExcel(writeFreedomParam);
     }
 
     @Test
+    public void readLessThan1000Row() {
+        String filePath = "D:\\test1.xlsx";
+        ReadExcelParam<JSONObject> readExcelParam = ReadExcelParam.<JSONObject>builder()
+                .filePath(filePath)
+                .model(JSONObject.class)
+                .build();
+        List<JSONObject> tableHeaderExcelProperties = NoModelExcelLocalUtils.readLessThan1000Row(readExcelParam);
+        System.out.println(JsonUtils.obj2FormattingString(tableHeaderExcelProperties));
+    }
+
+    @Test
+    public void readMoreThan1000Row() {
+        String filePath = "D:\\test1.xlsx";
+        ReadExcelParam<JSONObject> readExcelParam = ReadExcelParam.<JSONObject>builder()
+                .sheetNo(0)
+                .headRowNumber(0)
+                .filePath(filePath)
+                .listener(new ExcelListener<>())
+                .build();
+        List<JSONObject> objects = NoModelExcelLocalUtils.readMoreThan1000Row(readExcelParam);
+        System.out.println(JsonUtils.obj2FormattingString(objects));
+    }
+
+
+    @Test
     public void writeWithMultipleSheet() {
-        String filePath = "D:\\test1.xls";
+        String filePath = "D:\\test1.xlsx";
         List<TableHeaderExcelProperty> rowList1 = Lists.newArrayList();
         TableHeaderExcelProperty cell1 = new TableHeaderExcelProperty();
         cell1.setCell1("大师傅1");
@@ -182,7 +175,7 @@ public class ExcelUtilsTest {
         cell1.setCell5("大师傅5");
         cell1.setCell6("大师傅6");
         cell1.setCell7("大师傅7");
-        cell1.setCell8("大师傅8");
+        cell1.setCell8(new Date());
         cell1.setCell9("大师傅9");
         cell1.setCell10("大师傅20");
         rowList1.add(cell1);
@@ -195,59 +188,81 @@ public class ExcelUtilsTest {
         cell.setCell5("大师傅51");
         cell.setCell6("大师傅61");
         cell.setCell7("大师傅71");
-        cell.setCell8("大师傅81");
+        cell.setCell8(new Date());
         cell.setCell9("大师傅91");
         cell.setCell10("大师傅10");
         rowList2.add(cell);
-        List<MultipleSheetProperty<TableHeaderExcelProperty>> multipleSheetProperties = Lists.newArrayList(
+        List<MultipleSheetProperty<?>> multipleSheetProperties = Lists.newArrayList(
                 MultipleSheetProperty.<TableHeaderExcelProperty>builder()
                         .sheetName("111")
-                        .data(rowList1)
+                        .modelData(rowList1)
+                        .autoWidth(true)
+                        .model(TableHeaderExcelProperty.class)
                         .build(),
                 MultipleSheetProperty.<TableHeaderExcelProperty>builder()
                         .sheetName("222")
-                        .data(rowList2)
+                        .modelData(rowList2)
+                        .autoWidth(true)
+                        .model(TableHeaderExcelProperty.class)
+                        .cellBaseHandler(new CustomCellWriteHandler())
+                        .sheetBaseHandler(new SheetBaseHandler())
                         .build()
         );
-        WriteExcelParam<TableHeaderExcelProperty> writeExcelParam = WriteExcelParam.<TableHeaderExcelProperty>builder()
+        WriteExcelMultipleParam excelMultipleParam = WriteExcelMultipleParam.builder()
                 .filePath(filePath)
                 .multipleSheetProperties(multipleSheetProperties)
-                .model(TableHeaderExcelProperty.class)
-                .sheetWriteHandler(CustomSheetWriteHandler.class)
                 .build();
-        ExcelUtils.writeWithMultipleSheet(writeExcelParam);
+        ExcelLocalUtils.writeWithMultipleSheet(excelMultipleParam);
     }
+
+
+    @Test
+    public void readMoreSheetByModel() {
+        String filePath = "D:\\test1.xlsx";
+        ReadMultipleSheetParam readMultipleSheetParam = ReadMultipleSheetParam.builder()
+                .filePath(filePath)
+                .sheetNoAndHeadRowNumber(ImmutableMap.of(0, 0, 1, 0))
+                .sheetNoAndModel(ImmutableMap.of(0, TableHeaderExcelProperty.class, 1, TableHeaderExcelProperty.class))
+                .sheetNoAndListener(ImmutableMap.of(0, new ExcelListener<TableHeaderExcelProperty>(), 1, new ExcelListener<TableHeaderExcelProperty>()))
+                .build();
+        Map<Integer, List<?>> result = ExcelLocalUtils.readMoreSheetByModel(readMultipleSheetParam);
+        System.out.println(JsonUtils.obj2FormattingString(result));
+    }
+
 
     @Test
     public void writeWithMultipleSheetNoModelSimple() {
-        String filePath = "D:\\test1.xls";
-        List<List<Object>> data = Lists.newArrayList();
+        String filePath = "D:\\test1.xlsx";
+        List<List<?>> data = Lists.newArrayList();
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         List<String> simpleHead = Lists.newArrayList("表头1", "表头2", "表头3", "表头4", "表头5");
-        List<MultipleSheetProperty<List<Object>>> multipleSheetPropertyList = Lists.newArrayList();
-        multipleSheetPropertyList.add(MultipleSheetProperty.<List<Object>>builder()
+        List<MultipleFreedomSheetProperty> multipleFreedomSheetPropertyList = Lists.newArrayList();
+        multipleFreedomSheetPropertyList.add(MultipleFreedomSheetProperty.builder()
                 .sheetName("111")
+                .simpleHead(simpleHead)
+                .autoWidth(true)
+                .cellBaseHandler(new CustomCellWriteHandler())
+                .sheetBaseHandler(new SheetBaseHandler())
                 .data(data)
                 .build());
-        multipleSheetPropertyList.add(MultipleSheetProperty.<List<Object>>builder()
+        multipleFreedomSheetPropertyList.add(MultipleFreedomSheetProperty.builder()
+                .simpleHead(simpleHead)
                 .sheetName("222")
                 .data(data)
                 .build());
-        WriteExcelParam<List<Object>> writeExcelParam = WriteExcelParam.<List<Object>>builder()
+        WriteFreedomMultipleParam writeFreedomMultipleParam = WriteFreedomMultipleParam.builder()
                 .filePath(filePath)
-                .simpleHead(simpleHead)
-                .multipleSheetProperties(multipleSheetPropertyList)
-                .cellWriteHandler(CustomCellWriteHandler.class)
+                .multipleFreedomSheetProperties(multipleFreedomSheetPropertyList)
                 .build();
-        ExcelUtils.writeWithMultipleSheetNoModelSimple(writeExcelParam);
+        NoModelExcelLocalUtils.writeWithMultipleSheetNoModelSimple(writeFreedomMultipleParam);
     }
 
     @Test
     public void writeWithMultipleSheetNoModelHard() {
-        String filePath = "D:\\test1.xls";
-        List<List<Object>> data = Lists.newArrayList();
+        String filePath = "D:\\test1.xlsx";
+        List<List<?>> data = Lists.newArrayList();
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
         data.add(Lists.newArrayList("111", "222", "333", "444", "555"));
@@ -262,20 +277,38 @@ public class ExcelUtilsTest {
         headList.add(head3);
         headList.add(head4);
         headList.add(head5);
-        List<MultipleSheetProperty<List<Object>>> multipleSheetPropertyList = Lists.newArrayList();
-        multipleSheetPropertyList.add(MultipleSheetProperty.<List<Object>>builder()
+        List<MultipleFreedomSheetProperty> multipleFreedomSheetPropertyList = Lists.newArrayList();
+        multipleFreedomSheetPropertyList.add(MultipleFreedomSheetProperty.builder()
+                .hardHead(headList)
                 .sheetName("111")
                 .data(data)
                 .build());
-        multipleSheetPropertyList.add(MultipleSheetProperty.<List<Object>>builder()
+        multipleFreedomSheetPropertyList.add(MultipleFreedomSheetProperty.builder()
+                .hardHead(headList)
                 .sheetName("222")
+                .cellBaseHandler(new CustomCellWriteHandler())
+                .autoWidth(true)
+                .sheetBaseHandler(new CustomSheetWriteHandler())
                 .data(data)
                 .build());
-        WriteExcelParam<List<Object>> writeExcelParam = WriteExcelParam.<List<Object>>builder()
+        WriteFreedomMultipleParam writeFreedomMultipleParam = WriteFreedomMultipleParam.builder()
                 .filePath(filePath)
-                .hardHead(headList)
-                .multipleSheetProperties(multipleSheetPropertyList)
+                .multipleFreedomSheetProperties(multipleFreedomSheetPropertyList)
                 .build();
-        ExcelUtils.writeWithMultipleSheetNoModelHard(writeExcelParam);
+        NoModelExcelLocalUtils.writeWithMultipleSheetNoModelHard(writeFreedomMultipleParam);
     }
+
+    @Test
+    public void readMoreSheet() {
+        String filePath = "D:\\test1.xlsx";
+        ReadMultipleSheetParam readMultipleSheetParam = ReadMultipleSheetParam.builder()
+                .filePath(filePath)
+                .sheetNoAndHeadRowNumber(ImmutableMap.of(0, 0, 1, 0))
+                .sheetNoAndListener(ImmutableMap.of(0, new ExcelListener<TableHeaderExcelProperty>(), 1, new ExcelListener<TableHeaderExcelProperty>()))
+                .build();
+        Map<Integer, List<JSONObject>> result = NoModelExcelLocalUtils.readMoreSheet(readMultipleSheetParam);
+        System.out.println(JsonUtils.obj2FormattingString(result));
+    }
+
+
 }

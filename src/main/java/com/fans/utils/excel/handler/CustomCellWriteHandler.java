@@ -2,14 +2,12 @@ package com.fans.utils.excel.handler;
 
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.Head;
-import com.alibaba.excel.write.handler.CellWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
+import com.fans.utils.excel.base.CellBaseHandler;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.util.List;
@@ -22,26 +20,23 @@ import java.util.List;
  * @Version 1.0
  **/
 @Slf4j
-public class CustomCellWriteHandler implements CellWriteHandler {
+public class CustomCellWriteHandler extends CellBaseHandler {
     @Override
     public void beforeCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Row row, Head head, Integer columnIndex, Integer relativeRowIndex, Boolean isHead) {
-
+        super.beforeCellCreate(writeSheetHolder, writeTableHolder, row, head, columnIndex, relativeRowIndex, isHead);
     }
 
     @Override
     public void afterCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
-        log.info("--> 第{}行，第{}列写入完成。", cell.getRowIndex(), cell.getColumnIndex());
-        //给指定单元格增加url
-        if (isHead && cell.getColumnIndex() == 0) {
-            CreationHelper createHelper = writeSheetHolder.getSheet().getWorkbook().getCreationHelper();
-            Hyperlink hyperlink = createHelper.createHyperlink(HyperlinkType.URL);
-            hyperlink.setAddress("https://github.com/alibaba/easyexcel");
-            cell.setHyperlink(hyperlink);
-        }
+        //给指定head单元格增加url
+        setHeadUrl(cell, isHead, "https://github.com/alibaba/easyexcel", 0);
+        //给指定head单元格增加特殊颜色（red）
+        setHeadStyle(cell, isHead, Lists.newArrayList(1, 3));
     }
 
     @Override
     public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, List<CellData> cellDataList, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
-
+        log.info("--> 第{}行，第{}列写入【{}】完成。", cell.getRowIndex(), cell.getColumnIndex(), cell.getStringCellValue());
+        super.afterCellDispose(writeSheetHolder, writeTableHolder, cellDataList, cell, head, relativeRowIndex, isHead);
     }
 }

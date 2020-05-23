@@ -1,29 +1,31 @@
 package com.fans.utils.excel.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
+import com.fans.utils.excel.base.AbstractExcelBaseListener;
 import com.google.common.collect.Lists;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
- * @ClassName ExcelListener
- * @Description: 解析监听器，每解析一行会回调invoke()方法。整个excel解析结束会执行doAfterAllAnalysed()方法
- * @Author k
- * @Date 2019-11-08 16:14
- * @Version 1.0
+ * className: ExcelListener
+ *
+ * @author k
+ * @version 1.0
+ * @description 监听器
+ * @date 2020-05-22 23:19
  **/
-@EqualsAndHashCode(callSuper = true)
 @Slf4j
-@Data
-public class ExcelListener<T> extends AnalysisEventListener<T> {
+@Setter
+@Getter
+public class ExcelListener<T> extends AbstractExcelBaseListener<T> {
 
     private List<T> dataList = Lists.newArrayList();
 
     long startTime = System.currentTimeMillis();
+
 
     /**
      * 逐行解析
@@ -50,4 +52,10 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
         log.info("--> {} 条数据，开始存储数据库等等操作 !", dataList.size());
         log.info("--> 所有数据解析完成！用时{}ms", System.currentTimeMillis() - startTime);
     }
+
+    @Override
+    public boolean checkData(int rowIndex, T data) {
+        return false;
+    }
+
 }
