@@ -1,4 +1,4 @@
-package com.fans.utils.excel.param.config;
+package com.fans.utils.excel.param.other;
 
 import lombok.*;
 

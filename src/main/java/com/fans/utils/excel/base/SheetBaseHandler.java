@@ -3,11 +3,13 @@ package com.fans.utils.excel.base;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
-import com.fans.utils.excel.param.config.LinkageParam;
+import com.fans.utils.excel.param.other.LinkageParam;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Stream;
 
 /**
@@ -42,9 +44,9 @@ public class SheetBaseHandler implements SheetWriteHandler {
 
 
     public void setLinked(LinkageParam linkageParam) {
-        Workbook workbook = linkageParam.getWorkbook();
+        Workbook workbook = linkageParam.getCurrentSheet().getWorkbook();
         Sheet hide = workbook.createSheet(linkageParam.getHideSheetName());
-        workbook.setSheetHidden(workbook.getSheetIndex(hide), true);
+        workbook.setSheetHidden(workbook.getSheetIndex(hide), false);
         int rowId = 0;
         Row adRow = hide.createRow(rowId++);
         adRow.createCell(0).setCellValue(linkageParam.getHideSheetName());
@@ -70,18 +72,22 @@ public class SheetBaseHandler implements SheetWriteHandler {
             name.setNameName(key);
             name.setRefersToFormula(linkageParam.getHideSheetName() + "!" + range);
         }
+        //获取要控制的列
+        List<String> letter = linkageParam.getLetter();
+        //取出第一个当做开始列
+        int startAndEndCol = letterToNumber(letter.get(0));
         Sheet currentSheet = linkageParam.getCurrentSheet();
         DataValidationHelper helper = currentSheet.getDataValidationHelper();
         DataValidationConstraint explicitListConstraint = helper.createExplicitListConstraint(parent);
-        CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(linkageParam.getFirstRow(), linkageParam.getLastRow(), linkageParam.getFirstCol(), linkageParam.getLastCol());
+        CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(linkageParam.getFirstRow(), linkageParam.getLastRow(), startAndEndCol - 1, startAndEndCol - 1);
         DataValidation dataValidation = helper.createValidation(explicitListConstraint, cellRangeAddressList);
         dataValidation.createErrorBox("error", linkageParam.getErrorMsg());
         dataValidation.setShowErrorBox(true);
         dataValidation.setSuppressDropDownArrow(true);
         currentSheet.addValidationData(dataValidation);
-        linkageParam.getLevelInfoList().forEach(levelInfo -> {
-            for (int i = linkageParam.getStartRow(); i < linkageParam.getLastRow(); i++) {
-                setDataValidation(helper, levelInfo.getOffset(), currentSheet, i, levelInfo.getColNum());
+        letter.forEach(offset -> {
+            for (int i = linkageParam.getFirstRow() + 1; i < linkageParam.getLastRow(); i++) {
+                setDataValidation(helper, offset, currentSheet, i, letterToNumber(offset) + 1);
             }
         });
     }
@@ -173,4 +179,89 @@ public class SheetBaseHandler implements SheetWriteHandler {
         return validation;
     }
 
+
+    /**
+     * 将以字母表示的Excel列数转换成数字表示
+     *
+     * @param letter 以字母表示的列数，不能为空且只允许包含字母字符
+     * @return 返回转换的数字，转换失败返回-1
+     * @author k
+     */
+    private static int letterToNumber(String letter) {
+        // 检查字符串是否为空
+        if (letter == null || letter.isEmpty()) {
+            return -1;
+        }
+        // 转为大写字符串
+        String upperLetter = letter.toUpperCase();
+        // 检查是否符合，不能包含非字母字符
+        if (!upperLetter.matches("[A-Z]+")) {
+            return -1;
+        }
+        // 存放结果数值
+        long num = 0;
+        long base = 1;
+        // 从字符串尾部开始向头部转换
+        for (int i = upperLetter.length() - 1; i >= 0; i--) {
+            char ch = upperLetter.charAt(i);
+            num += (ch - 'A' + 1) * base;
+            base *= 26;
+            // 防止内存溢出
+            if (num > Integer.MAX_VALUE) {
+                return -1;
+            }
+        }
+        return (int) num;
+    }
+
+    /**
+     * 将数字转换成以字母表示的Excel列数
+     *
+     * @param num 表示列数的数字
+     * @return 返回转换的字母字符串，转换失败返回null
+     * @author k
+     */
+    private static String numberToLetter(int num) {
+        // 检测列数是否正确
+        if (num <= 0) {
+            return null;
+        }
+        StringBuilder letter = new StringBuilder();
+        do {
+            --num;
+            // 取余
+            int mod = num % 26;
+            // 组装字符串
+            letter.append((char) (mod + 'A'));
+            // 计算剩下值
+            num = (num - mod) / 26;
+        } while (num > 0);
+        // 返回反转后的字符串
+        return letter.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(letterToNumber("d"));
+    }
+
+    /**
+     * 获取随机字符串
+     *
+     * @param length 随机字符串长度
+     * @return 随机字符
+     */
+    private static String getStringRandom(int length) {
+        StringBuilder val = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
+            if ("char".equalsIgnoreCase(charOrNum)) {
+                int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
+                val.append((char) (random.nextInt(26) + temp));
+            } else {
+                val.append(random.nextInt(10));
+            }
+        }
+        return val.toString();
+    }
 }

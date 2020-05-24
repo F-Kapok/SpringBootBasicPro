@@ -21,7 +21,11 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2020-05-18 23:02
  **/
 @Slf4j
-public class ExcelLocalUtils {
+public class ExcelUtils {
 
     /**
      * description: 有模板,读小于1000行数据, 带样式
@@ -271,5 +275,32 @@ public class ExcelLocalUtils {
         }
         log.info("--> 生成excel文件成功，文件地址：{}", filePath);
         return true;
+    }
+
+
+    private static OutputStream getOutputStream(String fileName, HttpServletResponse response, HttpServletRequest request) {
+        try {
+            response.reset();
+            response.setContentType("multipart/form-data");
+            fileName = fileName + ".xlsx";
+            if (StringUtils.isNotBlank(fileName)) {
+                String headerName = "User-Agent";
+                if (request.getHeader(headerName).toLowerCase().indexOf("firefox") > 0) {
+                    // firefox浏览器
+                    fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+                } else if (request.getHeader(headerName).toUpperCase().indexOf("MSIE") > 0) {
+                    // IE浏览器
+                    fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.name());
+                } else if (request.getHeader(headerName).toUpperCase().indexOf("CHROME") > 0) {
+                    // 谷歌
+                    fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+                }
+            }
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            return response.getOutputStream();
+        } catch (IOException e) {
+            log.error("--> 获取输出流失败：{}", e.getMessage(), e);
+        }
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.fans.utils.excel.param.config;
+package com.fans.utils.excel.param.other;
 
 import lombok.*;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -30,10 +30,6 @@ public class LinkageParam implements Serializable {
      */
     private Sheet currentSheet;
     /**
-     * sheet工作
-     */
-    private Workbook workbook;
-    /**
      * 联动信息sheet名称 例：省市区联动
      */
     private String hideSheetName;
@@ -51,20 +47,11 @@ public class LinkageParam implements Serializable {
     private int firstRow;
     private int lastRow;
     /**
-     * 从第几列到第几列
-     */
-    private int firstCol;
-    private int lastCol;
-    /**
      * 联动错误信息
      */
     private String errorMsg;
     /**
-     * 联动cell开始行数
-     */
-    private int startRow;
-    /**
      * 设置cell要控制的列数  例如  F列控制第7列的cell   offset:"F",colNum:7
      */
-    private List<LevelInfo> levelInfoList;
+    private List<String> letter;
 }
