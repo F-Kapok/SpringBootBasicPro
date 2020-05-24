@@ -70,3 +70,15 @@ git commit
 git push
 
 git将分支合并到分支，将master合并到分支的操作步骤是一样的。
+==========================================================================================
+第一次提交项目到github
+1、到github上新建一个仓库
+2、初始化本地git  
+$ git init
+3、提交本地代码
+$ git add *
+$ git commit -m '提交信息'
+4、push代码至github上
+$ git remote add origin https://github.com/F-Kapok/wechat-shop-server.git（换成自己的仓库地址）
+$ git pull --rebase origin master
+$ git push origin master
