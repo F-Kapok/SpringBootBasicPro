@@ -33,6 +33,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Slf4j
 public class SwaggerConfiguration {
     //原路径访问地址：http://localhost:8080/swagger-ui.html
+    //新版路径访问地址：http://localhost:8080/doc.html
     /**
      * 授予开关权限
      */
