@@ -3,7 +3,6 @@ package com.fans.config;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,22 +17,22 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @ClassName SwaggerConfiguration
- * @Description: Swagger配置
- * @Author fan
- * @Date 2018-12-21 21:07
- * @Version 1.0
+ * className: SwaggerConfiguration
+ *
+ * @author k
+ * @version 1.0
+ * @description Swagger配置
+ * @date 2018-12-20 11:40
  **/
 @Component
 @Configuration
 @EnableSwagger2
 @Data
 @ConfigurationProperties(prefix = "swagger")
-//@ConditionalOnExpression(value = "${swagger.enable}")
 @Slf4j
 public class SwaggerConfiguration {
     //原路径访问地址：http://localhost:8080/swagger-ui.html
-    //新版路径访问地址：http://localhost:8080/doc.html
+    //新版ui路径访问地址：http://localhost:8080/doc.html
     /**
      * 授予开关权限
      */
