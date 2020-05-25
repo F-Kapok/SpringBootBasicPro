@@ -6,11 +6,12 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName ControllerAspect
- * @Description: 控制层AOP
- * @Author fan
- * @Date 2018-12-20 14:14
- * @Version 1.0
+ * className: ControllerAspect
+ *
+ * @author k
+ * @version 1.0
+ * @description 控制层AOP
+ * @date 2018-12-20 14:14
  **/
 @Aspect
 @Component

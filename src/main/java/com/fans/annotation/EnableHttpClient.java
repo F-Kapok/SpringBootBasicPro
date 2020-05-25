@@ -9,11 +9,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @InterfaceName EnableHttpClient
- * @Description: HttpClient自定义配置注解
- * @Author fan
- * @Date 2019-03-05 22:16
- * @Version 1.0
+ * interfaceName: EnableHttpClient
+ *
+ * @author k
+ * @version 1.0
+ * @description HttpClient自定义配置注解
+ * @date 2019-03-05 22:16
  **/
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
