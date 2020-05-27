@@ -5,11 +5,12 @@ import com.fans.common.CodeEnum;
 import java.util.stream.Stream;
 
 /**
- * @ClassName EnumUtils
- * @Description: 枚举类描述信息获取
- * @Author fan
- * @Date 2019-03-29 09:08
- * @Version 1.0
+ * className: EnumUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 枚举类描述信息获取
+ * @date 2018-12-20 14:14
  **/
 public class EnumUtils {
 

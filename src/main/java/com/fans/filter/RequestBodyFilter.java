@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @ClassName RequestBodyFilter
- * @Description: RequestBody读取过滤器
- * @Author fan
- * @Date 2019-03-22 10:46
- * @Version 1.0
+ * className: RequestBodyFilter
+ *
+ * @author k
+ * @version 1.0
+ * @description RequestBody读取过滤器
+ * @date 2018-12-20 14:14
  **/
 public class RequestBodyFilter implements Filter {
     @Override

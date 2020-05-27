@@ -12,15 +12,17 @@ import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.STRING;
 
 /**
- * @ClassName JsonUtils
- * @Description: 对象与字符串转换工具
- * @Author fan
- * @Date 2018-11-06 12:41
- * @Version 1.0
+ * className: JsonUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 对象与字符串转换工具
+ * @date 2018-11-06 12:41
  **/
 @Slf4j
 public class JsonUtils {
-    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         // 初始化 initialize 去除掉对getter和setter的依赖
@@ -84,11 +86,13 @@ public class JsonUtils {
     }
 
     /**
-     * 格式化JSON字符串
+     * description: 格式化JSON字符串
      *
-     * @param unformattedJsonString
-     * @return
-     */
+     * @param unformattedJsonString 未格式化的json字符
+     * @return java.lang.String
+     * @author k
+     * @date 2018-11-06 12:41
+     **/
     private static String prettyPrint(String unformattedJsonString) {
         StringBuilder sb = new StringBuilder();
         int indentLevel = 0;
@@ -140,6 +144,14 @@ public class JsonUtils {
      * @param indentLevel
      * @param stringBuilder
      */
+    /**
+     * description:
+     *
+     * @param indentLevel   压等级
+     * @param stringBuilder 字符串拼接
+     * @author k
+     * @date 2018-11-06 12:41
+     **/
     private static void appendIndentedNewLine(int indentLevel, StringBuilder stringBuilder) {
         stringBuilder.append("\n");
         for (int i = 0; i < indentLevel; i++) {

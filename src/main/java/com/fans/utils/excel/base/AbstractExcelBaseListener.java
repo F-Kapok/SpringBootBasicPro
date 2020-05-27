@@ -10,11 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * @ClassName AbstractExcelBaseListener
- * @Description: 解析监听器，每解析一行会回调invoke()方法。整个excel解析结束会执行doAfterAllAnalysed()方法
- * @Author k
- * @Date 2019-11-08 16:14
- * @Version 1.0
+ * className: AbstractExcelBaseListener
+ *
+ * @author k
+ * @version 1.0
+ * @description 解析监听器，每解析一行会回调invoke()方法。整个excel解析结束会执行doAfterAllAnalysed()方法
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 @Setter

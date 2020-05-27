@@ -5,25 +5,30 @@ import com.fans.utils.JsonUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.quartz.*;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.List;
 
+
 /**
- * @ClassName DynamicJob
- * @Description: 调度中心执行逻辑的Job
- * @Description: @DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行
- * @Description: 注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个
- * @Description: 否则@DisallowConcurrentExecution不生效
- * @Description: 假如Job的设置时间间隔为3秒, 但Job执行时间是5秒
- * @Description: 设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行
- * @Description: 否则会在3秒时再启用新的线程执行
- * @Author fan
- * @Date 2018-12-22 14:38
- * @Version 1.0
+ * className: DynamicJob
+ *
+ * @author k
+ * @version 1.0
+ * @description 调度中心执行逻辑的Job
+ * @description @DisallowConcurrentExecution : 此标记用在实现Job的类上面,意思是不允许并发执行
+ * @description 注意org.quartz.threadPool.threadCount线程池中线程的数量至少要多个
+ * @description 否则@DisallowConcurrentExecution不生效
+ * @description 假如Job的设置时间间隔为3秒, 但Job执行时间是5秒
+ * @description 设置@DisallowConcurrentExecution以后程序会等任务执行完毕以后再去执行
+ * @description 否则会在3秒时再启用新的线程执行
+ * @date 2018-12-20 14:14
  **/
 @DisallowConcurrentExecution
 @Component
@@ -46,11 +51,11 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: 执行class类型job
-     * @Param: [map]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/23 14:07
+     * description: 执行class类型job
+     *
+     * @param map 任务入参
+     * @author k
+     * @date 2018/12/23 14:07
      **/
     private void executeClassJob(JobDataMap map) {
         String className = map.getString("className");
@@ -91,11 +96,11 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: 执行jar类型job
-     * @Param: [map]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/23 14:07
+     * description: 执行jar类型job
+     *
+     * @param map 任务入参
+     * @author k
+     * @date 2018/12/23 14:07
      **/
     private void executeJarJob(JobDataMap map) {
         String jarPath = map.getString("jarPath");
@@ -146,11 +151,12 @@ public class DynamicJob implements Job {
     }
 
     /**
-     * @Description: 打印Job执行内容的日志
-     * @Param: [inputStream, errorStream]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/22 14:56
+     * description: 打印Job执行内容的日志
+     *
+     * @param inputStream 输入流
+     * @param errorStream 错误流
+     * @author k
+     * @date 2018/12/22 14:56
      **/
     private void logProcess(InputStream inputStream, InputStream errorStream) throws IOException {
         String inputLine;

@@ -4,11 +4,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName HttpClientProperties
- * @Description: HttpClient配置
- * @Author fan
- * @Date 2019-03-05 17:45
- * @Version 1.0
+ * className: HttpClientProperties
+ *
+ * @author k
+ * @version 1.0
+ * @description HttpClient配置
+ * @date 2018-12-20 14:14
  **/
 @Component(value = "httpClientProperties")
 @ConfigurationProperties(prefix = "spring.httpclient")

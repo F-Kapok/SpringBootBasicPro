@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,11 +18,12 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 /**
- * @ClassName ReflectUtils
- * @Description: 反射工具类
- * @Author fan
- * @Date 2019-05-15 13:43
- * @Version 1.0
+ * className: ReflectUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 反射工具类
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class ReflectUtils {
@@ -31,9 +31,9 @@ public class ReflectUtils {
     /**
      * 获取指定包内的 指定类
      *
-     * @param packageName
-     * @param className
-     * @return
+     * @param packageName 包名
+     * @param className   类名
+     * @return 反射类
      */
     public static Class<?> getClass(String packageName, String className) {
         ImmutableSet<Class<?>> classSet = getClasses(packageName);
@@ -47,8 +47,8 @@ public class ReflectUtils {
     /**
      * 从包package中获取所有的Class
      *
-     * @param pack
-     * @return
+     * @param pack 包名
+     * @return 对象集合
      */
     public static ImmutableSet<Class<?>> getClasses(String pack) {
         // 第一个class类的集合
@@ -133,9 +133,7 @@ public class ReflectUtils {
     /**
      * 获取maven配置文件对象模型
      *
-     * @return
-     * @throws IOException
-     * @throws XmlPullParserException
+     * @return maven对象
      */
     public static Model getMavenModel() {
         try {
@@ -152,9 +150,9 @@ public class ReflectUtils {
     /**
      * 以文件的形式来获取包下的所有Class
      *
-     * @param packageName
-     * @param packagePath
-     * @param classSet
+     * @param packageName 包名
+     * @param packagePath 包路径
+     * @param classSet    类集合
      */
     private static void findAndAddClassesInPackageByFile(String packageName,
                                                          String packagePath,

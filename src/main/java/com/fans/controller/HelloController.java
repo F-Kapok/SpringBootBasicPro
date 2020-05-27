@@ -31,11 +31,12 @@ import java.util.Objects;
 import static com.fans.common.CommonConstants.LOGIN_MAP;
 
 /**
- * @ClassName HelloController
- * @Description:
- * @Author fan
- * @Date 2018-12-19 14:06
- * @Version 1.0
+ * className: HelloController
+ *
+ * @author k
+ * @version 1.0
+ * @description 控制层AOP
+ * @date 2018-12-20 14:14
  **/
 @Controller
 @Api(value = "helloController", tags = "用户服务层")
@@ -121,11 +122,14 @@ public class HelloController {
     }
 
     /**
-     * @Description: 登录成功后的会话和application管理
-     * @Param: [session, servletContext, loginMap]
-     * @return: void
-     * @Author: fan
-     * @Date: 2019/03/29 16:32
+     * description: 登录成功后的会话和application管理
+     *
+     * @param session        会话
+     * @param servletContext 服务上下文
+     * @param loginMap       登录信息
+     * @param sessionKey     会话key
+     * @author k
+     * @date 2019/03/29 16:32
      **/
     private void loginAction(HttpSession session, ServletContext servletContext, Map<String, Object> loginMap, String sessionKey) {
         String sid = session.getId();

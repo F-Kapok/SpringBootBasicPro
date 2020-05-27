@@ -11,11 +11,12 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * @ClassName DateUtils
- * @Description: 时间格式化工具
- * @Author fan
- * @Date 2018-09-10 13:45
- * @Version 1.0
+ * className: DateUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 时间格式化工具
+ * @date 2018-12-20 14:14
  **/
 public class DateUtils {
 
@@ -26,11 +27,13 @@ public class DateUtils {
     private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     /**
-     * @Description: 字符串转时间
-     * @Param: [dateTimeStr, pattern]
-     * @return: java.util.Date
-     * @Author: fan
-     * @Date: 2018/12/18 9:27
+     * description: 字符串转时间
+     *
+     * @param dateTimeStr 字符串
+     * @param pattern     转化规则
+     * @return java.util.Date
+     * @author k
+     * @date 2018/12/18 9:27
      **/
     public static Date str2Date(String dateTimeStr, String pattern) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(pattern);
@@ -39,11 +42,13 @@ public class DateUtils {
     }
 
     /**
-     * @Description: 时间转字符串
-     * @Param: [date, pattern]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/12/18 9:28
+     * description: 时间转字符串
+     *
+     * @param date    时间
+     * @param pattern 转化规则
+     * @return java.lang.String
+     * @author k
+     * @date 2018/12/18 9:28
      **/
     public static String date2Str(Date date, String pattern) {
         if (date == null) {
@@ -84,9 +89,9 @@ public class DateUtils {
     /**
      * 获取相差天数
      *
-     * @param start
-     * @param end
-     * @return
+     * @param start 开始时间
+     * @param end   结束时间
+     * @return 相差天数
      */
     public static int getDaysDiffer(LocalDate start, LocalDate end) {
         return Math.abs(Days.daysBetween(start, end).getDays());
@@ -95,8 +100,8 @@ public class DateUtils {
     /**
      * 月份区间时间戳集合
      *
-     * @param year
-     * @return
+     * @param year 年份
+     * @return 不可变集合
      */
     public static ImmutableList<Long> getMonthOfYearList(int year) {
         if (year == 0) {

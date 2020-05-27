@@ -8,11 +8,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @ClassName ThreadPoolProxy
- * @Description:
- * @Author k
- * @Date 2019-08-25 04:35
- * @Version 1.0
+ * className: ThreadPoolProxy
+ *
+ * @author k
+ * @version 1.0
+ * @description 控制层AOP
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public abstract class AbstractThreadPoolProxy<T> {
@@ -22,14 +23,14 @@ public abstract class AbstractThreadPoolProxy<T> {
     /**
      * 线程池描述
      *
-     * @return
+     * @return 描述
      */
     public abstract String getDescription();
 
     /**
      * 提交任务
      *
-     * @param task
+     * @param task 任务
      * @return 得到异步执行完成之后的结果
      */
     public Future<?> submit(Runnable task) {
@@ -53,7 +54,7 @@ public abstract class AbstractThreadPoolProxy<T> {
     /**
      * 执行任务
      *
-     * @param task
+     * @param task 任务
      */
     public void execute(Runnable task) {
         ThreadPoolExecutor threadPool = getThreadPoolExecutor();
@@ -69,7 +70,7 @@ public abstract class AbstractThreadPoolProxy<T> {
     /**
      * 移除任务
      *
-     * @param task
+     * @param task 任务
      */
     public void remove(Runnable task) {
         ThreadPoolExecutor threadPool = getThreadPoolExecutor();
@@ -93,7 +94,7 @@ public abstract class AbstractThreadPoolProxy<T> {
     /**
      * 反射获取泛型类型
      *
-     * @return
+     * @return java.util.concurrent.ThreadPoolExecutor
      */
     private ThreadPoolExecutor getThreadPoolExecutor() {
         try {

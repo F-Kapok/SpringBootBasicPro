@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
@@ -14,11 +13,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @ClassName RedisConfiguration
- * @Description: redis数据源配置
- * @Author fan
- * @Date 2018-12-20 15:15
- * @Version 1.0
+ * className: RedisConfiguration
+ *
+ * @author k
+ * @version 1.0
+ * @description redis数据源配置
+ * @date 2018-12-20 14:14
  **/
 @Configuration
 @Slf4j

@@ -13,11 +13,12 @@ import redis.clients.jedis.ShardedJedis;
 import javax.annotation.Resource;
 
 /**
- * @ClassName SysCacheServiceImpl
- * @Description: 缓存服务实习层
- * @Author fan
- * @Date 2018-11-16 16:35
- * @Version 1.0
+ * className: SysCacheServiceImpl
+ *
+ * @author k
+ * @version 1.0
+ * @description 缓存服务实习层
+ * @date 2018-11-16 16:35
  **/
 @Service("sysCacheService")
 @Slf4j

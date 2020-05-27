@@ -12,20 +12,24 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @ClassName ObjectUtils
- * @Description: 对象操作工具类
- * @Author fan
- * @Date 2019-04-08 15:20
- * @Version 1.0
+ * className: ObjectUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 对象操作工具类
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class ObjectUtils {
+
     /**
-     * @Description: Map集合转换响应的Object对象
-     * @Param: [map, beanClass]
-     * @return: java.lang.Object
-     * @Author: fan
-     * @Date: 2019/04/08 15:31
+     * description: Map集合转换响应的Object对象
+     *
+     * @param map       集合
+     * @param beanClass 实体类
+     * @return java.lang.Object
+     * @author k
+     * @date 2019/04/08 15:31
      **/
     public static Object map2Object(Map<String, Object> map, Class<?> beanClass) {
         if (map.isEmpty()) {
@@ -50,11 +54,12 @@ public class ObjectUtils {
     }
 
     /**
-     * @Description: Object转换为Map集合
-     * @Param: [obj]
-     * @return: java.util.Map<java.lang.String, java.lang.Object>
-     * @Author: fan
-     * @Date: 2019/04/08 15:31
+     * description: Object转换为Map集合
+     *
+     * @param obj 实体
+     * @return java.util.Map<java.lang.String, java.lang.Object>
+     * @author k
+     * @date 2019/04/08 15:31
      **/
     public static Map<String, Object> object2Map(Object obj) {
         if (obj == null) {
@@ -82,22 +87,25 @@ public class ObjectUtils {
     }
 
     /**
-     * @Description: 对象比较 是否相等
-     * @Param: [o1, o2]
-     * @return: boolean
-     * @Author: fan
-     * @Date: 2019/04/08 15:37
+     * description: 对象比较 是否相等
+     *
+     * @param o1 对象1
+     * @param o2 对象2
+     * @return boolean
+     * @author k
+     * @date 2020/05/27 23:06
      **/
     public static boolean equals(Object o1, Object o2) {
         return Objects.equals(o1, o2);
     }
 
     /**
-     * @Description: 对象深拷贝  可用于集合
-     * @Param: [object]
-     * @return: T
-     * @Author: fan
-     * @Date: 2019/07/26 9:46
+     * description: 对象深拷贝  可用于集合
+     *
+     * @param object 对象
+     * @return T
+     * @author k
+     * @date 2020/05/27 23:06
      **/
     public static <T extends Serializable> T clone(T object) {
         T cloneObj = null;

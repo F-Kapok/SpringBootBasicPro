@@ -3,11 +3,12 @@ package com.fans.common;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @ClassName RequestHolder
- * @Description: 多线程存储信息类 一般object为用户类 可自定已扩展
- * @Author fan
- * @Date 2018-12-20 10:42
- * @Version 1.0
+ * className: RequestHolder
+ *
+ * @author k
+ * @version 1.0
+ * @description 多线程存储信息类 一般object为用户类 可自定已扩展
+ * @date 2018-12-20 14:14
  **/
 public class RequestHolder {
     private static final ThreadLocal<Object> OBJECT_HOLDER = new ThreadLocal<>();

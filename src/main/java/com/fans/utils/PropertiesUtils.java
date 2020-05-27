@@ -13,11 +13,12 @@ import java.util.Properties;
 
 
 /**
- * @Description: 读取properties配置文件工具
- * @Param:
- * @return:
- * @Author: fan
- * @Date: 2019/01/17 9:59
+ * className: PropertiesUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 读取properties配置文件工具
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class PropertiesUtils {

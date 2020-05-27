@@ -11,11 +11,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @ClassName DynamicJobServiceImpl
- * @Description: 调度中心实现层
- * @Author fan
- * @Date 2018-12-22 15:04
- * @Version 1.0
+ * className: DynamicJobServiceImpl
+ *
+ * @author k
+ * @version 1.0
+ * @description 调度中心实现层
+ * @date 2018-12-20 14:14
  **/
 @Service("iDynamicJobService")
 public class DynamicJobServiceImpl implements IDynamicJobService {

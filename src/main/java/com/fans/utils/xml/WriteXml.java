@@ -22,16 +22,17 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @ClassName WriteXml
- * @Description: 生成xml
- * @Author k
- * @Date 2018-11-13 19:47
- * @Version 1.0
+ * className: WriteXml
+ *
+ * @author k
+ * @version 1.0
+ * @description 生成xml
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class WriteXml<T> {
 
-    private String filePath;
+    private final String filePath;
 
     public WriteXml(String filePath) {
         this.filePath = filePath;

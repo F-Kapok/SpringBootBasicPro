@@ -5,11 +5,12 @@ import lombok.*;
 import java.io.Serializable;
 
 /**
- * @ClassName User
- * @Description:
- * @Author k
- * @Date 2018-11-13 19:47
- * @Version 1.0
+ * className: User
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2018-12-20 14:14
  **/
 @Builder
 @AllArgsConstructor

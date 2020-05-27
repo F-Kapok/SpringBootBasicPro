@@ -17,16 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName ReadXml
- * @Description: 读取xml到list集合
- * @Author k
- * @Date 2018-11-13 19:47
- * @Version 1.0
+ * className: ReadXml
+ *
+ * @author k
+ * @version 1.0
+ * @description 读取xml到list集合
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class ReadXml<T> {
 
-    private String filePath;
+    private final String filePath;
 
     public ReadXml(String filePath) {
         this.filePath = filePath;
@@ -53,16 +54,16 @@ public class ReadXml<T> {
         try {
             Document doc = reader.read(filePath + fileName);
             Element element = doc.getRootElement();
-            Iterator iterator = element.elementIterator();
+            Iterator<Element> iterator = element.elementIterator();
             while (iterator.hasNext()) {
                 Map<String, String> map = Maps.newHashMap();
-                Element father = (Element) iterator.next();
-                Iterator son = father.elementIterator();
+                Element father = iterator.next();
+                Iterator<Element> son = father.elementIterator();
                 if (!son.hasNext()) {
                     return Lists.newArrayList();
                 }
                 while (son.hasNext()) {
-                    Element property = (Element) son.next();
+                    Element property = son.next();
                     map.put(property.getName(), property.getText());
                 }
                 String json = objectMapper.writeValueAsString(map);

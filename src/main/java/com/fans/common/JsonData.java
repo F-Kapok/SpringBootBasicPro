@@ -13,11 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ClassName JsonData
- * @Description: 自定义交互数据定义类
- * @Author fan
- * @Date 2018-11-20 09:44
- * @Version 1.0
+ * className: JsonData
+ *
+ * @author k
+ * @version 1.0
+ * @description 自定义交互数据定义类
+ * @date 2018-11-20 09:44
  **/
 @Getter
 @Setter

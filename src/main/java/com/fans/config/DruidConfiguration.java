@@ -13,11 +13,12 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
- * @ClassName DruidConfiguration
- * @Description: druid数据源配置
- * @Author fan
- * @Date 2018-12-20 11:40
- * @Version 1.0
+ * className: DruidConfiguration
+ *
+ * @author k
+ * @version 1.0
+ * @description druid数据源配置
+ * @date 2018-12-20 14:14
  **/
 @Configuration
 @Slf4j
@@ -25,11 +26,11 @@ public class DruidConfiguration {
     private static final String DB_PREFIX = "spring.datasource";
 
     /**
-     * @Description: 初始化默认dataSource
-     * @Param: []
-     * @return: javax.sql.DataSource
-     * @Author: fan
-     * @Date: 2018/12/20 12:31
+     * description: 初始化默认dataSource
+     *
+     * @return com.alibaba.druid.pool.DruidDataSource
+     * @author k
+     * @date 2018/12/20 12:31
      **/
     @Bean(destroyMethod = "close", initMethod = "init")
     @ConfigurationProperties(prefix = DB_PREFIX)
@@ -38,11 +39,11 @@ public class DruidConfiguration {
     }
 
     /**
-     * @Description: 配置druidServlet相关内容
-     * @Param: []
-     * @return: org.springframework.boot.web.servlet.ServletRegistrationBean
-     * @Author: fan
-     * @Date: 2018/12/20 12:31
+     * description: 配置druidServlet相关内容
+     *
+     * @return org.springframework.boot.web.servlet.ServletRegistrationBean
+     * @author k
+     * @date 2018/12/20 12:31
      **/
     @Bean
     public ServletRegistrationBean druidServlet() {
@@ -61,11 +62,11 @@ public class DruidConfiguration {
     }
 
     /**
-     * @Description: 配置druid过滤内容
-     * @Param: []
-     * @return: org.springframework.boot.web.servlet.FilterRegistrationBean
-     * @Author: fan
-     * @Date: 2018/12/20 12:31
+     * description: 配置druid过滤内容
+     *
+     * @return org.springframework.boot.web.servlet.FilterRegistrationBean
+     * @author k
+     * @date 2018/12/20 12:31
      **/
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {

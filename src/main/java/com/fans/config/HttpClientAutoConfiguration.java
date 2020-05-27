@@ -13,11 +13,12 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
 
 /**
- * @ClassName HttpClientAutoConfiguration
- * @Description: HttpClient自动注入
- * @Author fan
- * @Date 2019-03-05 17:42
- * @Version 1.0
+ * className: HttpClientAutoConfiguration
+ *
+ * @author k
+ * @version 1.0
+ * @description HttpClient自动注入
+ * @date 2018-12-20 14:14
  **/
 @Configuration
 @ConditionalOnClass({HttpClient.class})

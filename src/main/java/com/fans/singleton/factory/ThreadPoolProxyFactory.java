@@ -3,11 +3,12 @@ package com.fans.singleton.factory;
 import com.fans.singleton.proxy.ThreadPoolProxy;
 
 /**
- * @ClassName ThreadPoolProxyFactory
- * @Description: 线程池工厂
- * @Author k
- * @Date 2019-08-25 04:07
- * @Version 1.0
+ * className: ThreadPoolProxyFactory
+ *
+ * @author k
+ * @version 1.0
+ * @description 线程池工厂
+ * @date 2018-12-20 14:14
  **/
 public class ThreadPoolProxyFactory {
 

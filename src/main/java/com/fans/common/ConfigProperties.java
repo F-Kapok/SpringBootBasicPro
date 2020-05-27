@@ -7,11 +7,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName ConfigProperties
- * @Description: config properties数据读取
- * @Author fan
- * @Date 2018-12-20 12:40
- * @Version 1.0
+ * className: ConfigProperties
+ *
+ * @author k
+ * @version 1.0
+ * @description config properties数据读取
+ * @date 2018-12-20 14:14
  **/
 @Component(value = "configProperties")
 @PropertySource(value = "classpath:/properties/config.properties")

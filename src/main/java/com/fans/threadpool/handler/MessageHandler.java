@@ -6,11 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName MessageHandler
- * @Description: 消息执行器  增加 Component 是为了引用ioc管理的容器和注册中心使用
- * @Author k
- * @Date 2019-08-16 17:34
- * @Version 1.0
+ * className: MessageHandler
+ *
+ * @author k
+ * @version 1.0
+ * @description 消息执行器  增加 Component 是为了引用ioc管理的容器和注册中心使用
+ * @date 2018-12-20 14:14
  **/
 @Component("messageHandler")
 @Slf4j

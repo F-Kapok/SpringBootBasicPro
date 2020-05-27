@@ -17,22 +17,25 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * @ClassName QuartzConfiguration
- * @Description: 定时任务配置
+ * className: QuartzConfiguration
+ *
+ * @author k
+ * @version 1.0
+ * @description 定时任务配置
  * https://www.cnblogs.com/interdrp/p/5003257.html Cron表达式
- * @Author fan
- * @Date 2018-12-22 13:57
- * @Version 1.0
+ * @date 2018-12-20 14:14
  **/
 @Configuration
 @EnableScheduling
 public class QuartzConfiguration {
+
     /**
-     * @Description: 配置JobFactory
-     * @Param: [applicationContext]
-     * @return: org.quartz.spi.JobFactory
-     * @Author: fan
-     * @Date: 2018/12/22 14:00
+     * description: 配置JobFactory
+     *
+     * @param applicationContext 上下文
+     * @return org.quartz.spi.JobFactory
+     * @author k
+     * @date 2018/12/22 14:00
      **/
     @Bean
     public JobFactory jobFactory(ApplicationContext applicationContext) {
@@ -42,13 +45,15 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: SchedulerFactoryBean这个类的真正作用提供了对org.quartz.Scheduler的创建与配置，
-     * @Description: 并且会管理它的生命周期与Spring同步。
-     * @Description: org.quartz.Scheduler: 调度器。所有的调度都是由它控制。
-     * @Param: [dataSource(为SchedulerFactory配置数据源), jobFactory(为SchedulerFactory配置JobFactory)]
-     * @return: org.springframework.scheduling.quartz.SchedulerFactoryBean
-     * @Author: fan
-     * @Date: 2018/12/22 14:04
+     * description: SchedulerFactoryBean这个类的真正作用提供了对org.quartz.Scheduler的创建与配置，
+     * 并且会管理它的生命周期与Spring同步。
+     * org.quartz.Scheduler: 调度器。所有的调度都是由它控制。
+     *
+     * @param dataSource (为SchedulerFactory配置数据源)
+     * @param jobFactory (为SchedulerFactory配置JobFactory)
+     * @return org.springframework.scheduling.quartz.SchedulerFactoryBean
+     * @author k
+     * @date 2018/12/22 14:04
      **/
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory) throws IOException {
@@ -68,11 +73,11 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: 从quartz.properties文件中读取Quartz配置属性
-     * @Param: []
-     * @return: java.util.Properties
-     * @Author: fan
-     * @Date: 2018/12/22 14:01
+     * description:  从quartz.properties文件中读取Quartz配置属性
+     *
+     * @return java.util.Properties
+     * @author k
+     * @date 2018/12/22 14:01
      **/
     @Bean
     public Properties quartzProperties() {
@@ -116,11 +121,12 @@ public class QuartzConfiguration {
     }
 
     /**
-     * @Description: 配置JobFactory, 为quartz作业添加自动连接支持
-     * @Param:
-     * @return:
-     * @Author: fan
-     * @Date: 2018/12/22 13:59
+     * className: AutowiringSpringBeanJobFactory
+     *
+     * @author k
+     * @version 1.0
+     * @description 配置JobFactory, 为quartz作业添加自动连接支持
+     * @date 2018-12-20 14:14
      **/
     public static final class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory implements
             ApplicationContextAware {

@@ -8,11 +8,12 @@ import java.util.concurrent.*;
 import static com.fans.threadpool.basic.EventQueue.getThreadPoolExecutor;
 
 /**
- * @ClassName EventHandler
- * @Description: 事件处理实现
- * @Author k
- * @Date 2019-08-16 16:58
- * @Version 1.0
+ * className: EventHandler
+ *
+ * @author k
+ * @version 1.0
+ * @description 事件处理实现
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public abstract class BaseEventHandler<T> implements Runnable {

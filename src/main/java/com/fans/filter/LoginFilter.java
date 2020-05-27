@@ -23,11 +23,12 @@ import static com.fans.common.CommonConstants.LOGIN_MAP;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 /**
- * @ClassName LoginFilter
- * @Description: 登录拦截器
- * @Author fan
- * @Date 2018-12-20 13:38
- * @Version 1.0
+ * className: LoginFilter
+ *
+ * @author k
+ * @version 1.0
+ * @description 登录拦截器
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class LoginFilter implements Filter {

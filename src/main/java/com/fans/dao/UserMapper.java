@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> selectAll();
-    
+
     int deleteByPrimaryKey(Long id);
 
     int insert(User record);

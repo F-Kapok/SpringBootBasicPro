@@ -13,11 +13,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName EventQueue
- * @Description: 事件执行队列
- * @Author k
- * @Date 2019-08-16 16:51
- * @Version 1.0
+ * className: EventQueue
+ *
+ * @author k
+ * @version 1.0
+ * @description 事件执行队列
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class EventQueue<T> extends Observable {

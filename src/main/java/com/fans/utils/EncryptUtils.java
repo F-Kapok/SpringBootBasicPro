@@ -6,38 +6,43 @@ import org.springframework.util.DigestUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 /**
- * @ClassName EncryptUtils
- * @Description: 文本安全加密工具（MD5,AES）
- * @Author fan
- * @Date 2018-09-10 13:44
- * @Version 1.0
+ * className: EncryptUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 文本安全加密工具（MD5,AES）
+ * @date 2018-12-20 14:14
  **/
 public class EncryptUtils {
 
     /**
-     * @Description: spring md5加密工具
-     * @Param: [content]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/09/10 15:35
+     * description: spring md5加密工具
+     *
+     * @param content 加密体
+     * @return java.lang.String
+     * @author k
+     * @date 2018/09/10 15:35
      **/
     public static String md5Encrypt(String content) {
         return DigestUtils.md5DigestAsHex(content.getBytes());
     }
 
     /**
-     * @Description: spring md5加密工具 增加编码格式
-     * @Param: [content]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/09/10 15:35
+     * description: spring md5加密工具 增加编码格式
+     *
+     * @param content 加密体
+     * @param charset 编码
+     * @return java.lang.String
+     * @author k
+     * @date 2018/09/10 15:35
      **/
     public static String md5Encrypt(String content, String charset) {
         String md5EncryptStr;
@@ -135,11 +140,12 @@ public class EncryptUtils {
     }
 
     /**
-     * @Description: URL编码
-     * @Param: [str]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2019/03/22 17:58
+     * description: URL编码
+     *
+     * @param str url
+     * @return java.lang.String
+     * @author k
+     * @date 2019/03/22 17:58
      **/
     public static String getUrlEncoderString(String str) {
         String result = "";
@@ -155,11 +161,12 @@ public class EncryptUtils {
     }
 
     /**
-     * @Description: URL解码
-     * @Param: [str]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2019/03/22 17:58
+     * description: URL解码
+     *
+     * @param str url
+     * @return java.lang.String
+     * @author k
+     * @date 2019/03/22 17:58
      **/
     public static String urlDecoderString(String str) {
         String result = "";
@@ -175,11 +182,12 @@ public class EncryptUtils {
     }
 
     /**
-     * @Description: 将 s 进行 BASE64 编码
-     * @Param: [s]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2019/03/22 17:58
+     * description: 将 s 进行 BASE64 编码
+     *
+     * @param s 加密体
+     * @return java.lang.String
+     * @author k
+     * @date 2019/03/22 17:58
      **/
     public static String base64Enc(String s) {
         if (s == null) {
@@ -195,11 +203,12 @@ public class EncryptUtils {
     }
 
     /**
-     * @Description: 将 BASE64 编码的字符串 s 进行解码
-     * @Param: [s]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2019/03/22 17:58
+     * description: 将 BASE64 编码的字符串 s 进行解码
+     *
+     * @param s 解密体
+     * @return java.lang.String
+     * @author k
+     * @date 2019/03/22 17:58
      **/
     public static String base64Dec(String s) {
         if (s == null) {

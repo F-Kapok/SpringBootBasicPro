@@ -1,7 +1,6 @@
 package com.fans.common;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
@@ -9,11 +8,12 @@ import redis.clients.jedis.ShardedJedisPool;
 import javax.annotation.Resource;
 
 /**
- * @ClassName RedisPool
- * @Description: redis 使用类
- * @Author fan
- * @Date 2018-11-16 16:27
- * @Version 1.0
+ * className: RedisPool
+ *
+ * @author k
+ * @version 1.0
+ * @description redis 使用类
+ * @date 2018-12-20 14:14
  **/
 @Component("redisPool")
 @Slf4j

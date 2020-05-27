@@ -12,11 +12,12 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName LocalCacheProxy
- * @Description: 本地内存单例对象---根据需求定制（工厂生成）
- * @Author k
- * @Date 2019-08-20 10:28
- * @Version 1.0
+ * className: LocalCacheProxy
+ *
+ * @author k
+ * @version 1.0
+ * @description 本地内存单例对象---根据需求定制（工厂生成）
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class LocalCacheProxy extends AbstractLocalCacheProxy<LocalCacheProxy> {
@@ -29,35 +30,35 @@ public class LocalCacheProxy extends AbstractLocalCacheProxy<LocalCacheProxy> {
     /**
      * 并发级别默认为100，并发级别是指可以同时写缓存的线程数
      */
-    private int concurrencyLevel = 100;
+    private final int concurrencyLevel = 100;
     /**
      * 设置读|写缓存后60秒钟过期
      */
-    private long expireAfterAccessTime = 60;
+    private final long expireAfterAccessTime = 60;
     /**
      * 设置写缓存后60秒钟过期
      */
-    private long expireAfterWriteTime = 60;
+    private final long expireAfterWriteTime = 60;
     /**
      * 设置写后刷新缓存时间为1秒 一般使用异步刷新的方法
      */
-    private long refreshAfterWriteTime = 1;
+    private final long refreshAfterWriteTime = 1;
     /**
      * 时间单位 默认秒
      */
-    private TimeUnit timeUnit = TimeUnit.SECONDS;
+    private final TimeUnit timeUnit = TimeUnit.SECONDS;
 
     /**
      * 缓存容器的初始容量为10
      */
-    private int initialCapacity = 10;
+    private final int initialCapacity = 10;
 
     /**
      * 缓存最大容量为100，超过100之后就会按照LRU最近虽少使用算法来移除缓存项
      */
-    private int maximumSize = 100;
+    private final int maximumSize = 100;
 
-    private LoadingCache<String, Object> localCache = CacheBuilder.newBuilder()
+    private final LoadingCache<String, Object> localCache = CacheBuilder.newBuilder()
             .concurrencyLevel(concurrencyLevel)
             .expireAfterAccess(expireAfterAccessTime, timeUnit)
             .expireAfterWrite(expireAfterWriteTime, timeUnit)
@@ -107,9 +108,9 @@ public class LocalCacheProxy extends AbstractLocalCacheProxy<LocalCacheProxy> {
     /**
      * 初始化加载数据的缓存信息，读取数据库中信息或者是加载文件中的某些数据信息
      *
-     * @param sign
-     * @param key
-     * @return
+     * @param sign 标识
+     * @param key  key
+     * @return java.lang.Object
      */
     private Object getValueWhenExpired(String sign, String key) {
         switch (sign) {
@@ -169,7 +170,7 @@ public class LocalCacheProxy extends AbstractLocalCacheProxy<LocalCacheProxy> {
          */
         INSTANCE;
 
-        private LocalCacheProxy localCache;
+        private final LocalCacheProxy localCache;
 
         Instance() {
             this.localCache = new LocalCacheProxy();

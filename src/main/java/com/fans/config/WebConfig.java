@@ -19,11 +19,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import java.util.List;
 
 /**
- * @ClassName WebConfig
- * @Description: 类似于web.xml配置
- * @Author fan
- * @Date 2018-12-20 10:52
- * @Version 1.0
+ * className: WebConfig
+ *
+ * @author k
+ * @version 1.0
+ * @description 类似于web.xml配置
+ * @date 2018-12-20 14:14
  **/
 @Configuration
 @Slf4j
@@ -87,11 +88,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
     }
 
     /**
-     * @Description: 跨域调用开放
-     * @Param: []
-     * @return: org.springframework.boot.web.servlet.FilterRegistrationBean<org.springframework.web.filter.CorsFilter>
-     * @Author: fan
-     * @Date: 2019/03/22 12:48
+     * description: 跨域调用开放
+     *
+     * @return org.springframework.boot.web.servlet.FilterRegistrationBean<org.springframework.web.filter.CorsFilter>
+     * @author k
+     * @date 2019/03/22 12:48
      **/
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {

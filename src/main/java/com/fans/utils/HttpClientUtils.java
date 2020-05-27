@@ -1,12 +1,5 @@
 package com.fans.utils;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.nio.charset.StandardCharsets;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
@@ -23,12 +16,20 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
- * @Description: httpClient工具类
- * @Param:
- * @return:
- * @Author: fan
- * @Date: 2019/03/25 12:48
+ * className: HttpClientUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description httpClient工具类
+ * @date 2018-12-20 14:14
  **/
 public class HttpClientUtils {
     /**

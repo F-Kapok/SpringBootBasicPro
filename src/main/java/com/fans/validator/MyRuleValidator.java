@@ -7,11 +7,12 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @ClassName MyRuleValidator
- * @Description: 自定义字段规则校验
- * @Author fan
- * @Date 2019-03-22 13:42
- * @Version 1.0
+ * className: MyRuleValidator
+ *
+ * @author k
+ * @version 1.0
+ * @description 自定义字段规则校验
+ * @date 2018-12-20 14:14
  **/
 public class MyRuleValidator implements ConstraintValidator<MyRule, String> {
 

@@ -3,17 +3,18 @@ package com.fans.utils;
 import java.util.Arrays;
 
 /**
- * @ClassName DataConversionUtils
- * @Description: 数据变化--规范化工具类
- * @Author k
- * @Date 2019-09-05 11:17
- * @Version 1.0
+ * className: DataConversionUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 数据变化--规范化工具类
+ * @date 2018-12-20 14:14
  **/
 public class DataConversionUtils {
     /**
      * 最小-最大规范化
      *
-     * @param arr
+     * @param arr 数组
      * @return 规范化后的数组
      */
     public static double[] minMaxNormalize(double[] arr) {
@@ -40,7 +41,7 @@ public class DataConversionUtils {
     /**
      * Z-score规范化
      *
-     * @param arr
+     * @param arr 数组
      * @return 规范化后的数组
      */
     public static double[] zScoreNormalize(double[] arr) {
@@ -69,7 +70,7 @@ public class DataConversionUtils {
     /**
      * 小数定标规范化
      *
-     * @param arr
+     * @param arr 数组
      * @return 规范化后的数组
      */
     public static double[] decimalsNormalize(double[] arr) {

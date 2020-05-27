@@ -3,11 +3,12 @@ package com.fans.threadpool.eventBean;
 import lombok.Builder;
 
 /**
- * @ClassName MessageBean
- * @Description: 相当于事件入参
- * @Author k
- * @Date 2019-08-16 17:33
- * @Version 1.0
+ * className: MessageBean
+ *
+ * @author k
+ * @version 1.0
+ * @description 相当于事件入参
+ * @date 2018-12-20 14:14
  **/
 @Builder
 public class MessageBean {

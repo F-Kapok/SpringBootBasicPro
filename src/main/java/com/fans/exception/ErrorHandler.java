@@ -8,11 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @ClassName ErrorHandler
- * @Description: 错误页面拦截器
- * @Author fan
- * @Date 2019-04-05 23:05
- * @Version 1.0
+ * className: ErrorHandler
+ *
+ * @author k
+ * @version 1.0
+ * @description 错误页面拦截器
+ * @date 2018-12-20 14:14
  **/
 @ControllerAdvice
 @Slf4j

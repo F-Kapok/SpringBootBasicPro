@@ -3,11 +3,12 @@ package com.fans.singleton.factory;
 import com.fans.singleton.proxy.LocalCacheProxy;
 
 /**
- * @ClassName LocalCacheProxyFactory
- * @Description: 本地缓存工厂
- * @Author k
- * @Date 2019-08-25 04:21
- * @Version 1.0
+ * className: LocalCacheProxyFactory
+ *
+ * @author k
+ * @version 1.0
+ * @description 本地缓存工厂
+ * @date 2018-12-20 14:14
  **/
 public class LocalCacheProxyFactory {
 

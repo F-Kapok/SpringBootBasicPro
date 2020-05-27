@@ -8,11 +8,12 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @ClassName Date2LongSerializer
- * @Description: 日期类型转换时间戳
- * @Author fan
- * @Date 2019-03-29 14:28
- * @Version 1.0
+ * className: Date2LongSerializer
+ *
+ * @author k
+ * @version 1.0
+ * @description 日期类型转换时间戳
+ * @date 2018-12-20 14:14
  **/
 public class Date2LongSerializer extends JsonSerializer<Date> {
     @Override

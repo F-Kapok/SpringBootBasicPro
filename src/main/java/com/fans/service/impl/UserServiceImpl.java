@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
- * @ClassName UserServiceImpl
- * @Description:
- * @Author fan
- * @Date 2018-12-19 17:14
- * @Version 1.0
+ * className: UserServiceImpl
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2018-12-20 14:14
  **/
 @Service("iUserService")
 public class UserServiceImpl implements IUserService {

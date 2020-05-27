@@ -1,26 +1,33 @@
 package com.fans.utils;
 
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @ClassName FileUtils
- * @Description: 文件工具类
- * @Author fan
- * @Date 2018-09-14 11:23
- * @Version 1.0
+ * className: FileUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 文件工具类
+ * @date 2018-09-14 11:23
  **/
 public class FileUtils {
+
     private static final int BUFFER_SIZE = 2 * 1024;
 
     /**
-     * @Description: 将文件压缩至zip
-     * @Param: [srcDir（要压缩的文件路径）, out（zip的输出流）, KeepDirStructure（是否保留目录结构）]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/09/14 11:30
+     * description: 将文件压缩至zip
+     *
+     * @param srcDir           要压缩的文件路径
+     * @param out              zip的输出流
+     * @param KeepDirStructure 是否保留目录结构
+     * @author k
+     * @date 2018/09/14 11:30
      **/
     public static void toZip(String srcDir, OutputStream out, boolean KeepDirStructure)
             throws RuntimeException {
@@ -46,14 +53,25 @@ public class FileUtils {
     }
 
     /**
-     * @Description: 递归压缩
-     * @Param: [sourceFile（源文件）, zos（zip输出流）, name（压缩后的名称）, KeepDirStructure]
+     * @Description:
+     * @Param: [sourceFile（）, zos（）, name（）, KeepDirStructure]
      * @return: void
      * @Author: fan
      * @Date: 2018/09/14 11:34
      **/
+    /**
+     * description: 递归压缩
+     *
+     * @param sourceFile       源文件
+     * @param zos              zip输出流
+     * @param name             压缩后的名称
+     * @param keepDirStructure 是否保持目录结构
+     * @return void
+     * @author k
+     * @date 2020/05/27 20:45
+     **/
     private static void compress(File sourceFile, ZipOutputStream zos, String name,
-                                 boolean KeepDirStructure) throws Exception {
+                                 boolean keepDirStructure) throws Exception {
         byte[] buf = new byte[BUFFER_SIZE];
         if (sourceFile.isFile()) {
             // 向zip输出流中添加一个zip实体，构造器中name为zip实体的文件的名字
@@ -70,7 +88,7 @@ public class FileUtils {
             File[] listFiles = sourceFile.listFiles();
             if (listFiles == null || listFiles.length == 0) {
                 // 要保留原来的文件结构时,需要对空文件夹进行处理
-                if (KeepDirStructure) {
+                if (keepDirStructure) {
                     // 空文件夹的处理
                     zos.putNextEntry(new ZipEntry(name + "/"));
                     // 没有文件，不需要文件的copy
@@ -79,10 +97,10 @@ public class FileUtils {
             } else {
                 for (File file : listFiles) {
                     // 判断是否需要保留原来的文件结构
-                    if (KeepDirStructure) {
+                    if (keepDirStructure) {
                         // 注意：file.getName()前面需要带上父文件夹的名字加一斜杠,
                         // 不然最后压缩包中就不能保留原来的文件结构,即：所有文件都跑到压缩包根目录下了
-                        compress(file, zos, name + "/" + file.getName(), KeepDirStructure);
+                        compress(file, zos, name + "/" + file.getName(), keepDirStructure);
                     } else {
                         compress(file, zos, file.getName(), false);
                     }

@@ -7,11 +7,12 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName ApplicationContextHelper
- * @Description: 获取spring上下文工具类
- * @Author fan
- * @Date 2018-11-06 13:06
- * @Version 1.0
+ * className: ApplicationContextHelper
+ *
+ * @author k
+ * @version 1.0
+ * @description 获取spring上下文工具类
+ * @date 2018-12-20 14:14
  **/
 @Component("applicationContextHelper")
 public class ApplicationContextHelper implements ApplicationContextAware {

@@ -12,21 +12,25 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @ClassName CookieUtils
- * @Description: Cookie工具类
- * @Author fan
- * @Date 2018/11/19 17:52
- * @Version 1.0
+ * className: CookieUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description Cookie工具类
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class CookieUtils {
 
     /**
-     * @Description: 得到Cookie的值 关闭和开启utf-8编码
-     * @Param: [request, cookieName, isDecoder(false:不编码,true:utf-8)]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/11/19 17:53
+     * description: 得到Cookie的值 关闭和开启utf-8编码
+     *
+     * @param request    请求
+     * @param cookieName cookie名
+     * @param isDecoder  是否编码 (false:不编码,true:utf-8)
+     * @return java.lang.String
+     * @author k
+     * @date 2018/11/19 17:53
      **/
     public static String getCookieValue(HttpServletRequest request, String cookieName, boolean isDecoder) {
         Cookie[] cookieList = request.getCookies();
@@ -52,11 +56,14 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 得到Cookie的值 自定义编码格式
-     * @Param: [request, cookieName, encodeString]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/11/19 17:53
+     * description: 得到Cookie的值 自定义编码格式
+     *
+     * @param request      请求
+     * @param cookieName   cookie名
+     * @param encodeString 编码str
+     * @return java.lang.String
+     * @author k
+     * @date 2018/11/19 17:53
      **/
     public static String getCookieValue(HttpServletRequest request, String cookieName, String encodeString) {
         Cookie[] cookieList = request.getCookies();
@@ -78,11 +85,14 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
-     * @Param: [request, response, cookieName, cookieValue]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
+     * description: 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
+     *
+     * @param request     请求
+     * @param response    响应
+     * @param cookieName  cookie名
+     * @param cookieValue cookie值
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                  String cookieValue) {
@@ -90,11 +100,22 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值 在指定时间内生效,但不编码
+     * @Description:
      * @Param: [request, response, cookieName, cookieValue, cookieMaxAge]
      * @return: void
      * @Author: fan
      * @Date: 2018/11/19 17:54
+     **/
+    /**
+     * description: 设置Cookie的值 在指定时间内生效,但不编码
+     *
+     * @param request      请求
+     * @param response     响应
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     private static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                   String cookieValue, int cookieMaxAge) {
@@ -102,11 +123,15 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值 不设置生效时间,但编码
-     * @Param: [request, response, cookieName, cookieValue, isEncode]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
+     * description: 设置Cookie的值 不设置生效时间,但编码
+     *
+     * @param request     请求
+     * @param response    响应
+     * @param cookieName  cookie名
+     * @param cookieValue cookie值
+     * @param isEncode    是否编码
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                  String cookieValue, boolean isEncode) {
@@ -114,11 +139,16 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值 在指定时间内生效, 编码参数
-     * @Param: [request, response, cookieName, cookieValue, cookieMaxAge, isEncode]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
+     * description: 设置Cookie的值 在指定时间内生效, 编码参数
+     *
+     * @param request      请求
+     * @param response     响应
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @param isEncode     是否编码
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     private static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                   String cookieValue, int cookieMaxAge, boolean isEncode) {
@@ -126,11 +156,16 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值 在指定时间内生效, 编码参数(指定编码)
-     * @Param: [request, response, cookieName, cookieValue, cookieMaxAge, encodeString]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
+     * description: 设置Cookie的值 在指定时间内生效, 编码参数(指定编码)
+     *
+     * @param request      请求
+     * @param response     响应
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @param encodeString 编码str
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                  String cookieValue, int cookieMaxAge, String encodeString) {
@@ -138,11 +173,13 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 删除Cookie带cookie域名
-     * @Param: [request, response, cookieName]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
+     * description: 删除Cookie带cookie域名
+     *
+     * @param request    请求
+     * @param response   响应
+     * @param cookieName cookie名
+     * @author k
+     * @date 2018/11/19 17:54
      **/
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response,
                                     String cookieName) {
@@ -150,11 +187,16 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值，并使其在指定时间内生效
-     * @Param: [request, response, cookieName, cookieValue, cookieMaxAge(cookie生效的最大秒数), isEncode]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:55
+     * description: 设置Cookie的值，并使其在指定时间内生效
+     *
+     * @param request      请求
+     * @param response     响应
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @param isEncode     是否编码
+     * @author k
+     * @date 2018/11/19 17:55
      **/
     private static void doSetCookie(HttpServletRequest request, HttpServletResponse response,
                                     String cookieName, String cookieValue, int cookieMaxAge, boolean isEncode) {
@@ -172,11 +214,16 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 设置Cookie的值，并使其在指定时间内生效
-     * @Param: [request, response, cookieName, cookieValue, cookieMaxAge, encodeString]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:55
+     * description: 设置Cookie的值，并使其在指定时间内生效
+     *
+     * @param request      请求
+     * @param response     响应
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @param encodeString 编码Str
+     * @author k
+     * @date 2018/11/19 17:55
      **/
     private static void doSetCookie(HttpServletRequest request, HttpServletResponse response,
                                     String cookieName, String cookieValue, int cookieMaxAge, String encodeString) {
@@ -195,7 +242,7 @@ public class CookieUtils {
 
 
     /**
-     * 设置cookie
+     *
      *
      * @param request
      * @param cookieName
@@ -203,6 +250,17 @@ public class CookieUtils {
      * @param cookieMaxAge
      * @return
      */
+    /**
+     * description: 设置cookie
+     *
+     * @param request      请求
+     * @param cookieName   cookie名
+     * @param cookieValue  cookie值
+     * @param cookieMaxAge cookie周期
+     * @return javax.servlet.http.Cookie
+     * @author k
+     * @date 2018/11/19 17:55
+     **/
     private static Cookie getCookie(HttpServletRequest request, String cookieName, String cookieValue, int cookieMaxAge) {
         Cookie cookie = new Cookie(cookieName, cookieValue);
         if (cookieMaxAge > 0) {
@@ -214,11 +272,12 @@ public class CookieUtils {
     }
 
     /**
-     * @Description: 得到cookie的域名
-     * @Param: [request]
-     * @return: java.lang.String
-     * @Author: fan
-     * @Date: 2018/11/19 17:55
+     * description: 得到cookie的域名
+     *
+     * @param request 请求
+     * @return java.lang.String
+     * @author k
+     * @date 2018/11/19 17:55
      **/
     private static String getDomainName(HttpServletRequest request) {
         String domainName;

@@ -6,23 +6,22 @@ import com.fans.service.interfaces.IDynamicJobService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
-import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Set;
 
 import static com.fans.quartz.SchedulerOperate.restartAllJobs;
 
 /**
- * @ClassName JobController
- * @Description: 调用中心控制层
- * @Author fan
- * @Date 2018-12-22 15:34
- * @Version 1.0
+ * className: JobController
+ *
+ * @author k
+ * @version 1.0
+ * @description 调用中心控制层
+ * @date 2018-12-20 14:14
  **/
 @RestController
 @Slf4j

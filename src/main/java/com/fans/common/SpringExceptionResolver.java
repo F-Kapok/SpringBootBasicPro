@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
 /**
- * @ClassName SpringExceptionResolver
- * @Description: 错误异常处理
- * @Author fan
- * @Date 2018-12-20 10:57
- * @Version 1.0
+ * className: SpringExceptionResolver
+ *
+ * @author k
+ * @version 1.0
+ * @description 错误异常处理
+ * @date 2018-12-20 14:14
  **/
 @ControllerAdvice
 public class SpringExceptionResolver {

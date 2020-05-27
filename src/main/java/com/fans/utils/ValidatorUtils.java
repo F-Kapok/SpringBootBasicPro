@@ -16,12 +16,13 @@ import javax.validation.ValidatorFactory;
 import java.util.*;
 
 /**
- * @ClassName ValidatorUtils
- * @Description: hibernate-validator数据校验工具类
+ * className: ValidatorUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description hibernate-validator数据校验工具类
  * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
- * @Author k
- * @Date 2018-11-06 12:12
- * @Version 1.0
+ * @date 2018-11-06 12:12
  **/
 public class ValidatorUtils {
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -41,11 +42,13 @@ public class ValidatorUtils {
     }
 
     /**
-     * @Description: 校验集合类
-     * @Param: [collection, groups]
-     * @return: java.util.Map<java.lang.String, java.lang.String>
-     * @Author: fan
-     * @Date: 2018/11/06 11:45
+     * description: 校验集合类
+     *
+     * @param collection 要校验的集合
+     * @param groups     校验组
+     * @return java.util.Map<java.lang.String, java.lang.String>
+     * @author k
+     * @date 2018/11/06 11:45
      **/
     private static Map<String, String> validateCollection(Collection<?> collection, Class... groups) {
         // 判断集合是否为空
@@ -63,11 +66,14 @@ public class ValidatorUtils {
     }
 
     /**
-     * @Description: 校验整合
-     * @Param: [first, objects, groups]
-     * @return: java.util.Map<java.lang.String, java.lang.String>
-     * @Author: fan
-     * @Date: 2018/11/06 12:14
+     * description: 校验整合
+     *
+     * @param first   校验的对象
+     * @param objects 校验对象数组
+     * @param groups  校验组
+     * @return java.util.Map<java.lang.String, java.lang.String>
+     * @author k
+     * @date 2018/11/06 12:14
      **/
     public static Map<String, String> validateObject(Object first, Object[] objects, Class... groups) {
         if (objects != null && objects.length > 0) {
@@ -78,11 +84,12 @@ public class ValidatorUtils {
     }
 
     /**
-     * @Description: 字段校验检测
-     * @Param: [param, groups]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/06 12:14
+     * description: 字段校验检测
+     *
+     * @param param  校验参数
+     * @param groups 校验组
+     * @author k
+     * @date 2018/11/06 12:14
      **/
     public static void check(Object param, Class... groups) {
         Map<String, String> map = ValidatorUtils.validateObject(param, groups);

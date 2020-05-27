@@ -89,7 +89,7 @@ public class FtpUtils {
      * @param remotePath FTP服务器上的相对路径
      * @param fileName   要下载的文件名
      * @param localPath  下载后保存到本地的路径
-     * @return
+     * @return 是否成功
      */
     public static boolean downloadFile(String remotePath, String fileName, String localPath) {
         connectServer();
@@ -116,6 +116,7 @@ public class FtpUtils {
                 try {
                     ftpClient.disconnect();
                 } catch (IOException ioe) {
+                    log.error("--> 下载文件失败!!! 原因:{}", ioe.getMessage(), ioe);
                 }
             }
         }

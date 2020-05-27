@@ -9,36 +9,39 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @InterfaceName UserRepository
- * @Description:
- * @Author fan
- * @Date 2019-03-29 14:37
- * @Version 1.0
+ * interfaceName: UserRepository
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2019-03-29 14:37
  **/
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsernameAndPassword(String userName, String passWord);
 
     /**
-     * 批量更新
-     * User 不是表名而是对象
+     * description: 批量更新  User 不是表名而是对象
      *
-     * @param status
-     * @param ids
-     * @return
-     */
+     * @param status 状态
+     * @param ids    id集合
+     * @return int
+     * @author k
+     * @date 2020/05/27 16:08
+     **/
     @Modifying
     @Query(value = "update User set status = ?1 where id in ?2")
     @Transactional(rollbackFor = Exception.class)
     int updateUserStatusByIds(Integer status, List<Long> ids);
 
     /**
-     * 批量删除
-     * nativeQuery = true 开启原生sql
+     * description: 批量删除 nativeQuery = true 开启原生sql
      *
-     * @param appIdList
-     * @return
-     */
+     * @param appIdList id集合
+     * @return int
+     * @author k
+     * @date 2020/05/27 16:08
+     **/
     @Modifying
     @Query(value = "delete from user where id in ?1", nativeQuery = true)
     @Transactional(rollbackFor = Exception.class)

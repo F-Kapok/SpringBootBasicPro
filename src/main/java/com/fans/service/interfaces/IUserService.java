@@ -5,41 +5,42 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
- * @InterfaceName IUserService
- * @Description:
- * @Author fan
- * @Date 2018-12-19 17:13
- * @Version 1.0
+ * interfaceName: IUserService
+ *
+ * @author k
+ * @version 1.0
+ * @description 调度中心服务层
+ * @date 2019-03-29 14:37
  **/
 public interface IUserService {
     /**
-     * fetch data by rule id
+     * description: fetch data by rule id
      *
-     * @Description:
-     * @Param: []
-     * @return: / java.util.List<com.fans.pojo.User>
-     * @Author: fan
-     * @Date: 2018/12/20 10:13
+     * @return com.github.pagehelper.PageInfo<com.fans.pojo.User>
+     * @author k
+     * @date 2018/12/20 10:13
      **/
     PageInfo<User> getList();
 
     /**
-     * 增加人员
+     * description: 增加人员
      *
-     * @param user
-     * @return
-     */
+     * @param user 用户实体
+     * @return int
+     * @author k
+     * @date 2018/12/20 10:13
+     **/
     int addUser(User user);
 
     /**
-     * 删除人员
+     * description: 删除人员
      *
-     * @param id
-     * @return
-     */
+     * @param id 用户Id
+     * @return int
+     * @author k
+     * @date 2018/12/20 10:13
+     **/
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     int deleteUser(Long id);
 }

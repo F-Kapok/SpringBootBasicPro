@@ -5,11 +5,12 @@ import lombok.*;
 import java.util.Date;
 
 /**
- * @ClassName PayBean
- * @Description:
- * @Author k
- * @Date 2019-08-18 23:11
- * @Version 1.0
+ * className: PayBean
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2018-12-20 14:14
  **/
 @Builder
 @Data

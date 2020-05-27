@@ -18,11 +18,12 @@ import java.util.concurrent.BlockingQueue;
 import static com.fans.utils.ReflectUtils.getMavenModel;
 
 /**
- * @ClassName PoolRegister
- * @Description: 事件队列注册中心
- * @Author k
- * @Date 2019-08-16 16:50
- * @Version 1.0
+ * className: PoolRegister
+ *
+ * @author k
+ * @version 1.0
+ * @description 事件队列注册中心
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class PoolRegister<T> {

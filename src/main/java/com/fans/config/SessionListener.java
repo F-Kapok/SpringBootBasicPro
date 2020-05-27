@@ -15,11 +15,12 @@ import static com.fans.common.CommonConstants.LOGIN_MAP;
 import static com.fans.common.CommonConstants.ON_LINE_COUNT;
 
 /**
- * @ClassName SessionListener
- * @Description: session监听器
- * @Author fan
- * @Date 2019-03-29 15:33
- * @Version 1.0
+ * className: SessionListener
+ *
+ * @author k
+ * @version 1.0
+ * @description session监听器
+ * @date 2018-12-20 14:14
  **/
 @WebListener
 @Slf4j

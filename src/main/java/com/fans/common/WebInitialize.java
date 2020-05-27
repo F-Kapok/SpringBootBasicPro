@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @ClassName WebInitialize
- * @Description: request, response, session获取
- * @Author fan
- * @Date 2019-03-29 15:46
- * @Version 1.0
+ * className: WebInitialize
+ *
+ * @author k
+ * @version 1.0
+ * @description request, response, session获取
+ * @date 2018-12-20 14:14
  **/
 @Data
 public class WebInitialize {
@@ -32,7 +33,7 @@ public class WebInitialize {
     /**
      * 获取域名
      *
-     * @return
+     * @return domain
      */
     public String getDomain() {
         StringBuffer url = request.getRequestURL();
@@ -42,7 +43,7 @@ public class WebInitialize {
     /**
      * 获取请求来源
      *
-     * @return
+     * @return origin
      */
     public String getOrigin() {
         return request.getHeader("Origin");

@@ -1,11 +1,12 @@
 package com.fans.common;
 
 /**
- * @ClassName CommonConstants
- * @Description: 系统通用字段
- * @Author fan
- * @Date 2018-12-20 13:56
- * @Version 1.0
+ * className: CommonConstants
+ *
+ * @author k
+ * @version 1.0
+ * @description 系统通用字段
+ * @date 2018-12-20 14:14
  **/
 public class CommonConstants {
     public static final String CURRENT_USER = "currentUser";

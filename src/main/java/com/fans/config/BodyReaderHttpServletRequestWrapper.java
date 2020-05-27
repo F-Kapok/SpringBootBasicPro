@@ -9,11 +9,12 @@ import java.io.*;
 
 
 /**
- * @ClassName BodyReaderHttpServletRequestWrapper
- * @Description: 将RequestBody保存为一个byte数组持久化
- * @Author fan
- * @Date 2019-03-21 16:01
- * @Version 1.0
+ * className: BodyReaderHttpServletRequestWrapper
+ *
+ * @author k
+ * @version 1.0
+ * @description 将RequestBody保存为一个byte数组持久化
+ * @date 2018-12-20 14:14
  **/
 public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private final byte[] body;

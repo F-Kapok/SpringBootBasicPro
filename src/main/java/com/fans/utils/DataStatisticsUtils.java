@@ -6,18 +6,19 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * @ClassName DataStatisticsUtils
- * @Description: 数据统计常用算法
- * @Author k
- * @Date 2019-09-05 11:15
- * @Version 1.0
+ * className: DataStatisticsUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 数据统计常用算法
+ * @date 2018-12-20 14:14
  **/
 public class DataStatisticsUtils {
     /**
      * 求和
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 求和结果
      */
     public static double getSum(double[] arr) {
         double sum = 0;
@@ -30,8 +31,8 @@ public class DataStatisticsUtils {
     /**
      * 求均值
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getMean(double[] arr) {
         return getSum(arr) / arr.length;
@@ -40,8 +41,8 @@ public class DataStatisticsUtils {
     /**
      * 求众数
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getMode(double[] arr) {
         Map<Double, Integer> map = Maps.newHashMap();
@@ -67,8 +68,8 @@ public class DataStatisticsUtils {
     /**
      * 求中位数
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getMedian(double[] arr) {
         double[] tempArr = Arrays.copyOf(arr, arr.length);
@@ -84,8 +85,8 @@ public class DataStatisticsUtils {
     /**
      * 求中列数
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getMidrange(double[] arr) {
         double max = arr[0], min = arr[0];
@@ -103,7 +104,7 @@ public class DataStatisticsUtils {
     /**
      * 求四分位数
      *
-     * @param arr
+     * @param arr 数组
      * @return 存放三个四分位数的数组
      */
     public static double[] getQuartiles(double[] arr) {
@@ -126,8 +127,8 @@ public class DataStatisticsUtils {
     /**
      * 求极差
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getRange(double[] arr) {
         double max = arr[0], min = arr[0];
@@ -145,8 +146,8 @@ public class DataStatisticsUtils {
     /**
      * 求四分位数极差
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getQuartilesRange(double[] arr) {
         return getRange(getQuartiles(arr));
@@ -157,7 +158,7 @@ public class DataStatisticsUtils {
      *
      * @param arr 求值数组
      * @param p   截断量p，例如p的值为20，则截断20%（高10%，低10%）
-     * @return
+     * @return 结果
      */
     public static double getTrimmedMean(double[] arr, int p) {
         int tmp = arr.length * p / 100;
@@ -168,8 +169,8 @@ public class DataStatisticsUtils {
     /**
      * 求方差
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getVariance(double[] arr) {
         double variance = 0;
@@ -185,8 +186,8 @@ public class DataStatisticsUtils {
     /**
      * 求绝对平均偏差(AAD)
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getAbsoluteAverageDeviation(double[] arr) {
         double sum = 0;
@@ -200,8 +201,8 @@ public class DataStatisticsUtils {
     /**
      * 求中位数绝对偏差(MAD)
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getMedianAbsoluteDeviation(double[] arr) {
         double[] tempArr = new double[arr.length];
@@ -215,8 +216,8 @@ public class DataStatisticsUtils {
     /**
      * 求标准差
      *
-     * @param arr
-     * @return
+     * @param arr 数组
+     * @return 结果
      */
     public static double getStandardDevition(double[] arr) {
         double sum = 0;

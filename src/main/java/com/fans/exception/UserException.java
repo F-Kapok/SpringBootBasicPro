@@ -1,11 +1,12 @@
 package com.fans.exception;
 
 /**
- * @ClassName UserException
- * @Description: 用户异常处理
- * @Author fan
- * @Date 2018-12-20 10:06
- * @Version 1.0
+ * className: UserException
+ *
+ * @author k
+ * @version 1.0
+ * @description 用户异常处理
+ * @date 2018-12-20 14:14
  **/
 public class UserException extends RuntimeException {
     private static final long serialVersionUID = -7034897190745766939L;

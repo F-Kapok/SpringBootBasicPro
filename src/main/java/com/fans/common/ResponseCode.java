@@ -3,11 +3,12 @@ package com.fans.common;
 import lombok.Getter;
 
 /**
- * @EnumName ResponseCode
- * @Description: 响应代码
- * @Author fan
- * @Date 2018-11-23 11:29
- * @Version 1.0
+ * className: ResponseCode
+ *
+ * @author k
+ * @version 1.0
+ * @description 响应代码
+ * @date 2018-12-20 14:14
  **/
 @Getter
 public enum ResponseCode {

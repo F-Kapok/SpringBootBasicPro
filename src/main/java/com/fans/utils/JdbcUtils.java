@@ -5,14 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
- * @Description: 数据库连接类 说明:封装了 无参，有参 调用
- * @Param:
- * @return:
- * @Author: fan
- * @Date: 2018/11/20 9:50
+ * className: JdbcUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 数据库连接类 说明:封装了 无参，有参 调用
+ * @date 2018/11/20 9:50
  **/
 @Slf4j
 public class JdbcUtils {
@@ -28,7 +32,7 @@ public class JdbcUtils {
     /**
      * 创建CallableStatement对象
      */
-    private CallableStatement callableStatement = null;
+    private final CallableStatement callableStatement = null;
     /**
      * 创建结果集对象
      */
@@ -101,11 +105,13 @@ public class JdbcUtils {
     }
 
     /**
-     * @Description: 增删改
-     * @Param: [sql, params]
-     * @return: int 受影响的行数
-     * @Author: fan
-     * @Date: 2018/11/20 9:52
+     * description: 增删改
+     *
+     * @param sql    sql语句
+     * @param params 入参
+     * @return int 影响行数
+     * @author k
+     * @date 2018/11/20 9:52
      **/
     public int update(String sql, Object[] params) {
         int affectedLine = 0;
@@ -121,12 +127,13 @@ public class JdbcUtils {
     }
 
     /**
-     * 执行sql语句
+     * description: 执行sql语句
      *
-     * @param sql
-     * @param params
-     * @throws SQLException
-     */
+     * @param sql    sql语句
+     * @param params 入参
+     * @author k
+     * @date 2018/11/20 9:52
+     **/
     private void executeSql(String sql, Object[] params) throws SQLException {
         connection = this.getConnection();
         preparedStatement = connection.prepareStatement(sql);
@@ -138,11 +145,13 @@ public class JdbcUtils {
     }
 
     /**
-     * @Description: 查询 结果放入ResultSet中
-     * @Param: [sql, params]
-     * @return: java.sql.ResultSet 结果集
-     * @Author: fan
-     * @Date: 2018/11/20 9:52
+     * description: 查询 结果放入ResultSet中
+     *
+     * @param sql    sql语句
+     * @param params 入参
+     * @return java.sql.ResultSet
+     * @author k
+     * @date 2018/11/20 9:52
      **/
     public ResultSet query(String sql, Object[] params) {
         try {
@@ -155,11 +164,13 @@ public class JdbcUtils {
     }
 
     /**
-     * @Description: 获取结果集，并将结果放在List中
-     * @Param: [sql, params]
-     * @return: java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     * @Author: fan
-     * @Date: 2018/11/20 9:52
+     * description: 获取结果集，并将结果放在List中
+     *
+     * @param sql    sql语句
+     * @param params 入参
+     * @return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
+     * @author k
+     * @date 2018/11/20 9:52
      **/
     public List<Map<String, Object>> getListMap(String sql, Object[] params) {
         ResultSet rs = query(sql, params);
@@ -190,11 +201,20 @@ public class JdbcUtils {
     }
 
     /**
-     * @Description: 获取结果集，并将结果放在Map中
+     * @Description:
      * @Param: [sql, params]
      * @return: java.util.Map<java.lang.String, java.lang.Object> 结果集
      * @Author: fan
      * @Date: 2018/11/20 9:52
+     **/
+    /**
+     * description: 获取结果集，并将结果放在Map中
+     *
+     * @param sql    sql语句
+     * @param params 入参
+     * @return java.util.Map<java.lang.String, java.lang.Object>
+     * @author k
+     * @date 2018/11/20 9:52
      **/
     public Map<String, Object> getMap(String sql, Object[] params) {
         ResultSet rs = query(sql, params);

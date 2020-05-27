@@ -12,11 +12,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * @ClassName AbstractLocalCacheProxy
- * @Description:
- * @Author k
- * @Date 2019-08-25 15:41
- * @Version 1.0
+ * className: AbstractLocalCacheProxy
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public abstract class AbstractLocalCacheProxy<T> {
@@ -24,17 +25,21 @@ public abstract class AbstractLocalCacheProxy<T> {
     private Class<T> aClass;
 
     /**
-     * 线程池描述
+     * description: 线程池描述
      *
-     * @return
-     */
+     * @return java.lang.String
+     * @author k
+     * @date 2018-12-20 14:14
+     **/
     public abstract String getDescription();
 
     /**
-     * 根据key获取数据表中的值或redis中的值 然后返回
+     * description: 根据key获取数据表中的值或redis中的值 然后返回
      *
-     * @return
-     */
+     * @return java.lang.Object
+     * @author k
+     * @date 2018-12-20 14:14
+     **/
     public abstract Object getDataByKey();
 
     /**
@@ -42,13 +47,14 @@ public abstract class AbstractLocalCacheProxy<T> {
      */
     public abstract void removeEvent();
 
-
     /**
-     * 获取缓存值根据指定key
+     * description: 获取缓存值根据指定key
      *
-     * @param key
-     * @return
-     */
+     * @param key key
+     * @return java.lang.Object
+     * @author k
+     * @date 2018-12-20 14:14
+     **/
     public Object get(String key) {
         Object value;
         try {
@@ -63,11 +69,13 @@ public abstract class AbstractLocalCacheProxy<T> {
     }
 
     /**
-     * 设置缓存值
+     * description: 设置缓存值
      *
-     * @param key
-     * @param value
-     */
+     * @param key   key
+     * @param value 值
+     * @author k
+     * @date 2018-12-20 14:14
+     **/
     public void put(String key, Object value) {
         try {
             LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -80,11 +88,13 @@ public abstract class AbstractLocalCacheProxy<T> {
     }
 
     /**
-     * 获取所有Key的值，有一个key不存在则返回空
+     * description: 获取所有Key的值，有一个key不存在则返回空
      *
-     * @param keys
-     * @return
-     */
+     * @param keys key集合
+     * @return com.google.common.collect.ImmutableMap<java.lang.String, java.lang.Object>
+     * @author k
+     * @date 2018-12-20 14:14
+     **/
     public ImmutableMap<String, Object> getAll(Collection<String> keys) {
         try {
             LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -99,8 +109,8 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 获取所有Key的值，有一个key不存在则忽略掉，返回其他存在的值
      *
-     * @param keys
-     * @return
+     * @param keys key集合
+     * @return com.google.common.collect.ImmutableMap<java.lang.String, java.lang.Object>
      */
     public ImmutableMap<String, Object> getAllPresent(Collection<String> keys) {
         try {
@@ -116,8 +126,8 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 获取Key的值，若不存在返回null
      *
-     * @param key
-     * @return
+     * @param key key
+     * @return java.lang.Object
      */
     public Object getIfPresent(String key) {
         LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -132,7 +142,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 删除指定key和value
      *
-     * @param key
+     * @param key key
      */
     public void invalidate(String key) {
         LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -158,7 +168,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 批量删除指定key和value
      *
-     * @param keys
+     * @param keys key集合
      */
     public void invalidateAll(Collection<String> keys) {
         LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -174,7 +184,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 缓存刷新数据，主要针对数据表中的数据同步，如果没有新值则返回旧的值
      *
-     * @param key
+     * @param key key
      */
     public void refresh(String key) {
         LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -207,7 +217,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 获取缓存数据转换成Map类型
      *
-     * @return
+     * @return java.util.concurrent.ConcurrentMap<java.lang.String, java.lang.Object>
      */
     public ConcurrentMap<String, Object> toMap() {
         LoadingCache<String, Object> loadingCache = getLoadingCache();
@@ -218,7 +228,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 获取缓存大小
      *
-     * @return
+     * @return int
      */
     public int getSize() {
         return toMap().size();
@@ -227,7 +237,7 @@ public abstract class AbstractLocalCacheProxy<T> {
     /**
      * 反射获取泛型类型
      *
-     * @return
+     * @return com.google.common.cache.LoadingCache<java.lang.String, java.lang.Object>
      */
     private LoadingCache<String, Object> getLoadingCache() {
         try {

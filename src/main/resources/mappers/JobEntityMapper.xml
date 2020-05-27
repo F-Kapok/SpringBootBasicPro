@@ -16,9 +16,9 @@
         <result column="class_method" jdbcType="VARCHAR" property="classMethod"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, `group`, cron, parameter, description, vm_param, jar_path, status, job_type,
+        id, name, `group`, cron, parameter, description, vm_param, jar_path, status, job_type,
     class_name, class_method
-  </sql>
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -31,21 +31,20 @@
         from job_entity
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from job_entity
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from job_entity
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.fans.pojo.JobEntity">
-    insert into job_entity (id, name, group,
-      cron, parameter, description,
-      vm_param, jar_path, status,
-      job_type, class_name, class_method
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR},
-      #{cron,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-      #{vmParam,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
-      #{jobType,jdbcType=CHAR}, #{className,jdbcType=VARCHAR}, #{classMethod,jdbcType=VARCHAR}
-      )
-  </insert>
+        insert into job_entity (id, name, group,
+                                cron, parameter, description,
+                                vm_param, jar_path, status,
+                                job_type, class_name, class_method)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR},
+                #{cron,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+                #{vmParam,jdbcType=VARCHAR}, #{jarPath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+                #{jobType,jdbcType=CHAR}, #{className,jdbcType=VARCHAR}, #{classMethod,jdbcType=VARCHAR})
+    </insert>
     <insert id="insertSelective" parameterType="com.fans.pojo.JobEntity">
         insert into job_entity
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -165,18 +164,18 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.fans.pojo.JobEntity">
-    update job_entity
-    set name = #{name,jdbcType=VARCHAR},
-      group = #{group,jdbcType=VARCHAR},
-      cron = #{cron,jdbcType=VARCHAR},
-      parameter = #{parameter,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      vm_param = #{vmParam,jdbcType=VARCHAR},
-      jar_path = #{jarPath,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      job_type = #{jobType,jdbcType=CHAR},
-      class_name = #{className,jdbcType=VARCHAR},
-      class_method = #{classMethod,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update job_entity
+        set name         = #{name,jdbcType=VARCHAR},
+            group        = #{group,jdbcType=VARCHAR},
+            cron         = #{cron,jdbcType=VARCHAR},
+            parameter    = #{parameter,jdbcType=VARCHAR},
+            description  = #{description,jdbcType=VARCHAR},
+            vm_param     = #{vmParam,jdbcType=VARCHAR},
+            jar_path     = #{jarPath,jdbcType=VARCHAR},
+            status       = #{status,jdbcType=VARCHAR},
+            job_type     = #{jobType,jdbcType=CHAR},
+            class_name   = #{className,jdbcType=VARCHAR},
+            class_method = #{classMethod,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

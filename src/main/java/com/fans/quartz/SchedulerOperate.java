@@ -16,11 +16,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @ClassName SchedulerOperate
- * @Description: 调度中心操作类
- * @Author k
- * @Date 2019-08-25 15:04
- * @Version 1.0
+ * className: SchedulerOperate
+ *
+ * @author k
+ * @version 1.0
+ * @description 调度中心操作类
+ * @date 2018-12-20 14:14
  **/
 @Slf4j
 public class SchedulerOperate {
@@ -38,11 +39,10 @@ public class SchedulerOperate {
     }
 
     /**
-     * @Description: 重启所有Job
-     * @Param: []
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/12/22 16:15
+     * description: 重启所有Job
+     *
+     * @author k
+     * @date 2018/12/22 16:15
      **/
     public static void restartAllJobs() {
         SchedulerFactoryBean factory = ApplicationContextHelper.popBean(SchedulerFactoryBean.class);

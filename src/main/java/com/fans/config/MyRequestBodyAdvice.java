@@ -12,11 +12,12 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 /**
- * @ClassName MyRequestBodyAdvice
- * @Description: 常用于请求数据解密 @RequestBody
- * @Author fan
- * @Date 2019-03-22 12:55
- * @Version 1.0
+ * className: MyRequestBodyAdvice
+ *
+ * @author k
+ * @version 1.0
+ * @description 常用于请求数据解密 @RequestBody
+ * @date 2018-12-20 14:14
  **/
 @ControllerAdvice(basePackages = {"com.fans.controller"})
 public class MyRequestBodyAdvice implements RequestBodyAdvice {

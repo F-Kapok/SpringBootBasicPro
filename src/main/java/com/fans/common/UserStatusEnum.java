@@ -3,11 +3,12 @@ package com.fans.common;
 import lombok.Getter;
 
 /**
- * @EnumName UserStatusEnum
- * @Description: 用户状态枚举类
- * @Author fan
- * @Date 2019-03-29 09:19
- * @Version 1.0
+ * className: UserStatusEnum
+ *
+ * @author k
+ * @version 1.0
+ * @description 用户状态枚举类
+ * @date 2018-12-20 14:14
  **/
 @Getter
 public enum UserStatusEnum implements CodeEnum {
@@ -24,10 +25,11 @@ public enum UserStatusEnum implements CodeEnum {
      */
     STEWARD_INFO_STATUS_TIMEOUT(2, "到期");
 
-    private Integer code;
-    private String desc;
+    private final Integer code;
+    private final String desc;
 
     UserStatusEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
-    }}
+    }
+}

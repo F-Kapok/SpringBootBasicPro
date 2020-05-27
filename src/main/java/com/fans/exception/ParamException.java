@@ -1,11 +1,12 @@
 package com.fans.exception;
 
 /**
- * @ClassName ParamException
- * @Description: 参数异常处理
- * @Author fan
- * @Date 2018-11-20 09:46
- * @Version 1.0
+ * className: ParamException
+ *
+ * @author k
+ * @version 1.0
+ * @description 参数异常处理
+ * @date 2018-11-20 09:46
  **/
 public class ParamException extends RuntimeException {
     public ParamException() {

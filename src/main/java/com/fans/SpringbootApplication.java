@@ -8,11 +8,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * @Description: 入口
- * @Param:
- * @return:
- * @Author: fan
- * @Date: 2018/12/19 17:19
+ * className: SpringbootApplication
+ *
+ * @author k
+ * @version 1.0
+ * @description 入口
+ * @date 2018-12-20 14:14
  **/
 @SpringBootApplication
 @MapperScan(basePackages = "com.fans.dao")

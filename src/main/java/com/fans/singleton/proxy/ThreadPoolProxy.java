@@ -6,29 +6,30 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.util.concurrent.*;
 
 /**
- * @ClassName ThreadPoolProxy
- * @Description: 线程池单例初始化---由工厂生成
- * @Author k
- * @Date 2019-08-16 15:02
- * @Version 1.0
+ * className: ThreadPoolProxy
+ *
+ * @author k
+ * @version 1.0
+ * @description 线程池单例初始化---由工厂生成
+ * @date 2018-12-20 14:14
  **/
 public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
     /**
      * 线程池基本大小，大于此值会开启新的线程执行至maximumPoolSize
      */
-    private int corePoolSize = 0;
+    private final int corePoolSize = 0;
     /**
      * 线程池最大处理线程数
      */
-    private int maximumPoolSize = Integer.MAX_VALUE;
+    private final int maximumPoolSize = Integer.MAX_VALUE;
     /**
      * 线程池线程空闲后停留时间
      */
-    private long keepAliveTime = 60L;
+    private final long keepAliveTime = 60L;
     /**
      * 线程数停留时间单位
      */
-    private TimeUnit timeUnit = TimeUnit.SECONDS;
+    private final TimeUnit timeUnit = TimeUnit.SECONDS;
     /**
      * ArrayBlockingQueue ：一个由数组结构组成的有界阻塞队列。 照FIFO（先进先出）原则对元素进行排序
      * <p>
@@ -49,7 +50,7 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
      * <p>
      * LinkedBlockingDeque： 一个由链表结构组成的双向阻塞队列。
      */
-    private SynchronousQueue workQueue = new SynchronousQueue();
+    private final SynchronousQueue workQueue = new SynchronousQueue();
 
     /**
      * ThreadPoolExecutor.AbortPolicy: 丢弃任务并抛出
@@ -58,17 +59,17 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
      * ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
      * ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
      */
-    private RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.AbortPolicy();
+    private final RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.AbortPolicy();
     /**
      * 线程工厂构建基本信息
      */
-    private ThreadFactory threadFactory = new ThreadFactoryBuilder()
+    private final ThreadFactory threadFactory = new ThreadFactoryBuilder()
             .setNameFormat("thread-task-runner-%d")
             .build();
     /**
      * 线程池
      */
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit, workQueue, threadFactory, rejectedExecutionHandler);
+    private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit, workQueue, threadFactory, rejectedExecutionHandler);
 
     private ThreadPoolProxy() {
     }
@@ -102,7 +103,7 @@ public class ThreadPoolProxy extends AbstractThreadPoolProxy<ThreadPoolProxy> {
          */
         INSTANCE;
 
-        private ThreadPoolProxy threadPool;
+        private final ThreadPoolProxy threadPool;
 
         Instance() {
             this.threadPool = new ThreadPoolProxy();

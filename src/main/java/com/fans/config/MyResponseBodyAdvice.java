@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * @ClassName MyResponseBodyAdvice
- * @Description: 常用于返回数据加密 @ResponseBody
- * @Author fan
- * @Date 2019-03-22 13:22
- * @Version 1.0
+ * className: MyResponseBodyAdvice
+ *
+ * @author k
+ * @version 1.0
+ * @description 常用于返回数据加密 @ResponseBody
+ * @date 2018-12-20 14:14
  **/
 @ControllerAdvice(basePackages = {"com.fans.controller"})
 @Slf4j

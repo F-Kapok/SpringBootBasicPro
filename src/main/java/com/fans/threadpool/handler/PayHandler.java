@@ -11,11 +11,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName PayHandler
- * @Description:
- * @Author k
- * @Date 2019-08-18 23:15
- * @Version 1.0
+ * className: PayHandler
+ *
+ * @author k
+ * @version 1.0
+ * @description
+ * @date 2018-12-20 14:14
  **/
 @Component(value = "payHandler")
 @Slf4j

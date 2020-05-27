@@ -24,11 +24,12 @@ import java.util.Objects;
 
 
 /**
- * @ClassName MailUtils
- * @Description: 邮件发送工具类
- * @Author fan
- * @Date 2019-03-18 17:52
- * @Version 1.0
+ * className: MailUtils
+ *
+ * @author k
+ * @version 1.0
+ * @description 邮件发送工具类
+ * @date 2018-12-20 14:14
  **/
 @Component(value = "mailUtils")
 @ConfigurationProperties(prefix = "spring.mail")
@@ -54,11 +55,11 @@ public class MailUtils {
     private TemplateEngine templateEngine;
 
     /**
-     * @Description: 发送一个简单格式的邮件
-     * @Param: [mail]
-     * @return: void
-     * @Author: fan
-     * @Date: 2019/03/18 17:51
+     * description: 发送一个简单格式的邮件
+     *
+     * @param mail 邮件
+     * @author k
+     * @date 2019/03/18 17:51
      **/
     public void sendSimpleMail(Mail mail) {
         try {
@@ -80,11 +81,11 @@ public class MailUtils {
     }
 
     /**
-     * @Description: 发送一个HTML格式的邮件
-     * @Param: [mail]
-     * @return: void
-     * @Author: fan
-     * @Date: 2019/03/18 17:51
+     * description: 发送一个HTML格式的邮件
+     *
+     * @param mail 邮箱
+     * @author k
+     * @date 2020/05/27 22:47
      **/
     public void sendHTMLMail(Mail mail) {
         try {
@@ -120,11 +121,13 @@ public class MailUtils {
     }
 
     /**
-     * @Description: 发送带静态资源的邮件
-     * @Param: [mail]
-     * @return: void
-     * @Author: fan
-     * @Date: 2019/03/18 17:52
+     * description: 发送带静态资源的邮件
+     *
+     * @param mail      邮件
+     * @param contentId 内容id
+     * @param pathName  路径名
+     * @author k
+     * @date 2020/05/27 23:00
      **/
     public void sendInlineMail(Mail mail, String contentId, String pathName) {
         try {
@@ -141,11 +144,13 @@ public class MailUtils {
     }
 
     /**
-     * @Description: 发送基于Freemarker模板的邮件
-     * @Param: [mail]
-     * @return: void
-     * @Author: fan
-     * @Date: 2019/03/18 17:52
+     * description: 发送基于Freemarker模板的邮件
+     *
+     * @param mail         邮件
+     * @param inParam      内容体
+     * @param templateName 模板名
+     * @author k
+     * @date 2019/03/18 17:52
      **/
     public void sendFreemarkerTemplateMail(Mail mail, Map<String, Object> inParam, String templateName) {
         try {

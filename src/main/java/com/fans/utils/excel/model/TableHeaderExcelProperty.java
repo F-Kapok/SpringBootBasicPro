@@ -9,11 +9,12 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @ClassName TableHeaderExcelProperty
- * @Description: 模板案例  测试用
- * @Author k
- * @Date 2019-11-11 15:11
- * @Version 1.0
+ * className: TableHeaderExcelProperty
+ *
+ * @author k
+ * @version 1.0
+ * @description 模板案例  测试用
+ * @date 2018-12-20 14:14
  **/
 @Data
 public class TableHeaderExcelProperty {
