@@ -21,7 +21,7 @@ public class NetWorkUtils {
     private static final String HTTP_CLIENT_IP = "HTTP_CLIENT_IP";
     private static final String HTTP_X_FORWARDED_FOR = "HTTP_X_FORWARDED_FOR";
     private static final String REGEX = ",";
-    
+
     /**
      * description: 获取请求主机IP地址, 如果通过代理进来，则透过防火墙获取真实IP地址;
      *
