@@ -1,6 +1,7 @@
 package com.fans.utils;
 
 import com.google.common.collect.Maps;
+import com.rits.cloning.Cloner;
 import lombok.extern.slf4j.Slf4j;
 
 import java.beans.BeanInfo;
@@ -21,6 +22,11 @@ import java.util.Objects;
  **/
 @Slf4j
 public class ObjectUtils {
+
+    /**
+     * 对象拷贝类
+     */
+    private static final Cloner CLONER = new Cloner();
 
     /**
      * description: Map集合转换响应的Object对象
@@ -126,5 +132,17 @@ public class ObjectUtils {
             e.printStackTrace();
         }
         return cloneObj;
+    }
+
+    /**
+     * description: 工具类对象深拷贝
+     *
+     * @param object 要拷贝的对象
+     * @return T
+     * @author k
+     * @date 2020/05/30 20:21
+     **/
+    public static <T> T clone(T object) {
+        return CLONER.deepClone(object);
     }
 }
