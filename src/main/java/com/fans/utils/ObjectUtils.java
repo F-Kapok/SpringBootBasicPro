@@ -1,5 +1,7 @@
 package com.fans.utils;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.google.common.collect.Maps;
 import com.rits.cloning.Cloner;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,10 @@ public class ObjectUtils {
      * 对象拷贝类
      */
     private static final Cloner CLONER = new Cloner();
+    /**
+     * 对象拷贝（深）赋值--可拷贝对象
+     */
+    private static final Mapper MAPPER = DozerBeanMapperBuilder.buildDefault();
 
     /**
      * description: Map集合转换响应的Object对象
@@ -145,4 +151,18 @@ public class ObjectUtils {
     public static <T> T clone(T object) {
         return CLONER.deepClone(object);
     }
+
+    /**
+     * description: 对象深赋值--可赋值对象，变量名必须相同
+     *
+     * @param source 数据来源
+     * @param tClass 要拷贝到的对象源类
+     * @return T
+     * @author k
+     * @date 2020/05/30 20:28
+     **/
+    public static <T> T copyProperties(Object source, Class<T> tClass) {
+        return MAPPER.map(source, tClass);
+    }
+
 }
