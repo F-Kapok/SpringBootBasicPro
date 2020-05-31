@@ -22,11 +22,11 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.STRING;
 @Slf4j
 public class JsonUtils {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
         // 初始化 initialize 去除掉对getter和setter的依赖
-        objectMapper.setVisibility(ALL, NONE)
+        OBJECT_MAPPER.setVisibility(ALL, NONE)
                 .setVisibility(FIELD, ANY);
     }
 
@@ -38,7 +38,7 @@ public class JsonUtils {
             if (src instanceof String) {
                 return (String) src;
             } else {
-                return objectMapper.writeValueAsString(src);
+                return OBJECT_MAPPER.writeValueAsString(src);
             }
         } catch (Exception e) {
             log.warn("parse object to String exception, error:{}", e.getMessage(), e);
@@ -61,7 +61,7 @@ public class JsonUtils {
             if (typeReference.getType().equals(String.class)) {
                 return (T) src;
             } else {
-                return objectMapper.readValue(src, typeReference);
+                return OBJECT_MAPPER.readValue(src, typeReference);
             }
         } catch (Exception e) {
             log.warn("parse String to Object exception, String:{}, TypeReference<T>:{}, error:{}", src, typeReference.getType(), e);
@@ -77,7 +77,7 @@ public class JsonUtils {
             if (StringUtils.equals(objectClass.getCanonicalName(), STRING)) {
                 return (T) src;
             } else {
-                return objectMapper.readValue(src, objectClass);
+                return OBJECT_MAPPER.readValue(src, objectClass);
             }
         } catch (Exception e) {
             log.warn("parse String to Object exception, String:{}, Class<T>:{}, error:{}", src, objectClass.getCanonicalName(), e);
