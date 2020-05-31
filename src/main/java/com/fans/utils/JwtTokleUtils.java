@@ -26,9 +26,9 @@ public class JwtTokleUtils implements Serializable {
      */
     private final static String JWT_KEY = "kapok";
     /**
-     * 过期时间 7200s
+     * 过期时间 两小时
      */
-    private final static Long EXPIRED_TIME_IN = 7200L;
+    private final static Long EXPIRED_TIME_IN = 2L * 3600L;
     /**
      * 用户等级
      */
