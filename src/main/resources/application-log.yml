@@ -12,4 +12,4 @@ logging:
   config: classpath:logback.xml
   level:
     com.fans.dao: debug
-    org.springframework.web: TRACE
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE

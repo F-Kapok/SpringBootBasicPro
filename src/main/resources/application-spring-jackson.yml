@@ -1,3 +1,7 @@
 spring:
   jackson:
     default-property-inclusion: non_null
+    # 蛇形名称格式  banner_id
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true

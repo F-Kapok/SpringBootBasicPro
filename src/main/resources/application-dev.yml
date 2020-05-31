@@ -15,8 +15,10 @@ server:
   # 只有特殊需求的情况下才配置, 具体根据各自的业务来设置
   address: 127.0.0.1
   tomcat:
-    # tomcat最大线程数, 默认为200
-    max-threads: 250
+    threads:
+      # tomcat最大线程数, 默认为200
+      max: 250
+      min-spare: 30
     # tomcat的URI编码
     uri-encoding: UTF-8
     # 存放Tomcat的日志、Dump等文件的临时文件夹，默认为系统的tmp文件夹
