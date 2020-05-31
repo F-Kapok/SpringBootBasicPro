@@ -80,5 +80,4 @@ $ git add *
 $ git commit -m '提交信息'
 4、push代码至github上
 $ git remote add origin https://github.com/F-Kapok/wechat-shop-server.git（换成自己的仓库地址）
-$ git pull --rebase origin master
-$ git push origin master
+$ git push -f origin master
