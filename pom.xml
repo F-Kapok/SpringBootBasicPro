@@ -21,7 +21,7 @@
         <guava.version>29.0-jre</guava.version>
         <joda.version>2.10.6</joda.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons.net.version>3.6</commons.net.version>
         <commons.collections.version>3.2.2</commons.collections.version>
         <commons.configuration.version>1.10</commons.configuration.version>
@@ -161,6 +161,12 @@
             <artifactId>commons-net</artifactId>
             <version>${commons.net.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+
         <!-- commons-collections -->
         <dependency>
             <groupId>commons-collections</groupId>
