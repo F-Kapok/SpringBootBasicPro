@@ -28,7 +28,7 @@ public class JwtTokleUtils implements Serializable {
     /**
      * 过期时间 两小时
      */
-    private final static Long EXPIRED_TIME_IN = 2L * 3600L;
+    private final static Integer EXPIRED_TIME_IN = 2 * 3600;
     /**
      * 用户等级
      */
@@ -62,7 +62,7 @@ public class JwtTokleUtils implements Serializable {
                 .withClaim("uid", uid)
                 .withClaim("scope", scope)
                 .withIssuedAt(now.toDate())
-                .withExpiresAt(now.plus(EXPIRED_TIME_IN).toDate())
+                .withExpiresAt(now.plusSeconds(EXPIRED_TIME_IN).toDate())
                 .sign(algorithm);
     }
 }
