@@ -25,16 +25,16 @@ import java.util.*;
  * @date 2018-11-06 12:12
  **/
 public class ValidatorUtils {
-    private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    private static final ValidatorFactory VALIDATOR_FACTORY = Validation.buildDefaultValidatorFactory();
 
-    private static <T> Map<String, String> validate(T t, Class... groups) {
-        Validator validator = validatorFactory.getValidator();
+    private static <T> Map<String, String> validate(T t, Class<?>... groups) {
+        Validator validator = VALIDATOR_FACTORY.getValidator();
         Set<ConstraintViolation<Object>> validateResult = validator.validate(t, groups);
         if (validateResult.isEmpty()) {
             return Collections.emptyMap();
         } else {
             LinkedHashMap<String, String> errors = Maps.newLinkedHashMap();
-            for (ConstraintViolation violation : validateResult) {
+            for (ConstraintViolation<?> violation : validateResult) {
                 errors.put(violation.getPropertyPath().toString(), violation.getMessage());
             }
             return errors;
@@ -50,10 +50,10 @@ public class ValidatorUtils {
      * @author k
      * @date 2018/11/06 11:45
      **/
-    private static Map<String, String> validateCollection(Collection<?> collection, Class... groups) {
+    private static Map<String, String> validateCollection(Collection<?> collection, Class<?>... groups) {
         // 判断集合是否为空
         Preconditions.checkNotNull(collection);
-        Iterator iterator = collection.iterator();
+        Iterator<?> iterator = collection.iterator();
         Map<String, String> errors;
         do {
             if (!iterator.hasNext()) {
@@ -75,7 +75,7 @@ public class ValidatorUtils {
      * @author k
      * @date 2018/11/06 12:14
      **/
-    public static Map<String, String> validateObject(Object first, Object[] objects, Class... groups) {
+    public static Map<String, String> validateObject(Object first, Object[] objects, Class<?>... groups) {
         if (objects != null && objects.length > 0) {
             return validateCollection(Lists.asList(first, objects));
         } else {
@@ -91,7 +91,7 @@ public class ValidatorUtils {
      * @author k
      * @date 2018/11/06 12:14
      **/
-    public static void check(Object param, Class... groups) {
+    public static void check(Object param, Class<?>... groups) {
         Map<String, String> map = ValidatorUtils.validateObject(param, groups);
         if (MapUtils.isNotEmpty(map)) {
             throw new ParamException(map.toString());
