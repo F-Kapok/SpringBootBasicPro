@@ -3,6 +3,7 @@ package com.fans.utils.excel.handler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
 import com.fans.utils.excel.base.SheetBaseHandler;
+import com.fans.utils.excel.param.other.CellPullDownParam;
 import com.fans.utils.excel.param.other.LinkageParam;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -30,7 +31,15 @@ public class CustomSheetWriteHandler extends SheetBaseHandler {
     public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
         log.info("第{}个Sheet写入成功。", writeSheetHolder.getSheetNo());
         // 区间设置 第三行第一列和第二列的数据。
-        setPullDown(writeSheetHolder.getSheet(), 2, 2, 0, 1, super.trueOrFalse);
+        setPullDown(CellPullDownParam.builder()
+                .currentSheet(writeSheetHolder.getSheet())
+                .firstRow(2)
+                .lastRow(2)
+                .firstCol(0)
+                .lastCol(1)
+                .context(super.trueOrFalse)
+                .errorMsg("请选择是或否")
+                .build());
         //增加二级联动
         twoLinked(writeSheetHolder);
         //增加三级联动

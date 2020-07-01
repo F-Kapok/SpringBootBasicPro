@@ -3,6 +3,7 @@ package com.fans.utils.excel.base;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
+import com.fans.utils.excel.param.other.CellPullDownParam;
 import com.fans.utils.excel.param.other.LinkageParam;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
@@ -34,11 +35,15 @@ public class SheetBaseHandler implements SheetWriteHandler {
 
     }
 
-    public void setPullDown(Sheet currentSheet, int firstRow, int lastRow, int firstCol, int lastCol, String[] context) {
-        CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(firstRow, lastRow, firstCol, lastCol);
+    public void setPullDown(CellPullDownParam cellPullDownParam) {
+        Sheet currentSheet = cellPullDownParam.getCurrentSheet();
+        CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(cellPullDownParam.getFirstRow(), cellPullDownParam.getLastRow(), cellPullDownParam.getFirstCol(), cellPullDownParam.getLastCol());
         DataValidationHelper helper = currentSheet.getDataValidationHelper();
-        DataValidationConstraint constraint = helper.createExplicitListConstraint(context);
+        DataValidationConstraint constraint = helper.createExplicitListConstraint(cellPullDownParam.getContext());
         DataValidation dataValidation = helper.createValidation(constraint, cellRangeAddressList);
+        dataValidation.createErrorBox("error", cellPullDownParam.getErrorMsg());
+        dataValidation.setShowErrorBox(true);
+        dataValidation.setSuppressDropDownArrow(true);
         currentSheet.addValidationData(dataValidation);
     }
 
