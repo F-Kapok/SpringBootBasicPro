@@ -187,7 +187,7 @@ public class ExcelUtils {
             List<T> modelData = writeExcelParam.getModelData();
             Class<T> model = writeExcelParam.getModel();
             Boolean autoWidth = writeExcelParam.getAutoWidth();
-            autoWidth = autoWidth == null ? false : autoWidth;
+            autoWidth = autoWidth != null && autoWidth;
             if (modelData == null) {
                 throw new RuntimeException("数据源不能为null");
             }
@@ -241,7 +241,7 @@ public class ExcelUtils {
                 Class<?> model = multipleSheetProperty.getModel();
                 List<?> modelData = multipleSheetProperty.getModelData();
                 Boolean autoWidth = multipleSheetProperty.getAutoWidth();
-                autoWidth = autoWidth == null ? false : autoWidth;
+                autoWidth = autoWidth != null && autoWidth;
                 if (modelData == null) {
                     throw new RuntimeException("数据源不能为null");
                 }

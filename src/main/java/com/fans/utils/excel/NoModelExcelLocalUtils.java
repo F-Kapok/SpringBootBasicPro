@@ -50,7 +50,7 @@ public class NoModelExcelLocalUtils {
      **/
     public static List<JSONObject> readLessThan1000Row(ReadExcelParam<JSONObject> readExcelParam) {
         int sheetNo = readExcelParam.getSheetNo();
-        int headRowNumer = readExcelParam.getHeadRowNumber();
+        int headRowNumber = readExcelParam.getHeadRowNumber();
         String filePath = readExcelParam.getFilePath();
         if (StringUtils.isBlank(filePath)) {
             throw new RuntimeException("文件绝对路径不能为空!!!");
@@ -58,7 +58,7 @@ public class NoModelExcelLocalUtils {
         try (InputStream inputStream = new FileInputStream(filePath)) {
             List<Object> result = EasyExcel.read(inputStream)
                     .sheet(sheetNo)
-                    .headRowNumber(headRowNumer)
+                    .headRowNumber(headRowNumber)
                     .autoTrim(true)
                     .doReadSync();
             return result.stream().map(o -> JSON.parseObject(JSON.toJSONString(o))).collect(Collectors.toList());
