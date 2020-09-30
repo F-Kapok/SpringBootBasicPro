@@ -96,30 +96,7 @@ public class CookieUtils {
      **/
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
                                  String cookieValue) {
-        setCookie(request, response, cookieName, cookieValue, -1);
-    }
-
-    /**
-     * @Description:
-     * @Param: [request, response, cookieName, cookieValue, cookieMaxAge]
-     * @return: void
-     * @Author: fan
-     * @Date: 2018/11/19 17:54
-     **/
-    /**
-     * description: 设置Cookie的值 在指定时间内生效,但不编码
-     *
-     * @param request      请求
-     * @param response     响应
-     * @param cookieName   cookie名
-     * @param cookieValue  cookie值
-     * @param cookieMaxAge cookie周期
-     * @author k
-     * @date 2018/11/19 17:54
-     **/
-    private static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
-                                  String cookieValue, int cookieMaxAge) {
-        setCookie(request, response, cookieName, cookieValue, cookieMaxAge, false);
+        setCookie(request, response, cookieName, cookieValue, -1, false);
     }
 
     /**
@@ -150,8 +127,8 @@ public class CookieUtils {
      * @author k
      * @date 2018/11/19 17:54
      **/
-    private static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
-                                  String cookieValue, int cookieMaxAge, boolean isEncode) {
+    public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
+                                 String cookieValue, int cookieMaxAge, boolean isEncode) {
         doSetCookie(request, response, cookieName, cookieValue, cookieMaxAge, isEncode);
     }
 
