@@ -1,11 +1,10 @@
 package com.fans.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fans.exception.ParamException;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -27,22 +26,27 @@ import java.util.*;
 public class ValidatorUtils {
     private static final ValidatorFactory VALIDATOR_FACTORY = Validation.buildDefaultValidatorFactory();
 
-    private static <T> Map<String, String> validate(T t, Class<?>... groups) {
+    private static <T> Map<String, Object> validate(T t, Class<?>... groups) {
         Validator validator = VALIDATOR_FACTORY.getValidator();
         Set<ConstraintViolation<Object>> validateResult = validator.validate(t, groups);
         if (validateResult.isEmpty()) {
             return Collections.emptyMap();
         } else {
-            LinkedHashMap<String, String> errors = Maps.newLinkedHashMap();
+            Map<String, Object> errors = Maps.newHashMap();
             for (ConstraintViolation<?> violation : validateResult) {
-                errors.put(violation.getPropertyPath().toString(), violation.getMessage());
+                String message = violation.getMessage();
+                Object invalidValue = violation.getInvalidValue();
+                if (invalidValue != null && StringUtils.isNotBlank(invalidValue.toString())) {
+                    message = "【" + invalidValue.toString() + "】" + message;
+                }
+                errors.put(violation.getPropertyPath().toString(), message);
             }
             return errors;
         }
     }
 
     /**
-     * description: 校验集合类
+     * description:  校验集合类
      *
      * @param collection 要校验的集合
      * @param groups     校验组
@@ -50,37 +54,16 @@ public class ValidatorUtils {
      * @author k
      * @date 2018/11/06 11:45
      **/
-    private static Map<String, String> validateCollection(Collection<?> collection, Class<?>... groups) {
+    private static Map<String, Object> validateCollection(Collection<?> collection, Class<?>... groups) {
         // 判断集合是否为空
         Preconditions.checkNotNull(collection);
-        Iterator<?> iterator = collection.iterator();
-        Map<String, String> errors;
-        do {
-            if (!iterator.hasNext()) {
-                return Collections.emptyMap();
-            }
-            Object object = iterator.next();
-            errors = validate(object, groups);
-        } while (errors.isEmpty());
-        return errors;
-    }
-
-    /**
-     * description: 校验整合
-     *
-     * @param first   校验的对象
-     * @param objects 校验对象数组
-     * @param groups  校验组
-     * @return java.util.Map<java.lang.String, java.lang.String>
-     * @author k
-     * @date 2018/11/06 12:14
-     **/
-    public static Map<String, String> validateObject(Object first, Object[] objects, Class<?>... groups) {
-        if (objects != null && objects.length > 0) {
-            return validateCollection(Lists.asList(first, objects));
-        } else {
-            return validate(first, groups);
+        Map<String, Object> errors = Maps.newHashMap();
+        int i = 0;
+        for (Object object : collection) {
+            errors.put("集合中第" + (i + 1) + "个元素" + StringUtils.EMPTY, validate(object, groups));
+            i++;
         }
+        return errors;
     }
 
     /**
@@ -92,9 +75,14 @@ public class ValidatorUtils {
      * @date 2018/11/06 12:14
      **/
     public static void check(Object param, Class<?>... groups) {
-        Map<String, String> map = ValidatorUtils.validateObject(param, groups);
+        Map<String, Object> map;
+        if (param instanceof Collection<?>) {
+            map = validateCollection((Collection<?>) param, groups);
+        } else {
+            map = ValidatorUtils.validate(param, groups);
+        }
         if (MapUtils.isNotEmpty(map)) {
-            throw new ParamException(map.toString());
+            throw new RuntimeException(map.toString());
         }
     }
 
