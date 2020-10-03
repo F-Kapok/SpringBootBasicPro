@@ -64,8 +64,8 @@ public class SwaggerConfiguration {
     private Contact contact = new Contact("kapok", serviceUrl, "5219824@qq.com");
 
     @Bean
-    @SuppressWarnings("Guava")
     public Docket createRestApi() {
+        //noinspection Guava
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enable)
                 .apiInfo(apiInfo())
