@@ -1,5 +1,6 @@
 package com.fans.config;
 
+import com.google.common.base.Predicates;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -70,10 +71,9 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo())
                 .select()
                 //加了ApiOperation注解的类，生成接口文档
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .apis(Predicates.or(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class), RequestHandlerSelectors.basePackage(basePackage)))
                 //加了RestController注解的类，生成接口文档
                 //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build();
     }
