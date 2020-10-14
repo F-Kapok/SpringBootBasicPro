@@ -69,6 +69,6 @@ public class RedisConfiguration {
     @Bean
     public JedisPool getJedisPool() {
         JedisPoolConfig config = assemble();
-        return new JedisPool(config, redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
+        return new JedisPool(config, redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000, redisProperties.getPassword(), redisProperties.getDatabase(), redisProperties.isSsl());
     }
 }
