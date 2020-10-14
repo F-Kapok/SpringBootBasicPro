@@ -43,12 +43,17 @@ public class RedisConfiguration {
         JedisPoolConfig config = assemble();
         List<JedisShardInfo> jdsInfoList = Lists.newArrayList();
         RedisProperties.Cluster cluster = redisProperties.getCluster();
+
         if (cluster == null) {
-            return new ShardedJedisPool(config, Lists.newArrayList(new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000)));
+            JedisShardInfo jedisShardInfo = new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
+            jedisShardInfo.setPassword(redisProperties.getPassword());
+            return new ShardedJedisPool(config, Lists.newArrayList(jedisShardInfo));
         }
         List<String> nodes = cluster.getNodes();
         if (nodes.isEmpty()) {
-            return new ShardedJedisPool(config, Lists.newArrayList(new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000)));
+            JedisShardInfo jedisShardInfo = new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
+            jedisShardInfo.setPassword(redisProperties.getPassword());
+            return new ShardedJedisPool(config, Lists.newArrayList(jedisShardInfo));
         }
         nodes.forEach(host -> {
             String[] url = host.split(":");
