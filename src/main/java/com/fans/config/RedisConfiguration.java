@@ -42,8 +42,10 @@ public class RedisConfiguration {
     public ShardedJedisPool getShardedJdsPool() {
         JedisPoolConfig config = assemble();
         List<JedisShardInfo> jdsInfoList = Lists.newArrayList();
+        JedisShardInfo master = new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
+        master.setPassword(master.getPassword());
+        jdsInfoList.add(master);
         RedisProperties.Cluster cluster = redisProperties.getCluster();
-
         if (cluster == null) {
             JedisShardInfo jedisShardInfo = new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
             jedisShardInfo.setPassword(redisProperties.getPassword());
