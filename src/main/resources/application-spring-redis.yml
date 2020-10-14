@@ -14,7 +14,7 @@ spring:
     # redis密码，默认为空
     password: sl6819961
     # 连接redis超时时间（毫秒）
-    timeout: 0
+    timeout: 2000
     #jedis连接池
     ###############################
     jedis:
@@ -27,3 +27,8 @@ spring:
         max-idle: 10
         # 最大连接数量
         max-active: 1000
+    #集群配置
+    ###############################
+    cluster:
+      nodes:
+        - 127.0.0.1:6379

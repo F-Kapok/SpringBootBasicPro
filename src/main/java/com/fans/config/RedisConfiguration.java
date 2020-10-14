@@ -2,9 +2,11 @@ package com.fans.config;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
@@ -23,14 +25,16 @@ import java.util.List;
 @Configuration
 @Slf4j
 public class RedisConfiguration {
+
     @Resource
-    private RedisProperties properties;
+    private RedisProperties redisProperties;
+
 
     private JedisPoolConfig assemble() {
         JedisPoolConfig config = new JedisPoolConfig();
-        config.setMaxIdle(properties.getJedis().getPool().getMaxIdle());
-        config.setMaxTotal(properties.getJedis().getPool().getMaxActive());
-        config.setMaxWaitMillis(properties.getJedis().getPool().getMaxWait().toMillis());
+        config.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
+        config.setMaxTotal(redisProperties.getJedis().getPool().getMaxActive());
+        config.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
         return config;
     }
 
@@ -38,12 +42,28 @@ public class RedisConfiguration {
     public ShardedJedisPool getShardedJdsPool() {
         JedisPoolConfig config = assemble();
         List<JedisShardInfo> jdsInfoList = Lists.newArrayList();
-        String[] hosts = properties.getHost().split(",");
-        for (String host : hosts) {
-            JedisShardInfo jedisShardInfo = new JedisShardInfo(host, properties.getPort(), 5000);
-            jedisShardInfo.setPassword(properties.getPassword());
-            jdsInfoList.add(jedisShardInfo);
+        RedisProperties.Cluster cluster = redisProperties.getCluster();
+        if (cluster == null) {
+            return new ShardedJedisPool(config, Lists.newArrayList(new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000)));
         }
+        List<String> nodes = cluster.getNodes();
+        if (nodes.isEmpty()) {
+            return new ShardedJedisPool(config, Lists.newArrayList(new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000)));
+        }
+        nodes.forEach(host -> {
+            String[] url = host.split(":");
+            if (StringUtils.isBlank(url[1])) {
+                url[1] = "6379";
+            }
+            JedisShardInfo jedisShardInfo = new JedisShardInfo(url[0], Integer.parseInt(url[1]), (int) redisProperties.getTimeout().getSeconds() * 1000);
+            jdsInfoList.add(jedisShardInfo);
+        });
         return new ShardedJedisPool(config, jdsInfoList);
+    }
+
+    @Bean
+    public JedisPool getJedisPool() {
+        JedisPoolConfig config = assemble();
+        return new JedisPool(config, redisProperties.getHost(), redisProperties.getPort(), (int) redisProperties.getTimeout().getSeconds() * 1000);
     }
 }
