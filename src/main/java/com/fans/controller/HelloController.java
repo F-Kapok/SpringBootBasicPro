@@ -4,12 +4,12 @@ import com.fans.annotation.Encrypt;
 import com.fans.common.*;
 import com.fans.pojo.User;
 import com.fans.service.interfaces.IUserService;
-import com.fans.service.interfaces.SysCacheService;
 import com.fans.singleton.factory.LocalCacheProxyFactory;
 import com.fans.singleton.proxy.LocalCacheProxy;
 import com.fans.threadpool.basic.PoolRegister;
 import com.fans.threadpool.eventBean.MessageBean;
 import com.fans.threadpool.eventBean.PayBean;
+import com.fans.utils.RedisUtils;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.*;
@@ -46,8 +46,6 @@ public class HelloController {
     private IUserService userService;
     @Resource(name = "configProperties")
     private ConfigProperties configProperties;
-    @Resource(name = "sysCacheService")
-    private SysCacheService cacheService;
     @Resource(name = "poolRegister")
     private PoolRegister<MessageBean> messageBeanPool;
     @Resource(name = "poolRegister")
@@ -78,10 +76,10 @@ public class HelloController {
         //thymeleaf 模板用 去除@ResponseBody 将返回值改为 String 返回网页名称
         //ModelMap modelMap = new ModelMap();
         //modelMap.addAttribute("host", configProperties.getHost());
-        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
-        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
-        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
-        cacheService.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
+        RedisUtils.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
+        RedisUtils.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "1");
+        RedisUtils.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
+        RedisUtils.saveCache(CacheKeyConstants.KAPOK, configProperties.getHost(), 0, "2");
         //1. session管理开始
         HttpSession session = WebInitialize.session;
         ServletContext servletContext = session.getServletContext();

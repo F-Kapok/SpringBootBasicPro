@@ -1,6 +1,8 @@
 package com.fans.common;
 
+import com.fans.conditionals.RedisConditional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -18,6 +20,7 @@ import javax.annotation.Resource;
  * @date 2018-12-20 14:14
  **/
 @Component("redisPool")
+@Conditional(RedisConditional.class)
 @Slf4j
 public class RedisPool {
     @Resource

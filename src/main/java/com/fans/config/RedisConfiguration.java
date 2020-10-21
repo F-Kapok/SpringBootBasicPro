@@ -1,10 +1,12 @@
 package com.fans.config;
 
+import com.fans.conditionals.RedisConditional;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -23,6 +25,7 @@ import java.util.List;
  * @date 2018-12-20 14:14
  **/
 @Configuration
+@Conditional(RedisConditional.class)
 @Slf4j
 public class RedisConfiguration {
 
