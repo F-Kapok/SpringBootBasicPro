@@ -183,6 +183,25 @@ public class RedisUtils {
         }
     }
 
+    public static Long incrementAndGet(CacheKeyConstants prefix, long increment, String... keys) {
+        ShardedJedis shardedJedis = null;
+        String key = generateCacheKey(prefix, keys);
+        try {
+            shardedJedis = REDIS_POOL.instance();
+            return shardedJedis.incrBy(key, increment);
+        } catch (Exception e) {
+            log.error("incr from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
+            log.error(e.getMessage(), e);
+        } finally {
+            REDIS_POOL.safeClose(shardedJedis);
+        }
+        return -1L;
+    }
+
+    public static Long getAndIncrement(CacheKeyConstants prefix, long increment, String... keys) {
+        return incrementAndGet(prefix, increment, keys) - increment;
+    }
+
     /**
      * description: 递减
      *
@@ -204,6 +223,25 @@ public class RedisUtils {
         } finally {
             REDIS_POOL.safeClose(shardedJedis);
         }
+    }
+
+    public static Long decrementAndGet(CacheKeyConstants prefix, long decrement, String... keys) {
+        ShardedJedis shardedJedis = null;
+        String key = generateCacheKey(prefix, keys);
+        try {
+            shardedJedis = REDIS_POOL.instance();
+            return shardedJedis.decrBy(key, decrement);
+        } catch (Exception e) {
+            log.error("decr from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
+            log.error(e.getMessage(), e);
+        } finally {
+            REDIS_POOL.safeClose(shardedJedis);
+        }
+        return -1L;
+    }
+
+    public static Long getAndDecrement(CacheKeyConstants prefix, long decrement, String... keys) {
+        return decrementAndGet(prefix, decrement, keys) + decrement;
     }
 
     /**
@@ -236,7 +274,7 @@ public class RedisUtils {
      * @param keyList key集合
      * @return java.util.List<java.lang.String> 结果与 key集合排序一一对应
      * @author k
-     * @date 2020/10/14 14:21
+     * @date 2018-11-16 16:31
      **/
     public static Map<String, String> multiGet(List<String> keyList) {
         Jedis jedis = null;
@@ -260,6 +298,53 @@ public class RedisUtils {
         }
     }
 
+    /**
+     * description: 查看过期时间
+     *
+     * @param prefix 前缀
+     * @param keys   拼接key
+     * @return java.lang.Long
+     * @author k
+     * @date 2018-11-16 16:31
+     **/
+    public static Long ttl(CacheKeyConstants prefix, String... keys) {
+        ShardedJedis shardedJedis = null;
+        String key = generateCacheKey(prefix, keys);
+        try {
+            shardedJedis = REDIS_POOL.instance();
+            return shardedJedis.ttl(key);
+        } catch (Exception e) {
+            log.error("decr from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
+            log.error(e.getMessage(), e);
+        } finally {
+            REDIS_POOL.safeClose(shardedJedis);
+        }
+        return 0L;
+    }
+
+
+    /**
+     * description: 设置过期时间
+     *
+     * @param prefix 前缀
+     * @param keys   拼接key
+     * @return java.lang.Long
+     * @author k
+     * @date 2018-11-16 16:31
+     **/
+    public static void setExpire(CacheKeyConstants prefix, Integer seconds, String... keys) {
+        ShardedJedis shardedJedis = null;
+        String key = generateCacheKey(prefix, keys);
+        try {
+            shardedJedis = REDIS_POOL.instance();
+            shardedJedis.expire(key, seconds);
+        } catch (Exception e) {
+            log.error("decr from cache exception, prefix:{}, keys:{}", prefix.name(), JsonUtils.obj2String(keys));
+            log.error(e.getMessage(), e);
+        } finally {
+            REDIS_POOL.safeClose(shardedJedis);
+        }
+    }
 
     public static String generateCacheKey(CacheKeyConstants prefix, String... keys) {
         String key = prefix.name();
